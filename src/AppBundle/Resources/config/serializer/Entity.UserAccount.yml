@@ -5,7 +5,7 @@ AppBundle\Entity\UserAccount:
             groups: ['user','moneyFlow','auth-token','userAccount', 'account','userLimited']
 
         type:
-            groups: ['user','moneyFlow','userAccount', 'account','userLimited']
+            groups: ['user','moneyFlow','userAccount', 'auth-token', 'account','userLimited']
 
         moneyBalance:
             groups: ['user','userAccount', 'account','userLimited']
