@@ -1,0 +1,21 @@
+AppBundle\Entity\OrderLine:
+    exclusion_policy: NONE
+    properties:
+        id:
+            groups: ['order','orderLine','userAccount']
+
+        quantity:
+            groups: ['order' , 'orderLine','userAccount']
+
+        order:
+            groups: ['orderLine']
+
+        product:
+            groups: ['order','orderLine','userAccount']
+
+    virtual_properties:
+        getOrderLinePrice:
+            groups: ['order','orderLine','userAccount']
+
+
+

@@ -1,0 +1,16 @@
+AppBundle\Entity\ProductCategory:
+    exclusion_policy: NONE
+    properties:
+        id:
+            groups: ['product','productCategory']
+
+        categoryName:
+            groups: ['product','productCategory','order','orderLine','userAccount']
+
+        price:
+            groups: ['product','productCategory','order','orderLine','userAccount']
+
+        products:
+            groups: ['productCategory']
+
+

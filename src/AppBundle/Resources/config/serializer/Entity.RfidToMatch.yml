@@ -1,0 +1,9 @@
+AppBundle\Entity\RfidToMatch:
+    exclusion_policy: NONE
+    properties:
+        id:
+            groups: ['rfid-to-match']
+        value:
+            groups: ['rfid-to-match']
+        createdAt:
+            groups: ['rfid-to-match']

@@ -1,0 +1,27 @@
+AppBundle\Entity\UserAccount:
+    exclusion_policy: NONE
+    properties:
+        id:
+            groups: ['user','moneyFlow','auth-token','userAccount', 'account','userLimited']
+
+        type:
+            groups: ['user','moneyFlow','userAccount', 'account','userLimited']
+
+        moneyBalance:
+            groups: ['user','userAccount', 'account','userLimited']
+
+        user:
+            groups: ['order','moneyFlow','userAccount']
+
+        orders:
+            groups: ['userAccount']
+
+        cashRegisterOrders:
+            groups: ['userAccount']
+
+        positiveMoneyFlows:
+            groups: ['userAccount']
+
+        negativeMoneyFlows:
+            groups: ['userAccount']
+

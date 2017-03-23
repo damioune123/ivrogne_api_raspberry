@@ -1,0 +1,31 @@
+AppBundle\Entity\MoneyFlow:
+    exclusion_policy: NONE
+    properties:
+        id:
+            groups: ['moneyFlow','userAccount']
+
+        value:
+            groups: ['moneyFlow','userAccount']
+
+        debitUserAccount:
+            groups: ['moneyFlow']
+
+        creditUserAccount:
+            groups: ['moneyFlow']
+
+        description:
+            groups: ['moneyFlow','userAccount']
+
+        createdAt:
+            groups: ['moneyFlow','userAccount']
+        isCancelled:
+            groups: ['userAccount','moneyFlow']
+    virtual_properties:
+        getDebitUserDetails:
+            groups: ['userAccount']
+
+        getCreditUserDetails:
+            groups: ['userAccount']
+
+
+

@@ -1,0 +1,50 @@
+users:
+    type:     rest
+    resource: AppBundle\Controller\UserController
+
+auth-tokens:
+    type:     rest
+    resource: AppBundle\Controller\AuthTokenController
+
+orders:
+    type:     rest
+    resource: AppBundle\Controller\OrderController
+
+product-categories:
+    type:     rest
+    resource: AppBundle\Controller\ProductCategoryController
+
+products:
+    type:     rest
+    resource: AppBundle\Controller\ProductController
+
+order-lines:
+     type:     rest
+     resource: AppBundle\Controller\OrderLineController
+
+money-flows:
+     type:     rest
+     resource: AppBundle\Controller\MoneyFlowController
+
+user-accounts:
+     type:     rest
+     resource: AppBundle\Controller\UserAccountController
+
+scripts:
+     type:     rest
+     resource: AppBundle\Controller\ScriptController
+
+promotions:
+     type:     rest
+     resource: AppBundle\Controller\PromotionController
+
+rfidToMatch:
+     type:     rest
+     resource: AppBundle\Controller\RfidToMatchController
+
+statistic:
+     type:     rest
+     resource: AppBundle\Controller\StatisticController
+barcode:
+     type:     rest
+     resource: AppBundle\Controller\BarcodeController

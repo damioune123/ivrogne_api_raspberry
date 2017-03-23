@@ -1,0 +1,34 @@
+AppBundle\Entity\Order:
+    exclusion_policy: NONE
+    properties:
+        id:
+            groups: ['order','orderLine','userAccount','stat']
+
+        orderLines:
+            groups: ['order','userAccount']
+
+        customerUserAccount:
+            groups: ['order']
+
+        cashRegisterAccount:
+            groups: ['order']
+
+        isPaidCash:
+            groups: ['order','userAccount','stat']
+
+        createdAt:
+            groups: ['order','userAccount','stat']
+
+        isCancelled:
+            groups: ['order', 'userAccount','stat']
+        isOrderedByCustomer:
+            groups: ['order', 'userAccount']
+
+    virtual_properties:
+            getOrderPrice:
+                groups: ['order','userAccount','stat']
+
+            getCustomerDetails:
+                groups: ['userAccount']
+
+

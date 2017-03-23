@@ -1,0 +1,36 @@
+AppBundle\Entity\User:
+    exclusion_policy: NONE
+    properties:
+        id:
+            groups: ['user', 'userAccount', 'order', 'auth-token','moneyFlow', 'userLimited']
+
+        firstname:
+            groups: ['user','userAccount', 'order', 'auth-token','moneyFlow','userLimited']
+
+        lastname:
+            groups: ['user','userAccount', 'order' ,'auth-token','moneyFlow','userLimited']
+
+        promotion:
+            groups: ['user','userAccount', 'order' ,'auth-token','moneyFlow','userLimited']
+
+        username:
+            groups: ['user','userAccount' ,'auth-token','moneyFlow','userLimited']
+
+        godfather:
+            groups: ['user','userAccount' ,'auth-token','moneyFlow','userLimited']
+
+        nefews:
+            groups: ['user','userAccount' ,'auth-token','moneyFlow']
+
+        email:
+            groups: ['user', 'userAccount', 'auth-token','money-flow']
+
+        role:
+            groups: ['user', 'userAccount',  'auth-token','userLimited']
+
+        userAccounts:
+            groups: ['user', 'auth-token','userLimited']
+
+        moneyLimit:
+            groups: ['user','userAccount', 'order' ,'auth-token','moneyFlow','userLimited']
+

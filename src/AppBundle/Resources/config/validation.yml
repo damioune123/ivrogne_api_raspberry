@@ -1,0 +1,66 @@
+AppBundle\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    properties:
+        firstname:
+            - NotBlank: ~
+            - Type: string
+        lastname:
+            - NotBlank: ~
+            - Type: string
+        username:
+            - NotBlank: ~
+            - Type: string
+        plainPassword:
+            - NotBlank: { groups: [New, FullUpdate] }
+            - Type: string
+            - Length:
+                min: 4
+                max: 50
+
+AppBundle\Entity\Credentials:
+    properties:
+        login:
+            - NotBlank: ~
+            - Type: string
+        password:
+            - NotBlank: ~
+            - Type: string
+
+
+AppBundle\Entity\ProductCategory:
+    properties:
+        categoryName:
+            - NotBlank : ~
+            - Type: string
+        price:
+            - NotBlank : ~
+            - Type: float
+
+
+AppBundle\Entity\Product:
+    properties:
+        name:
+            - NotBlank : ~
+            - Type: string
+        productCategory:
+            - NotBlank : ~
+        barcode:
+            - NotBlank : ~
+            - Type : string
+AppBundle\Entity\MoneyFlow:
+    properties:
+        value:
+            - NotBlank : ~
+            - Type: float
+
+        debitUserAccount:
+            - NotBlank : ~
+
+        creditUserAccount:
+            - NotBlank : ~
+
+
+
+
+
