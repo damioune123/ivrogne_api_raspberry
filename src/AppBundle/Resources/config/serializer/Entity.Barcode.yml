@@ -1,8 +1,0 @@
-AppBundle\Entity\Barcode:
-    exclusion_policy: NONE
-    properties:
-        id:
-            groups: ['barcode']
-        barcode:
-            groups: ['barcode']
-

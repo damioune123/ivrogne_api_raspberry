@@ -109,13 +109,13 @@ class ProductController extends Controller
     //admin only ==> supprimer un produit
     /**
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT, serializerGroups={"product"})
-     * @Rest\Delete("/admin/products/{id}")
+     * @Rest\Delete("/admin/products/{barcode}")
      */
     public function removeProductAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $product = $em->getRepository('AppBundle:Product')
-            ->find($request->get('id'));
+            ->findOneByBarcode($request->get('barcode'));
 
         if ($product) {
             $em->remove($product);

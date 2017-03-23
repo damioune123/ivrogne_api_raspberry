@@ -45,6 +45,3 @@ rfidToMatch:
 statistic:
      type:     rest
      resource: AppBundle\Controller\StatisticController
-barcode:
-     type:     rest
-     resource: AppBundle\Controller\BarcodeController
