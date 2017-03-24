@@ -45,3 +45,4 @@ rfidToMatch:
 statistic:
      type:     rest
      resource: AppBundle\Controller\StatisticController
+//
