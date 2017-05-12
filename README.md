@@ -3,7 +3,7 @@ Ivrogne Rest API
 
 A Symfony project created on July 20, 2016, 7:11 pm.
 
-This project is a rest API using Symfony framework (PHP). It's main purpose it to provide web services for a fully automated bar accounts management. The main features are :
+This project is a rest API using Symfony framework (PHP). Its main purpose is to provide web services for a fully automated bar accounts management. The main features are :
 - Account of users / admin / super-admin managements
 - self ordering products for users
 - details of ordering and money transfers for users
