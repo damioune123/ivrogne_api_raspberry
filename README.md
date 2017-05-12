@@ -14,5 +14,6 @@ This project is a rest API using Symfony framework (PHP). Its main purpose is to
 - python scripts call for admins (very useful combined with GPIO/IOT like fridge, beer quantifier, ...)
 - admins can make self order, order for someone else or cash order
 - super admin can promote user to admin and make an admin sponsor another one
+- super admin can make promotions for users or admin, by changing the percentage to the products prices
 - adding /removing /updating products
 - ...
