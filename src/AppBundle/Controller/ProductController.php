@@ -70,7 +70,7 @@ class ProductController extends Controller
     }
 
     //admin only put d'un produit
-    /**
+    /**'
      * @Rest\View(serializerGroups={"product"})
      * @Rest\Put("/admin/products/{id}")
      */

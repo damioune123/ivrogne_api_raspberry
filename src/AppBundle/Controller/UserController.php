@@ -225,5 +225,14 @@ class UserController extends Controller
     {
         return $this->updateUserBySuperAdminAction($request, false, $restrictedAccess);
     }
+    /**
+     * @Rest\View(serializerGroups={"user"})
+     * @Rest\Patch("/users/{id}")
+     */
+    public function patchUserction(Request $request, $restrictedAccess = false)
+    {
+        return $this->updateUserBySuperAdminAction($request, false, $restrictedAccess);
+    }
+
 
 }
