@@ -60,7 +60,7 @@ class ProductController extends Controller
     {
         $product = $this->get('doctrine.orm.entity_manager')
             ->getRepository('AppBundle:Product')
-            ->findOneById($request->get('id'));
+            ->findOneByBarcode($request->get('id'));
         if (empty($product))
         {
             return \FOS\RestBundle\View\View::create(['message' => 'Product not found'], Response::HTTP_NOT_FOUND);
