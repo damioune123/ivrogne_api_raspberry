@@ -94,7 +94,7 @@ class MoneyFlowController extends Controller
         $cancelMoneyFlow->setCreditUserAccount($moneyFlow->getDebitUserAccount());
         $cancelMoneyFlow->setDebitUserAccount($moneyFlow->getCreditUserAccount());
         $cancelMoneyFlow->setValue($moneyFlow->getValue());
-        $cancelMoneyFlow->setDescription("Annulation du transfert d'argent n°"+ $moneyFlow->getId());
+        $cancelMoneyFlow->setDescription("Annulation du transfert d'argent n°". $moneyFlow->getId());
         $em->persist($cancelMoneyFlow);
         $em->flush();
         

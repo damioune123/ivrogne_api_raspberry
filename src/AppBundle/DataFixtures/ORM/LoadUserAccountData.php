@@ -37,8 +37,7 @@ class LoadUserAccountData extends AbstractFixture implements OrderedFixtureInter
         $userAccount->setType("cash-register");
         $manager->persist($userAccount);
         $this->setReference('cash-register-1', $userAccount);
-
-
+        
         $userAccount=new UserAccount();
         $userAccount->setMoneyBalance(0.0);
         $userAccount->setUser($this->getReference('super-admin-1'));
@@ -46,10 +45,6 @@ class LoadUserAccountData extends AbstractFixture implements OrderedFixtureInter
         $manager->persist($userAccount);
         $this->setReference('bank-1', $userAccount);
 
-
-
-
-     
         $manager->flush();
     }
     public function getOrder()

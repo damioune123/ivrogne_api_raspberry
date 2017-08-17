@@ -100,6 +100,30 @@ class OrderController extends Controller
         $order->setCashRegisterAccount($cashRegisterAccount);
         $order->setIsPaidCash(false);
 
+        $content=json_decode($request->getContent());
+        /*@var $userAccount UserAccount */
+        $userAccount = $repository->find($content->{"order"}->{"customerUserAccount"});
+        $balance = $userAccount->getMoneyBalance();
+        $promotion =$userAccount->getUser()->getPromotion()->getUserPromotion();
+        $moneyLimit = $userAccount->getUser()->getMoneyLimit();
+        $total=0.0;
+        foreach ($request->request->get("orderlines") as $value) {
+            $orderLine = new OrderLine();
+            $form = $this->createForm(OrderLineTransactionType::class, $orderLine, ['validation_groups' => ['Default', 'New']]);
+            $form->submit($value);
+            if ($form->isValid()) {
+                $total+=$orderLine->getOrderLinePrice();
+
+            } else
+                return $form;
+        }
+        $total-=$total*($promotion/100);
+        if($userAccount->getUser()->getRole()=="ROLE_USER"){
+            if($total> $balance-$moneyLimit){
+                $json = array("INSUFFICIENT_CASH"=> true, "order_total"=>$total, "balance"=>$balance, "money_limit"=>$moneyLimit);
+                return $json;
+            }
+        }
         foreach ($request->request->get("orderlines") as $value) {
             $orderLine = new OrderLine();
             $form = $this->createForm(OrderLineTransactionType::class, $orderLine, ['validation_groups' => ['Default', 'New']]);
@@ -172,7 +196,6 @@ class OrderController extends Controller
     public function postOrderByCashAction(Request $request)
     { 
         $em = $this->getDoctrine()->getManager();
-
         $order = new Order();
         $form = $this->createForm(OrderCashType::class, $order, ['validation_groups' => ['isNotPaidCash']]);
         $form->submit($request->request->get("order")); // Validation des données
@@ -200,6 +223,7 @@ class OrderController extends Controller
             } else
                 return $form;
         }
+
         $em->refresh($order);
         $em->flush();
         $order->creditOrder();

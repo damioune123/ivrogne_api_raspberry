@@ -233,8 +233,7 @@ class Order
      */
     public function creditOrder()
     {
-        if(!$this->isPaidCash())
-        {
+
             $price= $this->getOrderPrice();
             $currentMoneyBalance = $this->customerUserAccount->getMoneyBalance();
             $newMoneyBalance = $currentMoneyBalance - $price;
@@ -244,7 +243,6 @@ class Order
             $newBankMoneyBalance = $currentBankMoneyBalance + $price;
             $this->cashRegisterAccount->setMoneyBalance($newBankMoneyBalance);
 
-        }
     }
 
     /**
@@ -253,8 +251,6 @@ class Order
      */
     public function cancelCreditOrder()
     {
-        if(!$this->isPaidCash())
-        {
             $currentMoneyBalance = $this->customerUserAccount->getMoneyBalance();
             $newMoneyBalance = $currentMoneyBalance + $this->getOrderPrice();
             $this->customerUserAccount->setMoneyBalance($newMoneyBalance);
@@ -263,7 +259,6 @@ class Order
             $newBankMoneyBalance = $currentBankMoneyBalance - $this->getOrderPrice();
             $this->cashRegisterAccount->setMoneyBalance($newBankMoneyBalance);
 
-        }
     }
     /**
      * @return string
