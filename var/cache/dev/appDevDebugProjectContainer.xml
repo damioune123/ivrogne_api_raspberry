@@ -30,8 +30,8 @@
     <parameter key="database_host">localhost</parameter>
     <parameter key="database_port">null</parameter>
     <parameter key="database_name">livrogne_api</parameter>
-    <parameter key="database_user">livrogne</parameter>
-    <parameter key="database_password">Livrogn8</parameter>
+    <parameter key="database_user">root</parameter>
+    <parameter key="database_password">a</parameter>
     <parameter key="mailer_transport">smtp</parameter>
     <parameter key="mailer_host">127.0.0.1</parameter>
     <parameter key="mailer_user">null</parameter>
@@ -587,7 +587,7 @@
                   <tag name="cache.pool"/>
                   <argument>WSFKxm9E51</argument>
                   <argument>0</argument>
-                  <argument>lfWNUx0YO4ZrlltlDhqCUA</argument>
+                  <argument>-XD1x3kIgybIZiW7-Iovkw</argument>
                   <argument>/home/damien/repos/ivrogne_api_raspberry/var/cache/dev/pools</argument>
                   <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
                   <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -600,7 +600,7 @@
                   <tag name="cache.pool"/>
                   <argument>9N8QJHh0Xa</argument>
                   <argument>0</argument>
-                  <argument>lfWNUx0YO4ZrlltlDhqCUA</argument>
+                  <argument>-XD1x3kIgybIZiW7-Iovkw</argument>
                   <argument>/home/damien/repos/ivrogne_api_raspberry/var/cache/dev/pools</argument>
                   <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
                   <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -932,7 +932,7 @@
       <tag name="cache.pool"/>
       <argument>YbAZGC2S6f</argument>
       <argument>0</argument>
-      <argument>lfWNUx0YO4ZrlltlDhqCUA</argument>
+      <argument>-XD1x3kIgybIZiW7-Iovkw</argument>
       <argument>/home/damien/repos/ivrogne_api_raspberry/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -1793,7 +1793,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>597e6173c37942.57070357</argument>
+            <argument>5995f3c0630000.94230908</argument>
           </service>
         </argument>
       </argument>
@@ -1968,7 +1968,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>597e6173c37942.57070357</argument>
+            <argument>5995f3c0630000.94230908</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -2295,8 +2295,8 @@
         <argument key="host">localhost</argument>
         <argument key="port">null</argument>
         <argument key="dbname">livrogne_api</argument>
-        <argument key="user">livrogne</argument>
-        <argument key="password">Livrogn8</argument>
+        <argument key="user">root</argument>
+        <argument key="password">a</argument>
         <argument key="charset">UTF8</argument>
         <argument key="driverOptions" type="collection"/>
         <argument key="defaultTableOptions" type="collection"/>

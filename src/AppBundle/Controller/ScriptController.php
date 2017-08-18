@@ -27,7 +27,7 @@ class ScriptController extends Controller
 
     {
 
-        $process = new Process('sudo python scripts/relaisfrigo.py');
+        $process = new Process('sudo python scripts/relaisFrigoON.py');
         $process->run();
 
 
@@ -50,13 +50,13 @@ class ScriptController extends Controller
 
     {
 
-        $process = new Process( 'sudo python scripts/'.$request->get('script_name').'.py &');
+        $process = new Process( 'scripts/'.$request->get('script_name').'.py ');
         $process->run();
 
 
 // executes after the command finishes
 
-        $var = "OK";
+        $var = $process;
 
         return $var;
 
