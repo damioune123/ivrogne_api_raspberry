@@ -16,49 +16,20 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 class ScriptController extends Controller
 {
 
-
-    //ADMIN ONLY new Product creation ==>  seulement pour les barmans
-
-    /**
-     * @Rest\View()
-     * @Rest\Get("/admin/scripts/relaisfrigo")
-     */
-    public function getScriptRelaisFrigoAction(Request $request)
-
-    {
-
-        $process = new Process('sudo python scripts/relaisFrigoON.py');
-        $process->run();
-
-
-// executes after the command finishes
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        $var = "OK";
-
-        return $var;
-
-    }
-
     /**
      * @Rest\View()
      * @Rest\Get("/scripts/relais/{script_name}")
      */
-    public function getScriptFrigoAction(Request $request)
+    public function getScriptAction(Request $request)
 
     {
-
-        $process = new Process( 'scripts/'.$request->get('script_name').'.py ');
+        $process = new Process('sudo /usr/bin/python scripts/'.$request->get('script_name').' &');
         $process->run();
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
 
-
-// executes after the command finishes
-
-        $var = $process;
-
-        return $var;
+        return $process->getOutput();
 
     }
     
