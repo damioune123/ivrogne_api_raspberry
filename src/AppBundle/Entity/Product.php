@@ -44,6 +44,14 @@ class Product
      */
     private $amountAvailableInStock;
 
+    /**
+     * @var Promotion
+     *
+     * @ORM\JoinColumn(name="promotion", referencedColumnName="id",onDelete="SET NULL", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Promotion",  cascade={"persist"})
+     */
+     private $promotion;
+
 
 
     /**
@@ -124,6 +132,21 @@ class Product
     public function setAmountAvailableInStock($amountAvailableInStock)
     {
         $this->amountAvailableInStock = $amountAvailableInStock;
+    }
+    /**
+     * @return Promotion
+     */
+    public function getPromotion()
+    {
+        return $this->promotion;
+    }
+
+    /**
+     * @param Promotion $promotion
+     */
+    public function setPromotion($promotion)
+    {
+        $this->promotion = $promotion;
     }
     
     
