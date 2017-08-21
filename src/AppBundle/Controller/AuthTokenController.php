@@ -12,10 +12,21 @@ use AppBundle\Entity\AuthToken;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Credentials;
 use JMS\Serializer\Annotation\Expose;
-
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class AuthTokenController extends Controller
 {
     /**
+     * This URL aims to create a token by sending the credential information. This is needed in further headers' request to authenticate user.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="auth-tokens",
+     *  description="Create a web token using a user credentials' information.",
+     *  input={"class"=CredentialsType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\AuthToken",
+     *           "groups" ={"auth-token"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_CREATED ,serializerGroups={"auth-token"})
      * @Rest\Post("/auth-tokens")
      *
@@ -60,6 +71,20 @@ class AuthTokenController extends Controller
     }
 
     /**
+     *
+     * This URL aims to create a token by sending the id of a rfid card. This is needed in further headers' request to authenticate user.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="auth-tokens",
+     *  description="Create a web token using a rfid card id.",
+     *   parameters={
+     *      {"name"="card_id", "dataType"="string", "required"=true, "description"="rfid card id"}
+     *  },
+     *  output={"class"="AppBundle\Entity\AuthToken",
+     *           "groups" ={"auth-token"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_CREATED ,serializerGroups={"auth-token"})
      * @Rest\Post("/rfid-auth-tokens")
      *
@@ -100,6 +125,18 @@ class AuthTokenController extends Controller
         return $authToken;
     }
     /**
+     *
+     * This URL aims to get the last token that was created during the last 10 sec (with an rfid cardid). This is risked in term of security and will be removed whenever the Websocket feature will be implemented.
+     * Ths is used commonly to connect to a client after a user athenticate with his rfid card.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="auth-tokens",
+     *  description="Get last rfid web token.",
+     *  output={"class"="AppBundle\Entity\AuthToken",
+     *           "groups" ={"auth-token"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_CREATED ,serializerGroups={"auth-token"})
      * @Rest\Get("/rfid-auth-tokens")
      *
@@ -134,6 +171,16 @@ class AuthTokenController extends Controller
 
 
     /**
+     * This URL aims to remove a token by id.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="auth-tokens",
+     *  description="Delete a web token by id.",
+     *  output={"class"="AppBundle\Entity\AuthToken",
+     *           "groups" ={"auth-token"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT ,serializerGroups={"auth-token"})
      * @Rest\Delete("/auth-tokens/{id}")
      */

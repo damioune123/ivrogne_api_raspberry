@@ -12,19 +12,6 @@ use AppBundle\Entity\Order;
 class StatisticController extends Controller
 {
 
-    /**
-     * @Rest\View(serializerGroups={"stat"})
-     * @Rest\Get("/admin/orders_stat")
-     */
-    public function getorderStatAction(Request $request)
 
-    {
-        $orders = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('AppBundle:Order')
-            ->findAll();
-        /* @var $orders Order[] */
-        return $orders;
-
-    }
   
 }

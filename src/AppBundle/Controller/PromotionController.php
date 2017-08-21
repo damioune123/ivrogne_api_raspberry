@@ -10,12 +10,24 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les annotations
 use AppBundle\Entity\Promotion;
 use AppBundle\Form\Type\PromotionType;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class PromotionController extends Controller
 {
 
 
     /**
+     *
+     *  This URL aims to get all promotions.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="promotions",
+     *  description="Get all promotions",
+     *  output={"class"="AppBundle\Entity\promotion",
+     *           "groups" ={"promotion"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"promotion"})
      * @Rest\Get("/promotions")
      */
@@ -30,6 +42,18 @@ class PromotionController extends Controller
     }
 
     /**
+     *
+     * This URL aims to replace a promotion's information. (Only super admin)
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="promotions",
+     *  description="Replace a promotion information (Only super admin).",
+     *  input={"class"=PromotionType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\promotion",
+     *           "groups" ={"promotion"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"promotion"})
      * @Rest\Put("/super-admin/promotions/{name}")
      */
@@ -57,6 +81,17 @@ class PromotionController extends Controller
 
 
     /**
+     *  This URL aims to change some of a promotion's information. (Only super admin)
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="promotions",
+     *  description="Patch a promotion information (Only super admin).",
+     *  input={"class"=PromotionType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\promotion",
+     *           "groups" ={"promotion"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"promotion"})
      * @Rest\Patch("/super-admin/promotions/{name}")
      */

@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les annotations
 use AppBundle\Entity\ProductCategory;
 use AppBundle\Form\Type\ProductCategoryType;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+
 
 class ProductCategoryController extends Controller
 {
