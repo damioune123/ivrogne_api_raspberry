@@ -11,15 +11,30 @@ use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les anno
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserAccount;
 use AppBundle\Form\Type\UserType;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+
 
 
 class UserController extends Controller
 {
-    //SIGN IN -PUBLIC ==> pour les inscriptions
 
     /**
+     *
+     *
+     * This URL aims to create a user.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="users",
+     *  description="Create a user",
+     *  input={"class"=UserType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_CREATED,serializerGroups={"user"})
      * @Rest\Post("/users")
+     *
      */
     public function postUserAction(Request $request)
     {
@@ -47,19 +62,36 @@ class UserController extends Controller
             return $form;
     }
 
-    //user only ==> récupérer ses propres infos
     /**
+     * This URL aims to allow a user to get his own info.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="users",
+     *  description="Get a user by id (only own info)",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"user"})
      * @Rest\Get("/users/{user_id}")
      */
     public function getUserByUserAction(Request $request)
     {
-
         return $this->getUserByAdminAction($request, true);
     }
 
-    //user only ==> supprimer son propre compte
     /**
+     * This URL aims to delete a user with is id.(Only own info)
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="users",
+     *  description="Delete a user by id.(Only own info)",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT, serializerGroups={"user"})
      * @Rest\Delete("/users/{id}")
      */
@@ -67,8 +99,19 @@ class UserController extends Controller
     {
       return $this->removeUserBySuperAdminAction($request, true);
     }
-    //USER only ==> put de son propre compte
+
     /**
+     *  * This URL aims to replace a user with is id.(Only own info)
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="users",
+     *  description="Get a user by id.(Only own info)",
+     *  input={"class"=UserType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"user"})
      * @Rest\Put("/users/{id}")
      */
@@ -77,8 +120,19 @@ class UserController extends Controller
         return $this->updateUserBySuperAdminAction($request, true, true);
     }
 
-    //USER only ==> put de son propre comptes
     /**
+     *
+     *  This URL aims to change a user's information with is id. (Only own info)
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="users",
+     *  input={"class"=UserType::class, "name"=""},
+     *  description="Patch a user by id.(Only own info)",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"user"})
      * @Rest\Patch("/users/{id}")
      */
@@ -87,9 +141,18 @@ class UserController extends Controller
         return $this->patchUserBySuperAdminAction($request, true);
     }
 
-
-    //ADMIN ONLY ==> récupérer les infos de tous les utilisateurs en une fois
     /**
+     * This URL aims to get all users. (FULL INFORMATION - ONLY ADMIN ACCESS). To use with moderation, /api/limited-users is prefered.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="users",
+     *  description="Get users info - FULL (Only admin).",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
+     *
      * @Rest\View(serializerGroups={"user"})
      * @Rest\Get("/admin/users")
      */
@@ -104,6 +167,16 @@ class UserController extends Controller
     }
 
     /**
+     * This URL aims to get all users. (LIGHT INFORMATION - ALL ACCESS). This is intendended to provide a safe resume of user's information that are available to everyone.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="users",
+     *  description="Get users info - Light information. ALL Access",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"userLimited"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"userLimited"})
      * @Rest\Get("/limited-users")
      */
@@ -117,8 +190,17 @@ class UserController extends Controller
         return $users;
     }
 
-    //admin only ==> récupérer des infos sur sur un utilisateur quelconque
     /**
+     *  This URL aims to allow an admin  to get info about any user.(ADMIN ONLY)
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="users",
+     *  description="Get a user by id (only admin)",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"user"})
      * @Rest\Get("/admin/users/{user_id}")
      */
@@ -142,8 +224,17 @@ class UserController extends Controller
         return $user;
     }
 
-    //super-admin only ==> supprimer un utilisateur
     /**
+     * This URL aims to allow a super-admin to delete any user.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="users",
+     *  description="Delete another user by id (only admin)",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT, serializerGroups={"user"})
      * @Rest\Delete("/super-admin/users/{id}")
      */
@@ -154,13 +245,15 @@ class UserController extends Controller
             ->find($request->get('id'));
         /* @var $user User */
 
-
         if ($user) {
             if ($restrictedAccess)
             {
                 if($this->getUser()!= $user){
                     return \FOS\RestBundle\View\View::create(['message' => 'Unauthorized to delete someone else info'], Response::HTTP_UNAUTHORIZED);
                 }
+            }
+            else if($user->getRole()=="ROLE_SUPER_ADMIN"){
+                return \FOS\RestBundle\View\View::create(['message' => 'SUPER ADMIN cannot be deleted'], Response::HTTP_UNAUTHORIZED);
             }
             $em->remove($user);
             $em->flush();
@@ -169,8 +262,18 @@ class UserController extends Controller
 
 
     /**
+     * This URL aims to allow a super admin to replace someone else's information.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="users",
+     *  description="Replace another user's information (only super-admin)",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"user"})
-     * @Rest\Put("/admin/users/{id}")
+     * @Rest\Put("/super-admin/users/{id}")
      */
     public function updateUserBySuperAdminAction(Request $request, $clearMissing = true, $restrictedAccess = false)
     {
@@ -218,21 +321,23 @@ class UserController extends Controller
     }
 
     /**
+     * This URL aims to allow a super-admin to change some  someone else's information.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="users",
+     *  input={"class"=UserType::class, "name"=""},
+     *  description="Patch anoter user by id (only super-admin)",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"user"})
-     * @Rest\Patch("/admin/users/{id}")
+     * @Rest\Patch("/super-admin/users/{id}")
      */
     public function patchUserBySuperAdminAction(Request $request, $restrictedAccess = false)
     {
         return $this->updateUserBySuperAdminAction($request, false, $restrictedAccess);
     }
-    /**
-     * @Rest\View(serializerGroups={"user"})
-     * @Rest\Patch("/users/{id}")
-     */
-    public function patchUserction(Request $request, $restrictedAccess = false)
-    {
-        return $this->updateUserBySuperAdminAction($request, false, $restrictedAccess);
-    }
-
 
 }

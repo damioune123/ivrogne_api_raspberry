@@ -37,17 +37,19 @@ class AuthTokenAuthenticator implements SimplePreAuthenticatorInterface, Authent
         $targetUrl6='/api/spending-account';
         $targetUrl7='/api/lost-account';
         $targetUrl8='/api/promotions';
-       
+        $targetUrl9='/api/doc';
         // Si la requête est une création de token, aucune vérification n'est effectuée
-        if (    $this->httpUtils->checkRequestPath($request, $targetUrl1)
-                or $this->httpUtils->checkRequestPath($request, $targetUrl2)
-                or $this->httpUtils->checkRequestPath($request, $targetUrl4)
+        if ($this->httpUtils->checkRequestPath($request, $targetUrl1)
+            or $this->httpUtils->checkRequestPath($request, $targetUrl2)
+            or $this->httpUtils->checkRequestPath($request, $targetUrl3)
+            or $this->httpUtils->checkRequestPath($request, $targetUrl4)
+            or $this->httpUtils->checkRequestPath($request, $targetUrl5)
             or $this->httpUtils->checkRequestPath($request, $targetUrl6)
             or $this->httpUtils->checkRequestPath($request, $targetUrl7)
             or $this->httpUtils->checkRequestPath($request, $targetUrl8)
-            or $this->httpUtils->checkRequestPath($request, $targetUrl5)
-		or $request->get('script_name') != null
-                or $this->httpUtils->checkRequestPath($request, $targetUrl3)    ) {
+            or $this->httpUtils->checkRequestPath($request, $targetUrl9)
+		    or $request->get('script_name') != null
+               ) {
             return;
         }
 

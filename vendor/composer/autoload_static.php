@@ -268,8 +268,19 @@ class ComposerStaticInit5eec0b7fe477f6880295356fc92afffc
                 0 => __DIR__ . '/..' . '/phpcollection/phpcollection/src',
             ),
         ),
+        'N' => 
+        array (
+            'Nelmio\\ApiDocBundle' => 
+            array (
+                0 => __DIR__ . '/..' . '/nelmio/api-doc-bundle',
+            ),
+        ),
         'M' => 
         array (
+            'Michelf' => 
+            array (
+                0 => __DIR__ . '/..' . '/michelf/php-markdown',
+            ),
             'Metadata\\' => 
             array (
                 0 => __DIR__ . '/..' . '/jms/metadata/src',

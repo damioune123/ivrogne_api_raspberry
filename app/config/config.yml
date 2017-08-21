@@ -76,6 +76,7 @@ swiftmailer:
     spool:     { type: memory }
 
 fos_rest:
+    param_fetcher_listener: true
     routing_loader:
         include_format: false
     view:
@@ -110,6 +111,7 @@ nelmio_cors:
             allow_headers: ['*']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'PATCH']
             max_age: 3600
+nelmio_api_doc: ~
 doctrine_migrations:
     dir_name: "%kernel.root_dir%/DoctrineMigrations"
     namespace: Application\Migrations
