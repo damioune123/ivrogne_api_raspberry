@@ -1,16 +1,18 @@
 AppBundle\Entity\Product:
     exclusion_policy: NONE
     properties:
-        name:
+        id:
             groups: ['product','productCategory', 'order','orderLine','userAccount']
+        name:
+            groups: ['product',]
 
         barcode:
-            groups: ['product','productCategory','orderLine' ]
+            groups: ['product',]
 
         amountAvailableInStock:
             groups: ['product']
 
         productCategory:
-            groups:  ['product','order','orderLine','userAccount']
+            groups:  ['product']
 
 

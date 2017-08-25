@@ -5,13 +5,13 @@ AppBundle\Entity\UserAccount:
             groups: ['user','moneyFlow','auth-token','userAccount', 'account','userLimited']
 
         type:
-            groups: ['user','moneyFlow','userAccount', 'auth-token', 'account','userLimited']
+            groups: ['userAccount',  'account']
 
         moneyBalance:
-            groups: ['user','userAccount', 'account','userLimited']
+            groups: ['userAccount', 'account']
 
         user:
-            groups: ['order','moneyFlow','userAccount']
+            groups: ['userAccount']
 
         orders:
             groups: ['userAccount']

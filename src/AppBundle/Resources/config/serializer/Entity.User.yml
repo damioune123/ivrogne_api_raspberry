@@ -5,32 +5,32 @@ AppBundle\Entity\User:
             groups: ['user', 'userAccount', 'order', 'auth-token','moneyFlow', 'userLimited']
 
         firstname:
-            groups: ['user','userAccount', 'order', 'auth-token','moneyFlow','userLimited']
+            groups: ['user',  'userLimited']
 
         lastname:
-            groups: ['user','userAccount', 'order' ,'auth-token','moneyFlow','userLimited']
+            groups: ['user','userLimited']
 
         promotion:
-            groups: ['user','userAccount', 'order' ,'auth-token','moneyFlow','userLimited']
+            groups: ['user','userLimited']
 
         username:
-            groups: ['user','userAccount' ,'auth-token','moneyFlow','userLimited']
+            groups: ['user','userLimited']
 
         godfather:
-            groups: ['user','userAccount' ,'auth-token','moneyFlow','userLimited']
+            groups: ['user','userLimited']
 
         nefews:
-            groups: ['user','userAccount' ,'auth-token','moneyFlow']
+            groups: ['user']
 
         email:
-            groups: ['user', 'userAccount', 'auth-token','money-flow']
+            groups: ['user',]
 
         role:
-            groups: ['user', 'userAccount',  'auth-token','userLimited']
+            groups: ['user','userLimited']
 
         userAccounts:
-            groups: ['user', 'auth-token','userLimited']
+            groups: ['user','userLimited']
 
         moneyLimit:
-            groups: ['user','userAccount', 'order' ,'auth-token','moneyFlow','userLimited']
+            groups: ['user','userLimited']
 

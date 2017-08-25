@@ -5,12 +5,12 @@ AppBundle\Entity\ProductCategory:
             groups: ['product','productCategory']
 
         categoryName:
-            groups: ['product','productCategory','order','orderLine','userAccount']
+            groups: ['productCategory','product']
 
         price:
-            groups: ['product','productCategory','order','orderLine','userAccount']
+            groups: ['productCategory','product']
 
         products:
-            groups: ['productCategory']
+            groups: ['productCategory','product']
 
 

@@ -5,17 +5,17 @@ AppBundle\Entity\OrderLine:
             groups: ['order','orderLine','userAccount']
 
         quantity:
-            groups: ['order' , 'orderLine','userAccount']
+            groups: ['order' , 'orderLine']
 
         order:
             groups: ['orderLine']
 
         product:
-            groups: ['order','orderLine','userAccount']
+            groups: ['order','orderLine']
 
     virtual_properties:
         getOrderLinePrice:
-            groups: ['order','orderLine','userAccount']
+            groups: ['order','orderLine']
 
 
 
