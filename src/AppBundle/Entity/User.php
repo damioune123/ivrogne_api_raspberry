@@ -127,6 +127,7 @@ class User implements UserInterface
     private $moneyLimit;
 
 
+
     /**
      * User constructor.
      *
@@ -415,8 +416,7 @@ class User implements UserInterface
     {
         $this->moneyLimit = $moneyLimit;
     }
-    
-    
+
 
 
 }

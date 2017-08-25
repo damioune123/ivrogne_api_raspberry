@@ -58,9 +58,9 @@ class UserAccount
     /**
      * @var ArrayCollection|Order[]
      *
-     * @ORM\OneToMany(targetEntity="Order", mappedBy="cashRegisterAccount")
+     * @ORM\OneToMany(targetEntity="Order", mappedBy="registerAccount")
      */
-    private $cashRegisterOrders;
+    private $registerOrders;
 
     /**
      * @var ArrayCollection|MoneyFlow[]
@@ -83,9 +83,10 @@ class UserAccount
     public function __construct()
     {
         $this->orders  = new ArrayCollection();
+        $this->registerOrders = new ArrayCollection();
         $this->positiveMoneyFlows = new ArrayCollection();
         $this->negativeMoneyFlows = new ArrayCollection();
-        $this->cashRegisterOrders = new ArrayCollection();
+
     }
 
     /**
@@ -213,17 +214,17 @@ class UserAccount
     /**
      * @return Order[]|ArrayCollection
      */
-    public function getCashRegisterOrders()
+    public function getRegisterOrders()
     {
-        return $this->cashRegisterOrders;
+        return $this->registerOrders;
     }
 
     /**
-     * @param Order[]|ArrayCollection $cashRegisterOrders
+     * @param Order[]|ArrayCollection $registerOrders
      */
-    public function setCashRegisterOrders($cashRegisterOrders)
+    public function setCashRegisterOrders($registerOrders)
     {
-        $this->cashRegisterOrders = $cashRegisterOrders;
+        $this->registerOrders = $registerOrders;
     }
 
 

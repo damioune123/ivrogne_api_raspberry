@@ -21,7 +21,7 @@ class MoneyFlowController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED,serializerGroups={"moneyFlow"})
-     * @Rest\Post("/money-flows")
+     * @Rest\Post("/admin/money-flows")
      */
     public function postMoneyFlowAction(Request $request)
     {

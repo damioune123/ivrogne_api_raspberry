@@ -11,15 +11,19 @@ use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les anno
 use AppBundle\Entity\Order;
 use AppBundle\Entity\MoneyFlow;
 use AppBundle\Entity\OrderLine;
+use AppBundle\Entity\UserAccount;
 use AppBundle\Form\Type\OrderType;
 use AppBundle\Form\Type\OrderSelfType;
 use AppBundle\Form\Type\OrderCashType;
 use AppBundle\Form\Type\OrderLineTransactionType;
 
+
 class OrderController extends Controller
 {
     //USER ONLY ==> récupérer ses proprers commandes
     /**
+     *
+     * TO DO : Pagers
      * @Rest\View(serializerGroups={"order"})
      * @Rest\Get("/orders")
      */
@@ -41,6 +45,7 @@ class OrderController extends Controller
     }
     //USER ONLY ==> récupérer une de ses propres commandes
     /**
+     * TO DO : Pagers
      * @Rest\View(serializerGroups={"order"})
      * @Rest\Get("/orders/{order_id}")
      */
@@ -93,11 +98,13 @@ class OrderController extends Controller
         if(!$form->isValid())
             return $form;
         $repository = $em->getRepository('AppBundle:UserAccount');
-        $cashRegisterAccountID = $repository->getSuperAdminCashRegisterAccount();
-        $cashRegisterAccount = $repository->find($cashRegisterAccountID);
-        /*@var $cashRegisterAccount UserAccount */
+        $registerAccountID = $repository->getRegisterAccount();
+        /* @var $registerAccount UserAccount */
+        $registerAccount = $repository->find($registerAccountID);
+        $order->setRegisterAccount($registerAccount);
+
         $order->setIsOrderedByCustomer(true);
-        $order->setCashRegisterAccount($cashRegisterAccount);
+
         $order->setIsPaidCash(false);
 
         $content=json_decode($request->getContent());
@@ -158,8 +165,13 @@ class OrderController extends Controller
         $form->submit($request->request->get("order")); // Validation des données
         if(!$form->isValid())
             return $form;
+        $repository = $em->getRepository('AppBundle:UserAccount');
+        $registerAccountID = $repository->getRegisterAccount();
+        /* @var $registerAccount UserAccount */
+        $registerAccount = $repository->find($registerAccountID);
+        $order->setRegisterAccount($registerAccount);
 
-        /*@var $cashRegisterAccount UserAccount */
+        /*@var $registerAccount UserAccount */
         $order->setIsOrderedByCustomer(false);
         $order->setIsPaidCash(false);
 
@@ -202,13 +214,14 @@ class OrderController extends Controller
         if(!$form->isValid())
             return $form;
 
-        /*@var $cashRegisterAccount UserAccount */
+        /*@var $registerAccount UserAccount */
         $order->setIsOrderedByCustomer(false);
         $order->setIsPaidCash(true);
-        $bank=$em
-        ->getRepository('AppBundle:UserAccount')
-        ->findOneByType("bank");
-        $order->setCustomerUserAccount($bank);
+        $repository = $em->getRepository('AppBundle:UserAccount');
+        $registerAccountID = $repository->getRegisterAccount();
+        /* @var $registerAccount UserAccount */
+        $registerAccount = $repository->find($registerAccountID);
+        $order->setRegisterAccount($registerAccount);
 
         foreach ($request->request->get("orderlines") as $value) {
             $orderLine = new OrderLine();
@@ -234,6 +247,7 @@ class OrderController extends Controller
 
     //ADMIN ONLY ==> récupérer toutes les commandes en une fois
     /**
+     * TO DO : pagers
      * @Rest\View(serializerGroups={"order"})
      * @Rest\Get("/admin/orders")
      */
@@ -268,7 +282,7 @@ class OrderController extends Controller
         $em->merge($order);
         $em->flush();
         $cancelMoneyFlow = new MoneyFlow();
-        $cancelMoneyFlow->setCreditUserAccount($order->getCashRegisterAccount());
+        $cancelMoneyFlow->setCreditUserAccount($order->getRegisterAccount());
         $cancelMoneyFlow->setDebitUserAccount($order->getCustomerUserAccount());
         $cancelMoneyFlow->setValue($order->getOrderPrice());
         $cancelMoneyFlow->setDescription("Annulation de la commande n°". $order->getId());

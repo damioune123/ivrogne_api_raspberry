@@ -252,8 +252,8 @@ class UserController extends Controller
                     return \FOS\RestBundle\View\View::create(['message' => 'Unauthorized to delete someone else info'], Response::HTTP_UNAUTHORIZED);
                 }
             }
-            else if($user->getRole()=="ROLE_SUPER_ADMIN"){
-                return \FOS\RestBundle\View\View::create(['message' => 'SUPER ADMIN cannot be deleted'], Response::HTTP_UNAUTHORIZED);
+            else if($user->getRole()=="ROLE_SUPER_ADMIN" ||$user->getRole()=="ROLE_BARMAN"){
+                return \FOS\RestBundle\View\View::create(['message' => 'SUPER ADMIN/ BARMAN cannot be deleted'], Response::HTTP_UNAUTHORIZED);
             }
             $em->remove($user);
             $em->flush();

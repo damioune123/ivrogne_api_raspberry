@@ -131,6 +131,7 @@ class UserAccountController extends Controller
         return $userAccount;
     }
 
+
     /**
      *  * This URL aims to create an account.
      *
@@ -144,7 +145,7 @@ class UserAccountController extends Controller
      *
      * )
      * @Rest\View(statusCode=Response::HTTP_CREATED,serializerGroups={"userAccount"})
-     * @Rest\Post("/user-accounts")
+     * @Rest\Post("/super-admin/user-accounts")
      */
     public function postUserAccountAction(Request $request)
     {

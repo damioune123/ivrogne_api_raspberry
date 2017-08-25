@@ -17,11 +17,6 @@ product-categories:
 products:
     type:     rest
     resource: AppBundle\Controller\ProductController
-
-order-lines:
-     type:     rest
-     resource: AppBundle\Controller\OrderLineController
-
 money-flows:
      type:     rest
      resource: AppBundle\Controller\MoneyFlowController

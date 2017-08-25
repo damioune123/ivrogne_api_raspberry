@@ -10,7 +10,7 @@ AppBundle\Entity\Order:
         customerUserAccount:
             groups: ['order']
 
-        cashRegisterAccount:
+        registerAccount:
             groups: ['order']
 
         isPaidCash:

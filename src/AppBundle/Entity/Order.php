@@ -43,9 +43,9 @@ class Order
      * @var UserAccount
      *
      * @ORM\JoinColumn(name="cash_register_account",  referencedColumnName="id", nullable=true,onDelete="SET NULL")
-     * @ORM\ManyToOne(targetEntity="UserAccount", inversedBy="cashRegisterOrders", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="UserAccount", inversedBy="registerOrders", cascade={"persist"})
      */
-    private $cashRegisterAccount;
+    private $registerAccount;
 
     /**
      * @var boolean
@@ -180,17 +180,17 @@ class Order
     /**
      * @return UserAccount
      */
-    public function getCashRegisterAccount()
+    public function getRegisterAccount()
     {
-        return $this->cashRegisterAccount;
+        return $this->registerAccount;
     }
 
     /**
-     * @param UserAccount $cashRegisterAccount
+     * @param UserAccount $registerAccount
      */
-    public function setCashRegisterAccount($cashRegisterAccount)
+    public function setregisterAccount($registerAccount)
     {
-        $this->cashRegisterAccount = $cashRegisterAccount;
+        $this->registerAccount = $registerAccount;
     }
 
     /**
@@ -239,9 +239,9 @@ class Order
             $newMoneyBalance = $currentMoneyBalance - $price;
             $this->customerUserAccount->setMoneyBalance($newMoneyBalance);
 
-            $currentBankMoneyBalance = $this->cashRegisterAccount->getMoneyBalance();
+            $currentBankMoneyBalance = $this->registerAccount->getMoneyBalance();
             $newBankMoneyBalance = $currentBankMoneyBalance + $price;
-            $this->cashRegisterAccount->setMoneyBalance($newBankMoneyBalance);
+            $this->registerAccount->setMoneyBalance($newBankMoneyBalance);
 
     }
 
@@ -255,9 +255,9 @@ class Order
             $newMoneyBalance = $currentMoneyBalance + $this->getOrderPrice();
             $this->customerUserAccount->setMoneyBalance($newMoneyBalance);
 
-            $currentBankMoneyBalance = $this->cashRegisterAccount->getMoneyBalance();
+            $currentBankMoneyBalance = $this->registerAccount->getMoneyBalance();
             $newBankMoneyBalance = $currentBankMoneyBalance - $this->getOrderPrice();
-            $this->cashRegisterAccount->setMoneyBalance($newBankMoneyBalance);
+            $this->registerAccount->setMoneyBalance($newBankMoneyBalance);
 
     }
     /**

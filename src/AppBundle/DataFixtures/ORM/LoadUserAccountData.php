@@ -33,14 +33,14 @@ class LoadUserAccountData extends AbstractFixture implements OrderedFixtureInter
 
         $userAccount=new UserAccount();
         $userAccount->setMoneyBalance(0.0);
-        $userAccount->setUser($this->getReference('super-admin-1'));
-        $userAccount->setType("cash-register");
+        $userAccount->setUser($this->getReference('barman-1'));
+        $userAccount->setType("register");
         $manager->persist($userAccount);
         $this->setReference('cash-register-1', $userAccount);
         
         $userAccount=new UserAccount();
         $userAccount->setMoneyBalance(0.0);
-        $userAccount->setUser($this->getReference('super-admin-1'));
+        $userAccount->setUser($this->getReference('barman-1'));
         $userAccount->setType("bank");
         $manager->persist($userAccount);
         $this->setReference('bank-1', $userAccount);

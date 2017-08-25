@@ -10,13 +10,27 @@ use AppBundle\Entity\UserAccount;
  */
 class UserAccountRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getSuperAdminCashRegisterAccount(){
+    public function getRegisterAccount(){
         $sql = " 
         SELECT UA.id
         FROM user_accounts UA, users U
         WHERE UA.user=U.id
-        AND   U.role=\"ROLE_SUPER_ADMIN\"
-        And   UA.type=\"cash-register\"
+        AND   U.role=\"ROLE_BARMAN\"
+        And   UA.type=\"register\"
+    ";
+
+        $em = $this->getEntityManager();
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+    public function getBankAccount(){
+        $sql = " 
+        SELECT UA.id
+        FROM user_accounts UA, users U
+        WHERE UA.user=U.id
+        AND   U.role=\"ROLE_BARMAN\"
+        And   UA.type=\"bank\"
     ";
 
         $em = $this->getEntityManager();

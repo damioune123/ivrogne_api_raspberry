@@ -16,7 +16,7 @@ AppBundle\Entity\UserAccount:
         orders:
             groups: ['userAccount']
 
-        cashRegisterOrders:
+        registerOrders:
             groups: ['userAccount']
 
         positiveMoneyFlows:

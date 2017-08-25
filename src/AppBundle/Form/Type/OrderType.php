@@ -10,7 +10,6 @@ class OrderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('customerUserAccount');
-        $builder->add('cashRegisterAccount');
     }
 
     public function configureOptions(OptionsResolver $resolver)
