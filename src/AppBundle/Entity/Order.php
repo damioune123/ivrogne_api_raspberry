@@ -270,6 +270,12 @@ class Order
             $currentBankMoneyBalance = $this->registerAccount->getMoneyBalance();
             $newBankMoneyBalance = $currentBankMoneyBalance - $this->getOrderPrice();
             $this->registerAccount->setMoneyBalance($newBankMoneyBalance);
+        foreach($this->getOrderLines() as $orderline){
+            $quantity = $orderline->getQuantity();
+            $product = $orderline->getProduct();
+            $old = $product->getAmountAvailableInStock();
+            $product->setAmountAvailableInStock($old+$quantity);
+        }
 
     }
     /**
