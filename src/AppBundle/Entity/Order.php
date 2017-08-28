@@ -135,14 +135,20 @@ class Order
         $price = 0.0;
         foreach ($this->orderLines as $orderLine)
         {
-            $price += $orderLine->getOrderLinePrice();
+            if($this->customerUserAccount->getUser()->getRole()=="ROLE_USER" ||$this->customerUserAccount->getUser()->getRole()=="ROLE_BARMAN"  ){
+                $price += $orderLine->getOrderLinePriceUser();
+            }
+            else{
+                $price += $orderLine->getOrderLinePriceAdmin();
+            }
+
         }
         if(!$this->isPaidCash())
             $promotionCoef= (100.0-$this->customerUserAccount->getUser()->getPromotion()->getUserPromotion())/100;
         else $promotionCoef=1.0;
         $price = $price * $promotionCoef;
 
-        return $price;
+        return round($price, 2);
     }
 
     /**
@@ -242,6 +248,12 @@ class Order
             $currentBankMoneyBalance = $this->registerAccount->getMoneyBalance();
             $newBankMoneyBalance = $currentBankMoneyBalance + $price;
             $this->registerAccount->setMoneyBalance($newBankMoneyBalance);
+            foreach($this->getOrderLines() as $orderline){
+                $quantity = $orderline->getQuantity();
+                $product = $orderline->getProduct();
+                $old = $product->getAmountAvailableInStock();
+                $product->setAmountAvailableInStock($old-$quantity);
+            }
 
     }
 

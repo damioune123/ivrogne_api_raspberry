@@ -130,14 +130,38 @@ class OrderLine
      *
      */
 
-    public function getOrderLinePrice()
+    public function getOrderLinePriceAdmin()
     {
-        return floatval($this->quantity * $this->product->getPriceWithPromotion());
+        return floatval($this->quantity * $this->product->getPriceWithPromotionAdmin());
+    }
+
+    /**
+     * @return float
+     *
+     */
+
+    public function getOrderLinePriceUser()
+    {
+        return floatval($this->quantity * $this->product->getPriceWithPromotionUser());
+    }
+
+    /**
+     * @return float
+     *
+     */
+
+    public function getOrderLinePriceFinal()
+    {
+        if(empty($this->getOrder()))
+            return;
+        if($this->getOrder()->getCustomerUserAccount()->getUser()->getRole()=="ROLE_USER" ||$this->getOrder()->getCustomerUserAccount()->getUser()->getRole()=="ROLE_BARMAN")
+            return floatval($this->quantity * $this->product->getPriceWithPromotionUser());
+        else
+            return floatval($this->quantity * $this->product->getPriceWithPromotionAdmin());
     }
 
 
 
 
-    
 }
 

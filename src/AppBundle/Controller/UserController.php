@@ -516,6 +516,8 @@ class UserController extends Controller
         if (empty($user)) {
             return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
         }
+
+
         if($user->getRole()=="ROLE_ADMIN" or $user->getRole()=="ROLE_BARMAN" or $user->getRole()=="ROLE_SUPER_ADMIN"){
             return \FOS\RestBundle\View\View::create(['message' => 'User is admin, cannot be a nefew'], Response::HTTP_UNAUTHORIZED);
         }

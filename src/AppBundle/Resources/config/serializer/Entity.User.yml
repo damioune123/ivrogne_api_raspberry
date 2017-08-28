@@ -6,13 +6,13 @@ AppBundle\Entity\User:
             groups: ['user', 'userAccount', 'order', 'auth-token','moneyFlow', 'userLimited']
 
         firstname:
-            groups: ['user',  'userLimited']
+            groups: ['user',  'userLimited','order']
 
         lastname:
-            groups: ['user','userLimited']
+            groups: ['user','userLimited','order']
 
         promotion:
-            groups: ['user','userLimited']
+            groups: ['user','userLimited','order']
 
         username:
             groups: ['user','userLimited']

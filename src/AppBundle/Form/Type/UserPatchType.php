@@ -13,9 +13,7 @@ class UserPatchType extends AbstractType
         $builder->add('lastname');
         $builder->add('username');
         $builder->add('plainPassword');
-        $builder->add('godfather');
         $builder->add('email');
-        $builder->add('moneyLimit');
         $builder->add('rfidCard');
         $builder->add('isRemoved');
 

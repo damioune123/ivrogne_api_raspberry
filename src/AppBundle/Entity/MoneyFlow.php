@@ -95,7 +95,7 @@ class MoneyFlow
      */
     public function setValue($value)
     {
-        $this->value = $value;
+        $this->value = round($value,2);
 
         return $this;
     }

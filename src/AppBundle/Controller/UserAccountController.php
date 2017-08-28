@@ -228,6 +228,10 @@ class UserAccountController extends Controller
             ->getRepository('AppBundle:UserAccount')
             ->find($request->get('nefew_account_id'));
         $oldMoneyLimit = $userAccount->getMoneyLimit();
+        if($this->getUser()->getRole()=="ROLE_BARMAN")
+        {
+            return \FOS\RestBundle\View\View::create(['message' => 'Barman cannot be a godfather'], Response::HTTP_UNAUTHORIZED);
+        }
         if(empty($userAccount)){
             return \FOS\RestBundle\View\View::create(['message' => 'nefew account not found'], Response::HTTP_NOT_FOUND);
         }

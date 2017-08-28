@@ -42,14 +42,20 @@ class Product
      *
      * @ORM\Column(name="stock", type="integer", nullable=true)
      */
-    private $amountAvailableInStock;
+    private $amountAvailableInStock=0;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="product_promotion", type="float")
+     * @ORM\Column(name="product_promotion_admin", type="float")
      */
-    private $productPromotion;
+    private $productPromotionAdmin=0.0;
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="product_promotion_user", type="float")
+     */
+    private $productPromotionUser=0.0;
 
     /**
      * @var boolean
@@ -139,21 +145,8 @@ class Product
     {
         $this->amountAvailableInStock = $amountAvailableInStock;
     }
-    /**
-     * @return float
-     */
-    public function getProductPromotion()
-    {
-        return $this->productPromotion;
-    }
 
-    /**
-     * @param float $productPromotion
-     */
-    public function setProductPromotion($productPromotion)
-    {
-        $this->productPromotion = $productPromotion;
-    }
+
 
     /**
      * @return bool
@@ -171,16 +164,56 @@ class Product
         $this->isRemoved = $isRemoved;
     }
 
+    /**
+     * @return float
+     */
+    public function getProductPromotionAdmin()
+    {
+        return $this->productPromotionAdmin;
+    }
+
+    /**
+     * @param float $productPromotionAdmin
+     */
+    public function setProductPromotionAdmin($productPromotionAdmin)
+    {
+        $this->productPromotionAdmin = $productPromotionAdmin;
+    }
+
+    /**
+     * @return float
+     */
+    public function getProductPromotionUser()
+    {
+        return $this->productPromotionUser;
+    }
+
+    /**
+     * @param float $productPromotionUser
+     */
+    public function setProductPromotionUser($productPromotionUser)
+    {
+        $this->productPromotionUser = $productPromotionUser;
+    }
+
+
 
     /**
      * @return float
      */
 
-    public function getPriceWithPromotion(){
+    public function getPriceWithPromotionAdmin(){
         $raw_price= $this->getProductCategory()->getPrice();
-        return ($raw_price/100)*((100-$this->productPromotion)*100)/100;
+        return ($raw_price/100)*((100-$this->productPromotionAdmin)*100)/100;
     }
-    
+    /**
+     * @return float
+     */
+
+    public function getPriceWithPromotionUser(){
+        $raw_price= $this->getProductCategory()->getPrice();
+        return ($raw_price/100)*((100-$this->productPromotionUser)*100)/100;
+    }
     
     
 }

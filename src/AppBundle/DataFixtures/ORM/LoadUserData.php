@@ -35,7 +35,7 @@ class LoadUserDataextends extends AbstractFixture implements OrderedFixtureInter
         $userBarman->setUsername('barman');
         $userBarman->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
         $userBarman->setRole('ROLE_BARMAN');
-        $userBarman->setPromotion($this->getReference('admin-promotion'));
+        $userBarman->setPromotion($this->getReference('simple-promotion'));
         $userBarman->setEmail('livrognebar@gmail.com');
         $userBarman->setGodfather(null);
         $manager->persist( $userBarman);

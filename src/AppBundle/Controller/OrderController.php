@@ -14,7 +14,6 @@ use AppBundle\Entity\OrderLine;
 use AppBundle\Entity\UserAccount;
 use AppBundle\Form\Type\OrderType;
 use AppBundle\Form\Type\OrderSelfType;
-use AppBundle\Form\Type\OrderCashType;
 use AppBundle\Form\Type\OrderLineTransactionType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
@@ -147,12 +146,13 @@ class OrderController extends Controller
      *  section="orders",
      *  description="Create an order by the client (self only)",
      *  input={"class"=OrderSelfType::class, "name"=""},
+     *
      *  output={"class"="AppBundle\Entity\Order",
      *           "groups" ={"order"}}
      *
      * )
      * @Rest\View(statusCode=Response::HTTP_CREATED,serializerGroups={"order"})
-     * @Rest\Post("/client-self-order")
+     * @Rest\Post("/orders/client-self-order")
      */
     public function postSelfOrderTransactionAction(Request $request)
     {
@@ -175,7 +175,14 @@ class OrderController extends Controller
 
         $content=json_decode($request->getContent());
         /* @var $userAccount UserAccount */
-        $userAccount = $repository->find($content->{"order"}->{"customerUserAccount"});
+        if($this->getUser()->getRole()=="ROLE_BARMAN")
+        {
+            $userAccount = $repository>getRegisterAccount();
+        }
+        else{
+            $userAccount = $repository->find($content->{"order"}->{"customerUserAccount"});
+        }
+
         $promotion =$userAccount->getUser()->getPromotion()->getUserPromotion();
         $total=0.0;
         foreach ($request->request->get("orderlines") as $value) {
@@ -183,15 +190,24 @@ class OrderController extends Controller
             $form = $this->createForm(OrderLineTransactionType::class, $orderLine, ['validation_groups' => ['Default', 'New']]);
             $form->submit($value);
             if ($form->isValid()) {
-                $total+=$orderLine->getOrderLinePrice();
+                if($userAccount->getUser()->getRole()=="ROLE_USER" ||$userAccount->getUser()->getRole()=="ROLE_BARMAN"){
+                    $total+=$orderLine->getOrderLinePriceUser();
+                }
+
+                else{
+                    $total+=$orderLine->getOrderLinePriceAdmin();
+                }
 
             } else
                 return $form;
         }
         $total-=$total*($promotion/100);
-        if($total> $userAccount->getAvailableBalance()){
-            $json = array("INSUFFICIENT_CASH"=> true, "order_total"=>$total, "balance"=>$userAccount->getMoneyBalance(), "available_balance"=>$userAccount->getAvailableBalance());
-            return $json;
+
+        if($this->getUser()->getRole()!="ROLE_BARMAN"){
+            if($total> $userAccount->getAvailableBalance()){
+                $json = array("INSUFFICIENT_CASH"=> true, "order_total"=>$total, "balance"=>$userAccount->getMoneyBalance(), "available_balance"=>$userAccount->getAvailableBalance());
+                return $json;
+            }
         }
 
         foreach ($request->request->get("orderlines") as $value) {
@@ -266,7 +282,14 @@ class OrderController extends Controller
             $form = $this->createForm(OrderLineTransactionType::class, $orderLine, ['validation_groups' => ['Default', 'New']]);
             $form->submit($value);
             if ($form->isValid()) {
-                $total+=$orderLine->getOrderLinePrice();
+                if($userAccount->getUser()->getRole()=="ROLE_USER" ||$userAccount->getUser()->getRole()=="ROLE_BARMAN"){
+                    $total+=$orderLine->getOrderLinePriceUser();
+                }
+
+                else{
+                    $total+=$orderLine->getOrderLinePriceAdmin();
+                }
+
 
             } else
                 return $form;
@@ -298,10 +321,9 @@ class OrderController extends Controller
         return $order;
     }
 
-
-
     /**
      * This URL aims to create an order by an admin in cash (no transaction registered) (admin only).
+     *
      *
      * @ApiDoc(
      *  resource=true,
@@ -314,7 +336,6 @@ class OrderController extends Controller
      *  },
      *  section="orders",
      *  description="Create an order by an admin in cash (admin only)",
-     *  input={"class"=OrderCashType::class, "name"=""},
      *  output={"class"="AppBundle\Entity\Order",
      *           "groups" ={"order"}}
      *
@@ -337,7 +358,8 @@ class OrderController extends Controller
 
         $bankAccountID =  $repository->getBankAccount();
         $bankAccount = $repository->find($bankAccountID);
-        $order->setRegisterAccount($bankAccount);
+        $order->setRegisterAccount($registerAccount);
+        $order->setCustomerUserAccount($bankAccount);
 
 
         foreach ($request->request->get("orderlines") as $value) {

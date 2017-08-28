@@ -11,7 +11,7 @@ AppBundle\Entity\UserAccount:
             groups: ['userAccount','user', 'account']
 
         user:
-            groups: ['userAccount']
+            groups: ['userAccount','order']
 
         orders:
             groups: ['userAccount']

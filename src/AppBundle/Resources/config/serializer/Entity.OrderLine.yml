@@ -14,8 +14,17 @@ AppBundle\Entity\OrderLine:
             groups: ['order','orderLine']
 
     virtual_properties:
-        getOrderLinePrice:
+        getOrderLinePriceAdmin:
             groups: ['order','orderLine']
+
+        getOrderLinePriceUser:
+                  groups: ['order','orderLine']
+
+        getOrderLinePriceFinal:
+                  groups: ['order','orderLine']
+
+
+
 
 
 

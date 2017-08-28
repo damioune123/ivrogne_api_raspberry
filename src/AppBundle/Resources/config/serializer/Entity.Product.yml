@@ -15,11 +15,17 @@ AppBundle\Entity\Product:
         productCategory:
             groups:  ['product']
 
-        productPromotion:
+        productPromotionAdmin:
+              groups:  ['product','productCategory','order','orderline']
+
+        productPromotionUser:
               groups:  ['product','productCategory','order','orderline']
 
     virtual_properties:
-        getPriceWithPromotion:
+        getPriceWithPromotionAdmin:
              groups:  ['product','productCategory','order','orderline']
+
+        getPriceWithPromotionUser:
+                     groups:  ['product','productCategory','order','orderline']
 
 

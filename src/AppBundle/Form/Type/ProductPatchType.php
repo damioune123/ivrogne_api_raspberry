@@ -12,7 +12,9 @@ class ProductPatchType extends AbstractType
         $builder->add('name');
         $builder->add('productCategory');
         $builder->add('barcode');
-        $builder->add('productPromotion');
+        $builder->add('productPromotionAdmin');
+        $builder->add('productPromotionUser');
+        $builder->add('amountAvailableInStock');
     }
 
     public function configureOptions(OptionsResolver $resolver)
