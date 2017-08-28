@@ -4,15 +4,22 @@ AppBundle\Entity\Product:
         id:
             groups: ['product','productCategory', 'order','orderLine','userAccount']
         name:
-            groups: ['product']
+            groups: ['product','order', 'orderline','productCategory']
 
         barcode:
-            groups: ['product']
+            groups: ['product','order','orderline']
 
         amountAvailableInStock:
             groups: ['product']
 
         productCategory:
             groups:  ['product']
+
+        productPromotion:
+              groups:  ['product','productCategory','order','orderline']
+
+    virtual_properties:
+        getPriceWithPromotion:
+             groups:  ['product','productCategory','order','orderline']
 
 

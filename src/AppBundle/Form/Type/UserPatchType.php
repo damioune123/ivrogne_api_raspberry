@@ -15,10 +15,9 @@ class UserPatchType extends AbstractType
         $builder->add('plainPassword');
         $builder->add('godfather');
         $builder->add('email');
-        $builder->add('role');
-        $builder->add('promotion');
         $builder->add('moneyLimit');
         $builder->add('rfidCard');
+        $builder->add('isRemoved');
 
     }
 

@@ -32,10 +32,10 @@ AppBundle\Entity\User:
         userAccounts:
             groups: ['user']
 
-        moneyLimit:
-            groups: ['user','userLimited']
-
         plainPassword:
             exclude: true
+
+        isRemoved:
+            groups: ['user','userLimited']
 
 

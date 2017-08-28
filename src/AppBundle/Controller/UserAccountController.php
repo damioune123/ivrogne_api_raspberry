@@ -11,6 +11,7 @@ use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les anno
 use AppBundle\Entity\UserAccount;
 use AppBundle\Form\Type\UserAccountType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
 
 
 
@@ -43,14 +44,15 @@ class UserAccountController extends Controller
         $userAccount = $this->get('doctrine.orm.entity_manager')
             ->getRepository('AppBundle:UserAccount')
             ->find($request->get('user_account_id'));
+        if (empty($userAccount)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'User-account not found'], Response::HTTP_NOT_FOUND);
+        }
         /* @var $userAccount UserAccount */
         if($this->getUser()!= $userAccount->getUser()){
             return \FOS\RestBundle\View\View::create(['message' => 'Unauthorized to get someone else info'], Response::HTTP_UNAUTHORIZED);
         }
 
-        if (empty($userAccount)) {
-            return \FOS\RestBundle\View\View::create(['message' => 'User-account not found'], Response::HTTP_NOT_FOUND);
-        }
+
         return $userAccount;
     }
     /**
@@ -189,12 +191,70 @@ class UserAccountController extends Controller
         $form->submit($request->request->all());
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $userAccount->setMoneyBalance(0.0);
             $em->persist($userAccount);
             $em->flush();
             return $userAccount;
         } else
             return $form;
+    }
+    /**
+     *  This URL aims to change a nefew's userAccount moneyLimit. This will change the admin's moneyAllowed as well.
+     *  The id is the nefew useraccount id.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="user-accounts",
+     *  description="Change nefew Money limit (only admin)",
+     *  output={"class"="AppBundle\Entity\UserAccount",
+     *           "groups" ={"userAccount"}}
+     *
+     * )
+     * @QueryParam(name="money_limit", requirements="\d+", description="New nefew money limit")
+     * @Rest\View(serializerGroups={"userAccount"})
+     * @Rest\Patch("/admin/users-acccounts/money-limit/{nefew_account_id}")
+    */
+    public function changeMoneyLimitNefewAction(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        /* @var $userAccount UserAccount */
+        $userAccount = $em
+            ->getRepository('AppBundle:UserAccount')
+            ->find($request->get('nefew_account_id'));
+        $oldMoneyLimit = $userAccount->getMoneyLimit();
+        if(empty($userAccount)){
+            return \FOS\RestBundle\View\View::create(['message' => 'nefew account not found'], Response::HTTP_NOT_FOUND);
+        }
+        if($this->getUser()!=$userAccount->getUser()->getGodfather()){
+            return \FOS\RestBundle\View\View::create(['message' => 'Not a nefew of current admin'], Response::HTTP_UNAUTHORIZED);
+        }
+        $newMoneyLimit =intval($request->get('money_limit'));
+        if($userAccount->getMoneyBalance()<0.0 and $newMoneyLimit< abs($userAccount->getMoneyBalance())){
+            return \FOS\RestBundle\View\View::create(['message' => 'The nefew has a money balance under the money limit'], Response::HTTP_UNAUTHORIZED);
+        }
+        if($newMoneyLimit <=0){
+            return \FOS\RestBundle\View\View::create(['message' => 'The money limit has to be a positive integer'], Response::HTTP_UNAUTHORIZED);
+
+        }
+        /* @var $adminAccount UserAccount */
+        $adminAccount =$this->getUser()->getUserAccounts()[0];
+        if($newMoneyLimit> $adminAccount->getCreditToAllowMax()-$adminAccount->getCreditAllowed())
+        {
+            return \FOS\RestBundle\View\View::create(['message' => 'The money limit is too high. Max alloed :'.$adminAccount->getCreditToAllowMax().' / already allowed : '.$adminAccount->getCreditAllowed()], Response::HTTP_UNAUTHORIZED);
+        }
+        $adminAccount->setCreditAllowed($adminAccount->getCreditAllowed()+$newMoneyLimit-$oldMoneyLimit);
+        $userAccount->setMoneyLimit($newMoneyLimit);
+        $em->merge($userAccount);
+        $em->merge($adminAccount);
+        $em->flush();
+        $tab = [$userAccount, $adminAccount];
+        return $tab;
     }
 
 }

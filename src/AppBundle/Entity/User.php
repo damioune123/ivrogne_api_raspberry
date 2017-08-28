@@ -119,12 +119,15 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity="Promotion",  cascade={"persist"})
      */
     private $promotion;
+
+
     /**
-     * @var float
+     * @var boolean
      *
-     * @ORM\Column(name="money_limit", type="float")
+     * @ORM\Column(name="is_removed", type="boolean")
      */
-    private $moneyLimit;
+    private $isRemoved = false;
+
 
 
 
@@ -137,7 +140,6 @@ class User implements UserInterface
         $this->userAccounts  = new ArrayCollection();
         $this->authTokens  = new ArrayCollection();
         $this->nefews  = new ArrayCollection();
-        $this->moneyLimit  = 0.0;
     }
 
 
@@ -401,21 +403,24 @@ class User implements UserInterface
         $this->promotion = $promotion;
     }
 
+
     /**
-     * @return float
+     * @return int
      */
-    public function getMoneyLimit()
+    public function getIsRemoved()
     {
-        return $this->moneyLimit;
+        return $this->isRemoved;
     }
 
     /**
-     * @param float $moneyLimit
+     * @param int $isRemoved
      */
-    public function setMoneyLimit($moneyLimit)
+    public function setIsRemoved($isRemoved)
     {
-        $this->moneyLimit = $moneyLimit;
+        $this->isRemoved = $isRemoved;
     }
+
+
 
 
 

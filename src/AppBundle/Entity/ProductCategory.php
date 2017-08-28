@@ -42,6 +42,12 @@ class ProductCategory
      * @ORM\OneToMany(targetEntity="Product", mappedBy="productCategory")
      */
     private $products;
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_removed", type="boolean")
+     */
+    private $isRemoved = false;
 
     /**
      * ProductCategory constructor.
@@ -119,6 +125,23 @@ class ProductCategory
     {
         $this->products = $products;
     }
+
+    /**
+     * @return bool
+     */
+    public function isIsRemoved()
+    {
+        return $this->isRemoved;
+    }
+
+    /**
+     * @param bool $isRemoved
+     */
+    public function setIsRemoved($isRemoved)
+    {
+        $this->isRemoved = $isRemoved;
+    }
+
 
     
 }

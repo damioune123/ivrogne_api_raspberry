@@ -45,12 +45,18 @@ class Product
     private $amountAvailableInStock;
 
     /**
-     * @var Promotion
+     * @var float
      *
-     * @ORM\JoinColumn(name="promotion", referencedColumnName="id",onDelete="SET NULL", nullable=true)
-     * @ORM\ManyToOne(targetEntity="Promotion",  cascade={"persist"})
+     * @ORM\Column(name="product_promotion", type="float")
      */
-     private $promotion;
+    private $productPromotion;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_removed", type="boolean")
+     */
+    private $isRemoved = false;
 
 
 
@@ -134,19 +140,45 @@ class Product
         $this->amountAvailableInStock = $amountAvailableInStock;
     }
     /**
-     * @return Promotion
+     * @return float
      */
-    public function getPromotion()
+    public function getProductPromotion()
     {
-        return $this->promotion;
+        return $this->productPromotion;
     }
 
     /**
-     * @param Promotion $promotion
+     * @param float $productPromotion
      */
-    public function setPromotion($promotion)
+    public function setProductPromotion($productPromotion)
     {
-        $this->promotion = $promotion;
+        $this->productPromotion = $productPromotion;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIsRemoved()
+    {
+        return $this->isRemoved;
+    }
+
+    /**
+     * @param bool $isRemoved
+     */
+    public function setIsRemoved($isRemoved)
+    {
+        $this->isRemoved = $isRemoved;
+    }
+
+
+    /**
+     * @return float
+     */
+
+    public function getPriceWithPromotion(){
+        $raw_price= $this->getProductCategory()->getPrice();
+        return ($raw_price/100)*((100-$this->productPromotion)*100)/100;
     }
     
     

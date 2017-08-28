@@ -11,6 +11,7 @@ use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les anno
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategory;
 use AppBundle\Form\Type\ProductType;
+use AppBundle\Form\Type\ProductPatchType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 
@@ -126,7 +127,7 @@ class ProductController extends Controller
      *  },
      *  section="products",
      *  description="Put a product (admin only)",
-     *  input={"class"=ProductType::class, "name"=""},
+     *  input={"class"=ProductPatchType::class, "name"=""},
      *  output={"class"="AppBundle\Entity\product",
      *           "groups" ={"product"}}
      *
@@ -144,7 +145,7 @@ class ProductController extends Controller
         if (empty($product)) {
             return \FOS\RestBundle\View\View::create(['message' => 'Product not found'], Response::HTTP_NOT_FOUND);
         }
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductPatchType::class, $product);
         $form->submit($request->request->all(), $clearMissing);
         if ($form->isValid()) {
             $em->merge($product);
@@ -169,7 +170,7 @@ class ProductController extends Controller
      *  },
      *  section="products",
      *  description="Patch a product (admin only)",
-     *  input={"class"=ProductType::class, "name"=""},
+     *  input={"class"=ProductPatchType::class, "name"=""},
      *  output={"class"="AppBundle\Entity\product",
      *           "groups" ={"product"}}
      *
@@ -209,9 +210,19 @@ class ProductController extends Controller
         $product = $em->getRepository('AppBundle:Product')
             ->findOneByBarcode($request->get('barcode'));
 
+        /* @var $product Product */
         if ($product) {
-            $em->remove($product);
+            if($product->isIsRemoved()){
+                return \FOS\RestBundle\View\View::create(['message' => 'Product already deleted'], Response::HTTP_UNAUTHORIZEDD);
+
+            }
+            $product->setIsRemoved(true);
+            $em->merge($product);
             $em->flush();
+        }
+        else{
+            return \FOS\RestBundle\View\View::create(['message' => 'Product not found'], Response::HTTP_NOT_FOUND);
+
         }
     }
 }

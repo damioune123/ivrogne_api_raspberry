@@ -174,11 +174,9 @@ class OrderController extends Controller
         $order->setIsPaidCash(false);
 
         $content=json_decode($request->getContent());
-        /*@var $userAccount UserAccount */
+        /* @var $userAccount UserAccount */
         $userAccount = $repository->find($content->{"order"}->{"customerUserAccount"});
-        $balance = $userAccount->getMoneyBalance();
         $promotion =$userAccount->getUser()->getPromotion()->getUserPromotion();
-        $moneyLimit = $userAccount->getUser()->getMoneyLimit();
         $total=0.0;
         foreach ($request->request->get("orderlines") as $value) {
             $orderLine = new OrderLine();
@@ -191,12 +189,11 @@ class OrderController extends Controller
                 return $form;
         }
         $total-=$total*($promotion/100);
-        if($userAccount->getUser()->getRole()=="ROLE_USER"){
-            if($total> $balance-$moneyLimit){
-                $json = array("INSUFFICIENT_CASH"=> true, "order_total"=>$total, "balance"=>$balance, "money_limit"=>$moneyLimit);
-                return $json;
-            }
+        if($total> $userAccount->getAvailableBalance()){
+            $json = array("INSUFFICIENT_CASH"=> true, "order_total"=>$total, "balance"=>$userAccount->getMoneyBalance(), "available_balance"=>$userAccount->getAvailableBalance());
+            return $json;
         }
+
         foreach ($request->request->get("orderlines") as $value) {
             $orderLine = new OrderLine();
             $form = $this->createForm(OrderLineTransactionType::class, $orderLine, ['validation_groups' => ['Default', 'New']]);
@@ -258,6 +255,27 @@ class OrderController extends Controller
         /*@var $registerAccount UserAccount */
         $order->setIsOrderedByCustomer(false);
         $order->setIsPaidCash(false);
+        $content=json_decode($request->getContent());
+
+        /* @var $userAccount UserAccount */
+        $userAccount = $repository->find($content->{"order"}->{"customerUserAccount"});
+        $promotion =$userAccount->getUser()->getPromotion()->getUserPromotion();
+        $total=0.0;
+        foreach ($request->request->get("orderlines") as $value) {
+            $orderLine = new OrderLine();
+            $form = $this->createForm(OrderLineTransactionType::class, $orderLine, ['validation_groups' => ['Default', 'New']]);
+            $form->submit($value);
+            if ($form->isValid()) {
+                $total+=$orderLine->getOrderLinePrice();
+
+            } else
+                return $form;
+        }
+        $total-=$total*($promotion/100);
+        if($total> $userAccount->getAvailableBalance()){
+            $json = array("INSUFFICIENT_CASH"=> true, "order_total"=>$total, "balance"=>$userAccount->getMoneyBalance(), "available_balance"=>$userAccount->getAvailableBalance());
+            return $json;
+        }
 
         foreach ($request->request->get("orderlines") as $value) {
             $orderLine = new OrderLine();
@@ -308,10 +326,6 @@ class OrderController extends Controller
     { 
         $em = $this->getDoctrine()->getManager();
         $order = new Order();
-        $form = $this->createForm(OrderCashType::class, $order, ['validation_groups' => ['isNotPaidCash']]);
-        $form->submit($request->request->get("order")); // Validation des données
-        if(!$form->isValid())
-            return $form;
 
         /*@var $registerAccount UserAccount */
         $order->setIsOrderedByCustomer(false);
@@ -320,7 +334,11 @@ class OrderController extends Controller
         $registerAccountID = $repository->getRegisterAccount();
         /* @var $registerAccount UserAccount */
         $registerAccount = $repository->find($registerAccountID);
-        $order->setRegisterAccount($registerAccount);
+
+        $bankAccountID =  $repository->getBankAccount();
+        $bankAccount = $repository->find($bankAccountID);
+        $order->setRegisterAccount($bankAccount);
+
 
         foreach ($request->request->get("orderlines") as $value) {
             $orderLine = new OrderLine();

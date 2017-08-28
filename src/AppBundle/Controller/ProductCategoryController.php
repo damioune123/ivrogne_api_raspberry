@@ -216,9 +216,20 @@ class ProductCategoryController extends Controller
         $productCategory = $em->getRepository('AppBundle:ProductCategory')
             ->find($request->get('id'));
 
+
+        /* @var $productCategory ProductCategory */
         if ($productCategory) {
-            $em->remove($productCategory);
+            if($productCategory->isIsRemoved()){
+                return \FOS\RestBundle\View\View::create(['message' => 'Product Category already deleted'], Response::HTTP_UNAUTHORIZEDD);
+
+            }
+            $productCategory->setIsRemoved(true);
+            $em->merge($productCategory);
             $em->flush();
+        }
+        else{
+            return \FOS\RestBundle\View\View::create(['message' => 'Product Category not found'], Response::HTTP_NOT_FOUND);
+
         }
     }
 

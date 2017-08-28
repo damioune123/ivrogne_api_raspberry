@@ -132,7 +132,7 @@ class OrderLine
 
     public function getOrderLinePrice()
     {
-        return floatval($this->quantity * $this->product->getProductCategory()->getPrice());
+        return floatval($this->quantity * $this->product->getPriceWithPromotion());
     }
 
 

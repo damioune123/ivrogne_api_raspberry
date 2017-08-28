@@ -43,10 +43,14 @@ class MoneyFlowController extends Controller
      */
     public function postMoneyFlowAction(Request $request)
     {
+        /* @var $moneyFloz MoneyFlow */
         $moneyFlow = new MoneyFlow();
         $form = $this->createForm(MoneyFlowType::class, $moneyFlow);
         $form->submit($request->request->all());
         if ($form->isValid()) {
+            if($moneyFlow->getDebitUserAccount()->getAvailableBalance()<$moneyFlow->getValue()){
+                return \FOS\RestBundle\View\View::create(['message' => 'Insufficient money available'], Response::HTTP_UNAUTHORIZED);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($moneyFlow);
             $em->flush();

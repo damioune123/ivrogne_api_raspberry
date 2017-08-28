@@ -5,10 +5,10 @@ AppBundle\Entity\UserAccount:
             groups: ['user','moneyFlow','auth-token','userAccount', 'account','userLimited']
 
         type:
-            groups: ['userAccount',  'account']
+            groups: ['userAccount', 'user', 'account']
 
         moneyBalance:
-            groups: ['userAccount', 'account']
+            groups: ['userAccount','user', 'account']
 
         user:
             groups: ['userAccount']
@@ -24,4 +24,19 @@ AppBundle\Entity\UserAccount:
 
         negativeMoneyFlows:
             groups: ['userAccount']
+
+        moneyLimit:
+                groups: ['user','account','userAccount']
+
+        creditAllowed:
+              groups: ['user','account','userAccount']
+
+        creditToAllowMax:
+              groups: ['user','account','userAccount']
+
+    virtual_properties:
+
+        getAvailableBalance:
+            groups: ['user','account','userAccount']
+
 

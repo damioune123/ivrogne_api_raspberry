@@ -54,10 +54,14 @@ class UserController extends Controller
             $encoded = $encoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($encoded);
             $user->setRole('ROLE_USER');
-            $user->setMoneyLimit(0.0);
             $user->setPromotion($promotion);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
+            $em->flush();
+            $userAccount = new UserAccount();
+            $userAccount->setUser($user);
+            $userAccount->setType("somebody");
+            $em->persist($userAccount);
             $em->flush();
             $user->setPlainPassword(null);
             $user->setPassword(null);
@@ -132,7 +136,7 @@ class UserController extends Controller
      *  },
      *  section="users",
      *  description="Get a user by id.(Only own info)",
-     *  input={"class"=UserPatchType::class, "name"=""},
+     *  input={"class"=UserPatchLimitedType::class, "name"=""},
      *  output={"class"="AppBundle\Entity\User",
      *           "groups" ={"user"}}
      *
@@ -159,7 +163,7 @@ class UserController extends Controller
      *         }
      *  },
      *  section="users",
-     *  input={"class"=UserPatchType::class, "name"=""},
+     *  input={"class"=UserPatchLimitedType::class, "name"=""},
      *  description="Patch a user by id.(Only own info)",
      *  output={"class"="AppBundle\Entity\User",
      *           "groups" ={"user"}}
@@ -315,8 +319,17 @@ class UserController extends Controller
             else if($user->getRole()=="ROLE_SUPER_ADMIN" ||$user->getRole()=="ROLE_BARMAN"){
                 return \FOS\RestBundle\View\View::create(['message' => 'SUPER ADMIN/ BARMAN cannot be deleted'], Response::HTTP_UNAUTHORIZED);
             }
-            $em->remove($user);
+            if($user->getIsRemoved()){
+                return \FOS\RestBundle\View\View::create(['message' => 'USER already deleted'], Response::HTTP_UNAUTHORIZED);
+
+            }
+            $user->setIsRemoved(true);
+            $em->merge($user);
             $em->flush();
+        }
+        else{
+            return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+
         }
     }
 
@@ -371,9 +384,6 @@ class UserController extends Controller
             $form = $this->createForm(UserPatchType::class, $user, $options);
         }
 
-
-
-
         $form->submit($request->request->all(), $clearMissing);
 
         if ($user->getPlainPassword() !== null) {
@@ -408,7 +418,7 @@ class UserController extends Controller
      *  },
      *  section="users",
      *  input={"class"=UserPatchType::class, "name"=""},
-     *  description="Patch anoter user by id (only super-admin)",
+     *  description="Patch another user by id (only super-admin)",
      *  output={"class"="AppBundle\Entity\User",
      *           "groups" ={"user"}}
      *
@@ -419,6 +429,103 @@ class UserController extends Controller
     public function patchUserBySuperAdminAction(Request $request, $restrictedAccess = false)
     {
         return $this->updateUserBySuperAdminAction($request, false, $restrictedAccess);
+    }
+
+    /**
+     * This URL aims to allow a super admin to promote a user to admin.(only super-admin). This changes his role, his prmotion and set his godfather to null.w&é
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="users",
+     *  description="Replace another user's information (only super-admin)",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
+     * @Rest\View(serializerGroups={"user"})
+     * @Rest\Patch("/super-admin/users/promote-admin/{id}")
+     */
+    public function promoteUserBySuperAdminAction(Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $user = $em
+            ->getRepository('AppBundle:User')
+            ->find($request->get('id')); // L'identifiant en tant que paramètre n'est plus nécessaire
+        /* @var $user User */
+        if (empty($user)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+        }
+        if($user->getRole()=="ROLE_ADMIN" or $user->getRole()=="ROLE_BARMAN" or $user->getRole()=="ROLE_SUPER_ADMIN"){
+            return \FOS\RestBundle\View\View::create(['message' => 'User already admin'], Response::HTTP_UNAUTHORIZED);
+        }
+        $promotion=$em->getRepository('AppBundle:Promotion')
+            ->findByPromotionName("admin")[0];
+        $user->setGodfather(null);
+        $user->setRole("ROLE_ADMIN");
+        $user->setPromotion($promotion);
+        /* @var $userAccount UserAccount */
+        $userAccount = $em
+            ->getRepository('AppBundle:UserAccount')
+            ->findOneByUser($user->getId()); // L'identifiant en tant que paramètre n'est plus nécessaire
+        $userAccount->setMoneyLimit(0.0);
+        $userAccount->setCreditToAllowMax(200.0);
+        $userAccount->setCreditAllowed(0.0);
+        $em->merge($userAccount);
+        $em->merge($user);
+        $em->flush();
+        return $user;
+    }
+
+    /**
+     * This URL aims to allow an admin to make a user as his nefew.(only admin)
+     * The id param is the nefez user id.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="users",
+     *
+     *  description="Make a user as a nefew by id (only super-admin)",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
+     * @Rest\View(serializerGroups={"user"})
+     * @Rest\Patch("/admin/users/set-nefew/{id}")
+     */
+    public function setNefewAction(Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $user = $em
+            ->getRepository('AppBundle:User')
+            ->find($request->get('id')); // L'identifiant en tant que paramètre n'est plus nécessaire
+        /* @var $user User */
+        if (empty($user)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+        }
+        if($user->getRole()=="ROLE_ADMIN" or $user->getRole()=="ROLE_BARMAN" or $user->getRole()=="ROLE_SUPER_ADMIN"){
+            return \FOS\RestBundle\View\View::create(['message' => 'User is admin, cannot be a nefew'], Response::HTTP_UNAUTHORIZED);
+        }
+        if(!empty($user->getGodfather())){
+            return \FOS\RestBundle\View\View::create(['message' => 'User already has a godfather'], Response::HTTP_UNAUTHORIZED);
+        }
+        $user->setGodfather($this->getUser());
+        $em->merge($user);
+        $em->flush();
+        return $user;
     }
 
 }

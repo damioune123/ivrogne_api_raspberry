@@ -10,7 +10,6 @@ class UserAccountType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('type');
-        $builder->add('moneyBalance');
         $builder->add('user');
     }
 

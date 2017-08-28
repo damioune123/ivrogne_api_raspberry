@@ -38,7 +38,7 @@ class UserAccount
      * @ORM\Column(name="money_balance", type="float")
      *
      */
-    private $moneyBalance;
+    private $moneyBalance =0.0;
 
     /**
      * @var User
@@ -75,6 +75,26 @@ class UserAccount
      * @ORM\OneToMany(targetEntity="MoneyFlow", mappedBy="creditUserAccount")
      */
     private $negativeMoneyFlows;
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="money_limit", type="float")
+     */
+    private $moneyLimit = 0.0;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="credit_to_allow_max", type="float")
+     */
+    private $creditToAllowMax = 200.0;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="credit_allowed", type="float")
+     */
+    private $creditAllowed = 0.0;
 
     /**
      * UserAccount constructor.
@@ -227,11 +247,71 @@ class UserAccount
         $this->registerOrders = $registerOrders;
     }
 
+    /**
+     * @return float
+     */
+    public function getCreditToAllowMax()
+    {
+        return $this->creditToAllowMax;
+    }
+
+    /**
+     * @param float $creditToAllowMax
+     */
+    public function setCreditToAllowMax($creditToAllowMax)
+    {
+        $this->creditToAllowMax = $creditToAllowMax;
+    }
+
+    /**
+     * @return float
+     */
+    public function getCreditAllowed()
+    {
+        return $this->creditAllowed;
+    }
+
+    /**
+     * @param float $creditAllowed
+     */
+    public function setCreditAllowed($creditAllowed)
+    {
+        $this->creditAllowed = $creditAllowed;
+    }
+    /**
+     * @return float
+     */
+    public function getMoneyLimit()
+    {
+        return $this->moneyLimit;
+    }
+
+    /**
+     * @param float $moneyLimit
+     */
+    public function setMoneyLimit($moneyLimit)
+    {
+        $this->moneyLimit = $moneyLimit;
+    }
+    /**
+     * @return float
+     */
+    public function getAvailableBalance()
+    {
+        if ($this->getUser()->getRole() == "ROLE_ADMIN" or $this->getUser()->getRole() == "ROLE_SUPER_ADMIN") {
+            return $this->getMoneyBalance() + ($this->getCreditToAllowMax() - $this->getCreditAllowed());
+        } else if ($this->getUser()->getRole() == "ROLE_BARMAN")
+        {
+            return 0.0;
+        }
+        else if($this->getUser()->getRole()=="ROLE_USER")
+        {
+            return $this->getMoneyBalance()+$this->getMoneyLimit();
+        }
+
+    }
 
 
-    
 
-
-    
 }
 

@@ -5,14 +5,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductType extends AbstractType
+class ProductPatchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name');
         $builder->add('productCategory');
         $builder->add('barcode');
-
+        $builder->add('productPromotion');
     }
 
     public function configureOptions(OptionsResolver $resolver)
