@@ -11,6 +11,8 @@ use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les anno
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserAccount;
 use AppBundle\Form\Type\UserType;
+use AppBundle\Form\Type\UserPatchType;
+use AppBundle\Form\Type\UserPatchLimitedType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 
@@ -57,6 +59,8 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+            $user->setPlainPassword(null);
+            $user->setPassword(null);
             return $user;
         } else
             return $form;
@@ -67,6 +71,13 @@ class UserController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="users",
      *  description="Get a user by id (only own info)",
      *  output={"class"="AppBundle\Entity\User",
@@ -86,6 +97,13 @@ class UserController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="users",
      *  description="Delete a user by id.(Only own info)",
      *  output={"class"="AppBundle\Entity\User",
@@ -105,9 +123,16 @@ class UserController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="users",
      *  description="Get a user by id.(Only own info)",
-     *  input={"class"=UserType::class, "name"=""},
+     *  input={"class"=UserPatchType::class, "name"=""},
      *  output={"class"="AppBundle\Entity\User",
      *           "groups" ={"user"}}
      *
@@ -126,8 +151,15 @@ class UserController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="users",
-     *  input={"class"=UserType::class, "name"=""},
+     *  input={"class"=UserPatchType::class, "name"=""},
      *  description="Patch a user by id.(Only own info)",
      *  output={"class"="AppBundle\Entity\User",
      *           "groups" ={"user"}}
@@ -146,6 +178,13 @@ class UserController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="users",
      *  description="Get users info - FULL (Only admin).",
      *  output={"class"="AppBundle\Entity\User",
@@ -171,6 +210,13 @@ class UserController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="users",
      *  description="Get users info - Light information. ALL Access",
      *  output={"class"="AppBundle\Entity\User",
@@ -195,6 +241,13 @@ class UserController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="users",
      *  description="Get a user by id (only admin)",
      *  output={"class"="AppBundle\Entity\User",
@@ -229,6 +282,13 @@ class UserController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="users",
      *  description="Delete another user by id (only admin)",
      *  output={"class"="AppBundle\Entity\User",
@@ -266,8 +326,16 @@ class UserController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="users",
      *  description="Replace another user's information (only super-admin)",
+     *  input={"class"=UserPatchType::class, "name"=""},
      *  output={"class"="AppBundle\Entity\User",
      *           "groups" ={"user"}}
      *
@@ -286,18 +354,24 @@ class UserController extends Controller
         if (empty($user)) {
             return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
         }
-        if ($restrictedAccess){
-            if($this->getUser()!= $user){
-                return \FOS\RestBundle\View\View::create(['message' => 'Unauthorized to update/put someone else info'], Response::HTTP_UNAUTHORIZED);
-            }
-        }
         if ($clearMissing) { // Si une mise à jour complète, le mot de passe doit être validé
             $options = ['validation_groups'=>['Default', 'FullUpdate']];
         } else {
             $options = []; // Le groupe de validation par défaut de Symfony est Default
         }
+        if ($restrictedAccess){
 
-        $form = $this->createForm(UserType::class, $user, $options);
+
+            if($this->getUser()!= $user){
+                return \FOS\RestBundle\View\View::create(['message' => 'Unauthorized to update/put someone else info'], Response::HTTP_UNAUTHORIZED);
+            }
+            $form = $this->createForm(UserPatchLimitedType::class, $user, $options);
+        }
+        else{
+            $form = $this->createForm(UserPatchType::class, $user, $options);
+        }
+
+
 
 
         $form->submit($request->request->all(), $clearMissing);
@@ -325,8 +399,15 @@ class UserController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="users",
-     *  input={"class"=UserType::class, "name"=""},
+     *  input={"class"=UserPatchType::class, "name"=""},
      *  description="Patch anoter user by id (only super-admin)",
      *  output={"class"="AppBundle\Entity\User",
      *           "groups" ={"user"}}

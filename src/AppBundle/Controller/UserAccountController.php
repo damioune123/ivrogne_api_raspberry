@@ -22,6 +22,13 @@ class UserAccountController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="user-accounts",
      *  description="Get user account info by id.(Only own info)",
      *  output={"class"="AppBundle\Entity\UserAccount",
@@ -52,6 +59,13 @@ class UserAccountController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="user-accounts",
      *  description="Get user account info by id.(Only admin)",
      *  output={"class"="AppBundle\Entity\UserAccount",
@@ -80,6 +94,13 @@ class UserAccountController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="user-accounts",
      *  description="Get lost account info.(Only Admin)",
      *  output={"class"="AppBundle\Entity\UserAccount",
@@ -108,6 +129,13 @@ class UserAccountController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="user-accounts",
      *  description="Get spending account info.(Only Admin)",
      *  output={"class"="AppBundle\Entity\UserAccount",
@@ -137,6 +165,13 @@ class UserAccountController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="user-accounts",
      *  description="Create a user account.",
      *  input={"class"=UserAccountType::class, "name"=""},

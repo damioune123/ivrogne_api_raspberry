@@ -11,6 +11,6 @@ AppBundle\Entity\ProductCategory:
             groups: ['productCategory','product']
 
         products:
-            groups: ['productCategory','product']
+            groups: ['productCategory']
 
 

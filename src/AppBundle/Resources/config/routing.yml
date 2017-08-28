@@ -9,6 +9,9 @@ auth-tokens:
 orders:
     type:     rest
     resource: AppBundle\Controller\OrderController
+order-lines:
+    type:     rest
+    resource: AppBundle\Controller\OrderLineController
 
 product-categories:
     type:     rest

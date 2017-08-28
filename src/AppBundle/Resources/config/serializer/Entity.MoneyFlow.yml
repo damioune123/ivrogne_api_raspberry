@@ -5,7 +5,7 @@ AppBundle\Entity\MoneyFlow:
             groups: ['moneyFlow','userAccount']
 
         value:
-            groups: ['moneyFlow'
+            groups: ['moneyFlow']
 
         debitUserAccount:
             groups: ['moneyFlow']
@@ -20,6 +20,7 @@ AppBundle\Entity\MoneyFlow:
             groups: ['moneyFlow']
         isCancelled:
             groups: ['userAccount']
+
     virtual_properties:
         getDebitUserDetails:
             groups: ['userAccount']

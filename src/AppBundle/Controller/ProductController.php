@@ -11,14 +11,32 @@ use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les anno
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategory;
 use AppBundle\Form\Type\ProductType;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+
 
 class ProductController extends Controller
 {
 
 
-    //ADMIN ONLY new Product creation ==>  seulement pour les barmans
-
     /**
+     * This URL aims to create a new product.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="products",
+     *  description="Create a product (admin only)",
+     *  input={"class"=ProductType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\product",
+     *           "groups" ={"product"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_CREATED,serializerGroups={"product"})
      * @Rest\Post("/admin/products")
      */
@@ -36,10 +54,26 @@ class ProductController extends Controller
             return $form;
     }
 
-    //ADMIN ONLY ==> récupérer toutes les produits
     /**
+     * This URL aims to get all products.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="products",
+     *  description="Get all products",
+     *  output={"class"="AppBundle\Entity\product",
+     *           "groups" ={"product"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"product"})
-     * @Rest\Get("/admin/products")
+     * @Rest\Get("/products")
      */
     public function getProductsAction(Request $request)
     {
@@ -51,8 +85,17 @@ class ProductController extends Controller
         return $products;
     }
 
-    //ADMIN ONLY ==> récupérer un produit
     /**
+     * This URL aims to get a product by id.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="products",
+     *  description="Get a product by id.",
+     *  output={"class"="AppBundle\Entity\product",
+     *           "groups" ={"product"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"product"})
      * @Rest\Get("/products/{id}")
      */
@@ -69,8 +112,25 @@ class ProductController extends Controller
         return $product;
     }
 
-    //admin only put d'un produit
     /**'
+     * This URL aims to replace a product's information (admin only).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="products",
+     *  description="Put a product (admin only)",
+     *  input={"class"=ProductType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\product",
+     *           "groups" ={"product"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"product"})
      * @Rest\Put("/admin/products/{id}")
      */
@@ -95,9 +155,25 @@ class ProductController extends Controller
         }
     }
 
-    //admin only => patcher un produit
-
     /**
+     *  This URL aims to patch a product's information (admin only).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="products",
+     *  description="Patch a product (admin only)",
+     *  input={"class"=ProductType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\product",
+     *           "groups" ={"product"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"product"})
      * @Rest\Patch("/admin/products/{id}")
      */
@@ -106,8 +182,24 @@ class ProductController extends Controller
         return $this->updateProductAction($request, false);
     }
 
-    //admin only ==> supprimer un produit
     /**
+     *  This URL aims to delete a product (admin only).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="products",
+     *  description="Delete a product (admin only)",
+     *  output={"class"="AppBundle\Entity\product",
+     *           "groups" ={"product"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT, serializerGroups={"product"})
      * @Rest\Delete("/admin/products/{barcode}")
      */

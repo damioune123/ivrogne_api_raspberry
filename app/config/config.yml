@@ -111,7 +111,34 @@ nelmio_cors:
             allow_headers: ['*']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'PATCH']
             max_age: 3600
-nelmio_api_doc: ~
+nelmio_api_doc:
+    sandbox:
+
+        enabled: true              # default is `true`, you can set this parameter to `false`
+                                      # to disable the sandbox
+
+        accept_type: application/json           # default is `~` (`null`), if set, the value is
+                                                  # automatically populated as the `Accept` header
+        body_format:
+            formats: [ json ]             # array of enabled body formats,
+                                                  # remove all elements to disable the selectbox
+            default_format: json                # default is `form`, determines whether to send
+                                                  # `x-www-form-urlencoded` data or json-encoded
+                                                  # data (by setting this parameter to `json`) in
+                                                  # sandbox requests
+
+        request_format:
+            formats:                            # default is `json` and `xml`,
+                json: application/json          # override to add custom formats or disable
+
+            method: accept_header    # default is `format_param`, alternately `accept_header`,
+                                      # decides how to request the response format
+
+            default_format: json    # default is `json`,
+                                      # default content format to request (see formats)
+
+        entity_to_choice: false     # default is `true`, if `false`, entity collection
+                                      # will not be mapped as choice
 doctrine_migrations:
     dir_name: "%kernel.root_dir%/DoctrineMigrations"
     namespace: Application\Migrations

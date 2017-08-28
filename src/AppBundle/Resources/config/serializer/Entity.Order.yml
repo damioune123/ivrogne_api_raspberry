@@ -21,6 +21,7 @@ AppBundle\Entity\Order:
 
         isCancelled:
             groups: ['order']
+
         isOrderedByCustomer:
             groups: ['order']
 

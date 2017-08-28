@@ -23,6 +23,13 @@ class ScriptController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="scripts",
      *  description="Call a script in the web/scripts directory (Only admin)"
      * )

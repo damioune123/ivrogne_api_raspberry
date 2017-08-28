@@ -1,5 +1,6 @@
 AppBundle\Entity\User:
-    exclusion_policy: NONE
+    exclusion_policy:
+
     properties:
         id:
             groups: ['user', 'userAccount', 'order', 'auth-token','moneyFlow', 'userLimited']
@@ -17,20 +18,24 @@ AppBundle\Entity\User:
             groups: ['user','userLimited']
 
         godfather:
-            groups: ['user','userLimited']
+            groups: ['user']
 
         nefews:
             groups: ['user']
 
         email:
-            groups: ['user',]
+            groups: ['user']
 
         role:
             groups: ['user','userLimited']
 
         userAccounts:
-            groups: ['user','userLimited']
+            groups: ['user']
 
         moneyLimit:
             groups: ['user','userLimited']
+
+        plainPassword:
+            exclude: true
+
 

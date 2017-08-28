@@ -4,10 +4,10 @@ AppBundle\Entity\Product:
         id:
             groups: ['product','productCategory', 'order','orderLine','userAccount']
         name:
-            groups: ['product',]
+            groups: ['product']
 
         barcode:
-            groups: ['product',]
+            groups: ['product']
 
         amountAvailableInStock:
             groups: ['product']

@@ -16,13 +16,30 @@ use AppBundle\Form\Type\OrderType;
 use AppBundle\Form\Type\OrderSelfType;
 use AppBundle\Form\Type\OrderCashType;
 use AppBundle\Form\Type\OrderLineTransactionType;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 
 class OrderController extends Controller
 {
-    //USER ONLY ==> récupérer ses proprers commandes
     /**
      *
+     * This URL aims to get all own orders.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="orders",
+     *  description="Get all own orders (own information)",
+     *  output={"class"="AppBundle\Entity\Order",
+     *           "groups" ={"order"}}
+     *
+     * )
      * TO DO : Pagers
      * @Rest\View(serializerGroups={"order"})
      * @Rest\Get("/orders")
@@ -43,8 +60,24 @@ class OrderController extends Controller
 
         return $orders;
     }
-    //USER ONLY ==> récupérer une de ses propres commandes
     /**
+     * This URL aims to get a single own order by id (own information).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="orders",
+     *  description="Get a single order by id (only own)",
+     *  output={"class"="AppBundle\Entity\Order",
+     *           "groups" ={"order"}}
+     * )
+     *
      * TO DO : Pagers
      * @Rest\View(serializerGroups={"order"})
      * @Rest\Get("/orders/{order_id}")
@@ -54,8 +87,23 @@ class OrderController extends Controller
        return $this->getOrderByadminAction($request, true);
     }
 
-    //admin only ==> récupérer une commande spécifique
     /**
+     * This URL aims to get a single own order by id (admin only).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="orders",
+     *  description="Get a single order by id (only admin)",
+     *  output={"class"="AppBundle\Entity\Order",
+     *           "groups" ={"order"}}
+     * )
      * @Rest\View(serializerGroups={"order"})
      * @Rest\Get("/admin/orders/{order_id}")
      */
@@ -85,6 +133,24 @@ class OrderController extends Controller
     }
 
     /**
+     * This URL aims to create an order by the client.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="orders",
+     *  description="Create an order by the client (self only)",
+     *  input={"class"=OrderSelfType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\Order",
+     *           "groups" ={"order"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_CREATED,serializerGroups={"order"})
      * @Rest\Post("/client-self-order")
      */
@@ -153,6 +219,24 @@ class OrderController extends Controller
     }
 
     /**
+     * This URL aims to create an order by an admin for someone else (admin only).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="orders",
+     *  description="Create an order by an admin for someone else (admin only)",
+     *  input={"class"=OrderType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\Order",
+     *           "groups" ={"order"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_CREATED,serializerGroups={"order"})
      * @Rest\Post("/admin/orders/order-someone-else")
      */
@@ -198,10 +282,25 @@ class OrderController extends Controller
 
 
 
-
-    //ADMIN ONLY new order creation ==>  seulement pour les barmans (paiement par cash)
-
     /**
+     * This URL aims to create an order by an admin in cash (no transaction registered) (admin only).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="orders",
+     *  description="Create an order by an admin in cash (admin only)",
+     *  input={"class"=OrderCashType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\Order",
+     *           "groups" ={"order"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_CREATED,serializerGroups={"order"})
      * @Rest\Post("/admin/orders/cash")
      */
@@ -245,9 +344,26 @@ class OrderController extends Controller
         return $order;
     }
 
-    //ADMIN ONLY ==> récupérer toutes les commandes en une fois
+
     /**
-     * TO DO : pagers
+     * This URL aims to get all orders (only admin).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="orders",
+     *  description="Get all orders (only admin)",
+     *  output={"class"="AppBundle\Entity\Order",
+     *           "groups" ={"order"}}
+     *
+     * )
+     * TO DO : pagers 
      * @Rest\View(serializerGroups={"order"})
      * @Rest\Get("/admin/orders")
      */
@@ -262,8 +378,25 @@ class OrderController extends Controller
     }
 
 
-    //admin only ==> supprimer une commande/ ne supprime pas vraiment créé un transfert équivalent dans l'autre sens
+
     /**
+     * This URL aims to delete an order by id (only admin). Both accounts (debit and credit) will be credited, the transaction zill not be deleted, but the inverse operation will be done.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="orders",
+     *  description="Delete an order by id (only admin)",
+     *  output={"class"="AppBundle\Entity\Order",
+     *           "groups" ={"order"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"moneyFlow"})
      * @Rest\Delete("/admin/orders/{id}")
      */

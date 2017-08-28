@@ -13,6 +13,8 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\Credentials;
 use JMS\Serializer\Annotation\Expose;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
 class AuthTokenController extends Controller
 {
     /**
@@ -27,6 +29,7 @@ class AuthTokenController extends Controller
      *           "groups" ={"auth-token"}}
      *
      * )
+     * @Route( defaults={"_format": "json"})
      * @Rest\View(statusCode=Response::HTTP_CREATED ,serializerGroups={"auth-token"})
      * @Rest\Post("/auth-tokens")
      *

@@ -5,7 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class UserPatchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -13,7 +13,12 @@ class UserType extends AbstractType
         $builder->add('lastname');
         $builder->add('username');
         $builder->add('plainPassword');
+        $builder->add('godfather');
         $builder->add('email');
+        $builder->add('role');
+        $builder->add('promotion');
+        $builder->add('moneyLimit');
+        $builder->add('rfidCard');
 
     }
 

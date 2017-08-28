@@ -12,14 +12,32 @@ use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les anno
 use AppBundle\Entity\UserAccount;
 use AppBundle\Entity\MoneyFlow;
 use AppBundle\Form\Type\MoneyFlowType;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+
 
 class MoneyFlowController extends Controller
 {
 
 
-    //ADMIN ONLY new moneyFlow creation ==>  seulement pour les barmans
-
     /**
+     * This URL aims to create a new monew flow (transaction betweeen a debit and credit account) (admin only).
+     *
+     * @ApiDoc(
+     * headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  resource=true,
+     *  section="money-flows",
+     *  description="Create a money flow (admin only)",
+     *  input={"class"=MoneyFlowType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\MoneyFlow",
+     *           "groups" ={"moneyFlow"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_CREATED,serializerGroups={"moneyFlow"})
      * @Rest\Post("/admin/money-flows")
      */
@@ -40,21 +58,23 @@ class MoneyFlowController extends Controller
 
 
     /**
-     * @Rest\View(serializerGroups={"moneyFlow"})
-     * @Rest\Get("/admin/money-flows")
-     */
-    public function getMoneyFlowsAction(Request $request)
-    {
-        $moneyFlows = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('AppBundle:MoneyFlow')
-            ->findAll();
-        /* @var $moneyFlows MoneyFlow[] */
-
-        return $moneyFlows;
-    }
-
-    //ADMIN ONLY ==> récupérer un moneyFlow
-    /**
+     * This URL aims to get a monew flow by id Get(transaction betweeen a debit and credit account) (admin only).
+     *
+     * @ApiDoc(
+     * headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  resource=true,
+     *  section="money-flows",
+     *  description="Get a money flow by id(admin only)",
+     *  output={"class"="AppBundle\Entity\MoneyFlow",
+     *           "groups" ={"moneyFlow"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"moneyFlow"})
      * @Rest\Get("/admin/money-flows/{id}")
      */
@@ -71,8 +91,25 @@ class MoneyFlowController extends Controller
         return $moneyFlow;
     }
 
-    //admin only ==> supprimer un Money-flow / ne supprime pas vraiment créé un transfert équivalent dans l'autre sens
     /**
+     *
+     * This URL aims to delete a monew flow by id Get(transaction betweeen a debit and credit account) (admin only).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="money-flows",
+     *  description="Delete a money flow by id(admin only)",
+     *  output={"class"="AppBundle\Entity\MoneyFlow",
+     *           "groups" ={"moneyFlow"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"moneyFlow"})
      * @Rest\Delete("/admin/money-flows/{id}")
      */

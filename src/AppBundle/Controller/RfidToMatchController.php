@@ -20,9 +20,16 @@ class RfidToMatchController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="rfid-to-match",
      *  description="Get last rfid to match with a user account",
-     * output={"class"="AppBundle\Entity\UserAccount",
+     * output={"class"="AppBundle\Entity\RfidToMatch",
      *           "groups" ={"rfid-to-match"}}
      * )
      * @Rest\View(statusCode=Response::HTTP_CREATED ,serializerGroups={"rfid-to-match"})

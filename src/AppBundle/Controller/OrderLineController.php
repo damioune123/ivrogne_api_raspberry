@@ -13,13 +13,31 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\Order;
 use AppBundle\Entity\OrderLine;
 use AppBundle\Form\Type\OrderLineType;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+
 
 class OrderLineController extends Controller
 {
 
 
-    //ADMIN ONLY ==> récupérer une orderLine
     /**
+     *  This URL aims to get a specific order-line (admin only).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="order-lines",
+     *  description="Get a single order line (admin only)",
+     *  output={"class"="AppBundle\Entity\OrderLine",
+     *           "groups" ={"orderLine"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"orderLine"})
      * @Rest\Get("/admin/order-lines/{id}")
      */

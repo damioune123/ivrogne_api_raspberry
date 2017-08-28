@@ -17,9 +17,26 @@ class ProductCategoryController extends Controller
 {
 
 
-    //ADMIN ONLY new ProductCategory creation ==>  seulement pour les barmans
 
     /**
+     * This URL aims to create a new product category (admin only).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="product-categories",
+     *  description="Create a product category (admin only)",
+     *  input={"class"=ProductCategoryType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\ProductCategory",
+     *           "groups" ={"productCategory"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_CREATED,serializerGroups={"productCategory"})
      * @Rest\Post("/admin/product-categories")
      */
@@ -37,8 +54,24 @@ class ProductCategoryController extends Controller
             return $form;
     }
 
-    //ADMIN ONLY ==> récupérer toutes les catégories de produits
     /**
+     * This URL aims to get all product categories.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="product-categories",
+     *  description="Get all product categories",
+     *  output={"class"="AppBundle\Entity\ProductCategory",
+     *           "groups" ={"productCategory"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"productCategory"})
      * @Rest\Get("/product-categories")
      */
@@ -52,8 +85,24 @@ class ProductCategoryController extends Controller
         return $productCategories;
     }
 
-    //ADMIN ONLY ==> récupérer une catégorie de produits
     /**
+     * This URL aims to get a product category by id. .
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="product-categories",
+     *  description="Get a product category by id.",
+     *  output={"class"="AppBundle\Entity\ProductCategory",
+     *           "groups" ={"productCategory"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"productCategory"})
      * @Rest\Get("/product-categories/{id}")
      */
@@ -70,8 +119,25 @@ class ProductCategoryController extends Controller
         return $productCategory;
     }
 
-    //admin only put d'une catégorie de produits
     /**
+     *  This URL aims to replace a product category's information (admin only).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="product-categories",
+     *  description="Replace a product category's information (admin only)",
+     *  input={"class"=ProductCategoryType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\ProductCategory",
+     *           "groups" ={"productCategory"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"productCategory"})
      * @Rest\Put("/admin/product-categories/{id}")
      */
@@ -96,9 +162,25 @@ class ProductCategoryController extends Controller
         }
     }
 
-    //admin only => patcher une catégorie de produits
-
     /**
+     *  This URL aims to patch a product category's information(admin only).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="product-categories",
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  description="Patch a product category (admin only)",
+     *  input={"class"=ProductCategoryType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\ProductCategory",
+     *           "groups" ={"productCategory"}}
+     *
+     * )
      * @Rest\View(serializerGroups={"productCategory"})
      * @Rest\Patch("/admin/product-categories/{id}")
      */
@@ -107,10 +189,26 @@ class ProductCategoryController extends Controller
         return $this->updateProductCategoryAction($request, false);
     }
 
-    //admin only ==> supprimer une catégorie de produit
     /**
+     * This URL aims to remove a product category (super-admin only).
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="product-categories",
+     *  description="Remove a product category (super-admin only)",
+     *  output={"class"="AppBundle\Entity\ProductCategory",
+     *           "groups" ={"productCategory"}}
+     *
+     * )
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT, serializerGroups={"productCategory"})
-     * @Rest\Delete("/admin/product-categories/{id}")
+     * @Rest\Delete("/super-admin/product-categories/{id}")
      */
     public function removeProductCategoryAction(Request $request)
     {

@@ -22,6 +22,13 @@ class PromotionController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="promotions",
      *  description="Get all promotions",
      *  output={"class"="AppBundle\Entity\promotion",
@@ -47,6 +54,13 @@ class PromotionController extends Controller
      *
      * @ApiDoc(
      *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
      *  section="promotions",
      *  description="Replace a promotion information (Only super admin).",
      *  input={"class"=PromotionType::class, "name"=""},
