@@ -26,12 +26,10 @@ class LoadUserDataextends extends AbstractFixture implements OrderedFixtureInter
         $manager->persist($userSuperAdmin);
         $this->setReference('super-admin-1', $userSuperAdmin);
 
-        $manager->flush();
-
         $userBarman = new User();
         $userBarman->setFirstname('bar');
         $userBarman->setLastname('man');
-        $userBarman->setRfidCard('111111');
+        $userBarman->setRfidCard('222222');
         $userBarman->setUsername('barman');
         $userBarman->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
         $userBarman->setRole('ROLE_BARMAN');
@@ -41,8 +39,46 @@ class LoadUserDataextends extends AbstractFixture implements OrderedFixtureInter
         $manager->persist( $userBarman);
         $this->setReference('barman-1',  $userBarman);
 
-        $manager->flush();
+        $userAdmin = new User();
+        $userAdmin->setFirstname('Damien');
+        $userAdmin->setLastname('Meur');
+        $userAdmin->setRfidCard('111111');
+        $userAdmin->setUsername('dams');
+        $userAdmin->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
+        $userAdmin->setRole('ROLE_ADMIN');
+        $userAdmin->setPromotion($this->getReference('admin-promotion'));
+        $userAdmin->setEmail('damienmeur@gmail.com');
+        $userAdmin->setGodfather(null);
+        $manager->persist($userAdmin);
+        $this->setReference('admin-1', $userAdmin);
 
+        $user1 = new User();
+        $user1->setFirstname('Nora');
+        $user1->setLastname('Fallica');
+        $user1->setRfidCard('333333');
+        $user1->setUsername('nono');
+        $user1->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
+        $user1->setRole('ROLE_USER');
+        $user1->setPromotion($this->getReference('simple-promotion'));
+        $user1->setEmail('no.fallica@gmail.com');
+        $user1->setGodfather($userAdmin);
+        $manager->persist($user1);
+        $this->setReference('user-1', $user1);
+
+        $user2 = new User();
+        $user2->setFirstname('John');
+        $user2->setLastname('Doe');
+        $user2->setRfidCard('444444');
+        $user2->setUsername('john_doe');
+        $user2->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
+        $user2->setRole('ROLE_USER');
+        $user2->setPromotion($this->getReference('simple-promotion'));
+        $user2->setEmail('no.fallica@gmail.com');
+        $user2->setGodfather(null);
+        $manager->persist($user2);
+        $this->setReference('user-2', $user2);
+
+        $manager->flush();
 
     }
     public function getOrder()

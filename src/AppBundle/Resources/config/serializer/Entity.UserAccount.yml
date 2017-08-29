@@ -2,7 +2,7 @@ AppBundle\Entity\UserAccount:
     exclusion_policy: NONE
     properties:
         id:
-            groups: ['user','moneyFlow','auth-token','userAccount', 'account','userLimited']
+            groups: ['user','moneyFlow','auth-token','userAccount', 'account','userLimited','order']
 
         type:
             groups: ['userAccount', 'user', 'account']
@@ -14,16 +14,16 @@ AppBundle\Entity\UserAccount:
             groups: ['userAccount','order']
 
         orders:
-            groups: ['userAccount']
+            groups: []
 
         registerOrders:
-            groups: ['userAccount']
+            groups: []
 
         positiveMoneyFlows:
-            groups: ['userAccount']
+            groups: []
 
         negativeMoneyFlows:
-            groups: ['userAccount']
+            groups: []
 
         moneyLimit:
                 groups: ['user','account','userAccount']

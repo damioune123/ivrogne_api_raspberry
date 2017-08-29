@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Controller;
 
+use function PHPSTORM_META\type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,6 +13,9 @@ use AppBundle\Entity\UserAccount;
 use AppBundle\Form\Type\UserAccountType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Controller\Annotations\RequestParam;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 
@@ -36,13 +40,16 @@ class UserAccountController extends Controller
      *           "groups" ={"userAccount"}}
      *
      * )
+     * @QueryParam(name="page", requirements="\d+", default="1", description="Page of the overview. If operations selected", nullable=true)
+     * @RequestParam(name="operations", requirements="(order|registerOrder|positive_money_flows|negative_money_flows)",  description="Choose to display only a specific list of operations", nullable=true)
+     * @RequestParam(name="sort", requirements="(asc|desc)", default="desc", description="Sort direction", nullable=true)
      * @Rest\View(serializerGroups={"userAccount"})
      * @Rest\Get("/user-accounts/{user_account_id}")
      */
-    public function getUserAccountAction(Request $request)
+    public function getUserAccountAction(Request $request, ParamFetcher $paramFetcher)
     {
-        $userAccount = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('AppBundle:UserAccount')
+        $em = $this->get('doctrine.orm.entity_manager');
+        $userAccount = $em->getRepository('AppBundle:UserAccount')
             ->find($request->get('user_account_id'));
         if (empty($userAccount)) {
             return \FOS\RestBundle\View\View::create(['message' => 'User-account not found'], Response::HTTP_NOT_FOUND);
@@ -52,9 +59,41 @@ class UserAccountController extends Controller
             return \FOS\RestBundle\View\View::create(['message' => 'Unauthorized to get someone else info'], Response::HTTP_UNAUTHORIZED);
         }
 
+        $operation = $request->get('operations');
+        if(!empty($operation)){
+            $page = intval($request->get('page'));
+            switch($operation){
+
+                case "order":
+                    $operations = $userAccount->getOrders();
+                    break;
+
+                case "registerOrder":
+                    $operations = $userAccount->getRegisterOrders();
+                    break;
+
+
+                case "positive_money_flows":
+                    $operations = $userAccount->getPositiveMoneyFlows();
+                    break;
+
+
+                case "negative_money_flows":
+                    $operations = $userAccount->getNegativeMoneyFlows();
+                    break;
+            }
+            $operations = $operations->toArray();
+            if($request->get('sort')=="desc"){
+                $operations = array_reverse($operations);
+            }
+            return  array_slice($operations,($page-1)*10, ($page)*10);
+
+
+        }
 
         return $userAccount;
     }
+
     /**
      *
      *  This URL aims to get a specific user account by id.(Only Admin)
@@ -117,7 +156,7 @@ class UserAccountController extends Controller
 
         $userAccount = $this->get('doctrine.orm.entity_manager')
             ->getRepository('AppBundle:UserAccount')
-            ->findByType('lost');
+            ->findOneByType('lost');
         /* @var $userAccount UserAccount */
 
         if (empty($userAccount)) {
@@ -151,7 +190,7 @@ class UserAccountController extends Controller
     {
        $userAccount = $this->get('doctrine.orm.entity_manager')
             ->getRepository('AppBundle:UserAccount')
-            ->findByType('spending');
+            ->findOneByType('spending');
         /* @var $userAccount UserAccount */
 
         if (empty($userAccount)) {
@@ -250,7 +289,7 @@ class UserAccountController extends Controller
         $adminAccount =$this->getUser()->getUserAccounts()[0];
         if($newMoneyLimit> $adminAccount->getCreditToAllowMax()-$adminAccount->getCreditAllowed())
         {
-            return \FOS\RestBundle\View\View::create(['message' => 'The money limit is too high. Max alloed :'.$adminAccount->getCreditToAllowMax().' / already allowed : '.$adminAccount->getCreditAllowed()], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'The money limit is too high. Max allowed :'.$adminAccount->getCreditToAllowMax().' / already allowed : '.$adminAccount->getCreditAllowed()], Response::HTTP_UNAUTHORIZED);
         }
         $adminAccount->setCreditAllowed($adminAccount->getCreditAllowed()+$newMoneyLimit-$oldMoneyLimit);
         $userAccount->setMoneyLimit($newMoneyLimit);

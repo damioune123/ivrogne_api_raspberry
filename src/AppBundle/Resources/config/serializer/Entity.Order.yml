@@ -14,22 +14,22 @@ AppBundle\Entity\Order:
             groups: ['order']
 
         isPaidCash:
-            groups: ['order']
+            groups: ['order','userAccount']
 
         createdAt:
-            groups: ['order']
+            groups: ['order','userAccount']
 
         isCancelled:
-            groups: ['order']
+            groups: ['order','userAccount']
 
         isOrderedByCustomer:
-            groups: ['order']
+            groups: ['order','userAccount']
 
     virtual_properties:
             getOrderPrice:
-                groups: ['order']
+                groups: ['order','userAccount']
 
             getCustomerDetails:
-                groups: ['order']
+                groups: ['order','userAccount']
 
 

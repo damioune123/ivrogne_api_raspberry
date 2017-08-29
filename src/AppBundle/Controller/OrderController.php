@@ -12,12 +12,17 @@ use AppBundle\Entity\Order;
 use AppBundle\Entity\MoneyFlow;
 use AppBundle\Entity\OrderLine;
 use AppBundle\Entity\UserAccount;
+use AppBundle\Entity\User;
+
 use AppBundle\Form\Type\OrderType;
 use AppBundle\Form\Type\OrderSelfType;
 use AppBundle\Form\Type\OrderLineTransactionType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-
-
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Controller\Annotations\RequestParam;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections;
 class OrderController extends Controller
 {
     /**
@@ -39,12 +44,16 @@ class OrderController extends Controller
      *           "groups" ={"order"}}
      *
      * )
-     * TO DO : Pagers
+     * @QueryParam(name="page", requirements="\d+", default="1", description="Page of the overview. If operations selected", nullable=false)
+     * @RequestParam(name="sort", requirements="(asc|desc)", default="desc", description="Sort direction", nullable=false)
      * @Rest\View(serializerGroups={"order"})
      * @Rest\Get("/orders")
      */
     public function getOrdersAction(Request $request)
     {
+        if($this->getUser()->getRole()=="ROLE_SUPER_ADMIN"){
+            return \FOS\RestBundle\View\View::create(['message' => 'Super admin does\'t have user account'], Response::HTTP_NOT_FOUND);
+        }
         $userAccounts=$this->getUser()->getUserAccounts();
         foreach ($userAccounts as $userAccount)
         {
@@ -56,8 +65,12 @@ class OrderController extends Controller
             ->getRepository('AppBundle:Order')
             ->findByCustomerUserAccount($userAccountId);
         /* @var $orders Order[] */
+        $page = intval($request->get('page'));
+        if($request->get('sort')=="desc"){
+            $orders = array_reverse($orders);
+        }
+        return  array_slice($orders,($page-1)*10, ($page)*10);
 
-        return $orders;
     }
     /**
      * This URL aims to get a single own order by id (own information).
@@ -156,16 +169,15 @@ class OrderController extends Controller
      */
     public function postSelfOrderTransactionAction(Request $request)
     {
+        if($this->getUser()->getRole()=="ROLE_SUPER_ADMIN"){
+            return \FOS\RestBundle\View\View::create(['message' => 'Super admin does\'t have user account'], Response::HTTP_NOT_FOUND);
+        }
         $em = $this->getDoctrine()->getManager();
-
         $order = new Order();
-        $form = $this->createForm(OrderSelfType::class, $order, ['validation_groups' => ['isNotPaidCash']]);
-        $form->submit($request->request->get("order")); // Validation des données
-        if(!$form->isValid())
-            return $form;
         $repository = $em->getRepository('AppBundle:UserAccount');
         $registerAccountID = $repository->getRegisterAccount();
         /* @var $registerAccount UserAccount */
+
         $registerAccount = $repository->find($registerAccountID);
         $order->setRegisterAccount($registerAccount);
 
@@ -173,16 +185,18 @@ class OrderController extends Controller
 
         $order->setIsPaidCash(false);
 
-        $content=json_decode($request->getContent());
-        /* @var $userAccount UserAccount */
         if($this->getUser()->getRole()=="ROLE_BARMAN")
         {
+
             $userAccount = $repository>getRegisterAccount();
         }
         else{
-            $userAccount = $repository->find($content->{"order"}->{"customerUserAccount"});
-        }
 
+            /* @var $userAccount UserAccount */
+            $userAccount =$this->getUser()->getUserAccounts()[0];
+
+        }
+        $order->setCustomerUserAccount($userAccount);
         $promotion =$userAccount->getUser()->getPromotion()->getUserPromotion();
         $total=0.0;
         foreach ($request->request->get("orderlines") as $value) {
@@ -255,6 +269,7 @@ class OrderController extends Controller
      */
     public function postOrderAction(Request $request, $restrictedAccess = false)
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $order = new Order();
@@ -403,7 +418,8 @@ class OrderController extends Controller
      *           "groups" ={"order"}}
      *
      * )
-     * TO DO : pagers 
+     * @QueryParam(name="page", requirements="\d+", default="1", description="Page of the overview. If operations selected", nullable=false)
+     * @RequestParam(name="sort", requirements="(asc|desc)", default="desc", description="Sort direction", nullable=false)
      * @Rest\View(serializerGroups={"order"})
      * @Rest\Get("/admin/orders")
      */
@@ -414,7 +430,11 @@ class OrderController extends Controller
             ->findAll();
         /* @var $orders Order[] */
 
-        return $orders;
+        $page = intval($request->get('page'));
+        if($request->get('sort')=="desc"){
+            $users = array_reverse($orders);
+        }
+        return  array_slice($orders,($page-1)*10, ($page)*10);
     }
 
 

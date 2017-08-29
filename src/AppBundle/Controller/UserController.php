@@ -14,6 +14,10 @@ use AppBundle\Form\Type\UserType;
 use AppBundle\Form\Type\UserPatchType;
 use AppBundle\Form\Type\UserPatchLimitedType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Controller\Annotations\RequestParam;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 
@@ -195,6 +199,8 @@ class UserController extends Controller
      *           "groups" ={"user"}}
      *
      * )
+     * @QueryParam(name="page", requirements="\d+", default="1", description="Page of the overview. If operations selected", nullable=false)
+     * @RequestParam(name="sort", requirements="(asc|desc)", default="desc", description="Sort direction", nullable=false)
      *
      * @Rest\View(serializerGroups={"user"})
      * @Rest\Get("/admin/users")
@@ -205,8 +211,12 @@ class UserController extends Controller
             ->getRepository('AppBundle:User')
             ->findAll();
         /* @var $users User[] */
+        $page = intval($request->get('page'));
+        if($request->get('sort')=="desc"){
+            $users = array_reverse($users);
+        }
+        return  array_slice($users,($page-1)*10, ($page)*10);
 
-        return $users;
     }
 
     /**
@@ -227,6 +237,8 @@ class UserController extends Controller
      *           "groups" ={"userLimited"}}
      *
      * )
+     * @QueryParam(name="page", requirements="\d+", default="1", description="Page of the overview. If operations selected", nullable=false)
+     * @RequestParam(name="sort", requirements="(asc|desc)", default="desc", description="Sort direction", nullable=false)
      * @Rest\View(serializerGroups={"userLimited"})
      * @Rest\Get("/limited-users")
      */
@@ -236,8 +248,12 @@ class UserController extends Controller
             ->getRepository('AppBundle:User')
             ->findAll();
         /* @var $users User[] */
-
-        return $users;
+        $page = intval($request->get('page'));
+        if($request->get('sort')=="desc"){
+            $users = array_reverse($users);
+        }
+        return  array_slice($users,($page-1)*10, ($page)*10);
+        
     }
 
     /**

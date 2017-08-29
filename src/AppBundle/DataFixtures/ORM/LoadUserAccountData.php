@@ -12,6 +12,21 @@ class LoadUserAccountData extends AbstractFixture implements OrderedFixtureInter
 {
     public function load(ObjectManager $manager)
     {
+
+        $userAccount=new UserAccount();
+        $userAccount->setMoneyBalance(0.0);
+        $userAccount->setUser($this->getReference('barman-1'));
+        $userAccount->setType("register");
+        $manager->persist($userAccount);
+        $this->setReference('cash-register-1', $userAccount);
+
+        $userAccount=new UserAccount();
+        $userAccount->setMoneyBalance(0.0);
+        $userAccount->setUser($this->getReference('barman-1'));
+        $userAccount->setType("bank");
+        $manager->persist($userAccount);
+        $this->setReference('bank-1', $userAccount);
+
         $userAccount=new UserAccount();
         $userAccount->setMoneyBalance(0.0);
         $userAccount->setType("lost");
@@ -25,25 +40,27 @@ class LoadUserAccountData extends AbstractFixture implements OrderedFixtureInter
         $this->setReference('spending-1', $userAccount);
 
         $userAccount=new UserAccount();
-        $userAccount->setUser($this->getReference('super-admin-1'));
+        $userAccount->setUser($this->getReference('admin-1'));
         $userAccount->setMoneyBalance(0.0);
         $userAccount->setType("somebody");
         $manager->persist($userAccount);
         $this->setReference('account-1', $userAccount);
 
         $userAccount=new UserAccount();
+        $userAccount->setUser($this->getReference('user-1'));
         $userAccount->setMoneyBalance(0.0);
-        $userAccount->setUser($this->getReference('barman-1'));
-        $userAccount->setType("register");
+        $userAccount->setType("somebody");
         $manager->persist($userAccount);
-        $this->setReference('cash-register-1', $userAccount);
-        
+        $this->setReference('account-1', $userAccount);
+
         $userAccount=new UserAccount();
+        $userAccount->setUser($this->getReference('user-2'));
         $userAccount->setMoneyBalance(0.0);
-        $userAccount->setUser($this->getReference('barman-1'));
-        $userAccount->setType("bank");
+        $userAccount->setType("somebody");
         $manager->persist($userAccount);
-        $this->setReference('bank-1', $userAccount);
+        $this->setReference('account-1', $userAccount);
+
+
 
         $manager->flush();
     }

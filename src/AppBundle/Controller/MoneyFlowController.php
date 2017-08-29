@@ -49,6 +49,9 @@ class MoneyFlowController extends Controller
         $form->submit($request->request->all());
         if ($form->isValid()) {
             if($moneyFlow->getCreditUserAccount()->getUser()->getRole() != "ROLE_BARMAN"){
+                if($this->getUser()->getRole()=="ROLE_USER" and $moneyFlow->getDebitUserAccount() == $this->getUser()->getUserAccounts()[0]){
+                    return \FOS\RestBundle\View\View::create(['message' => 'A user cannot refund his own account'], Response::HTTP_UNAUTHORIZED);
+                }
                 if($moneyFlow->getDebitUserAccount()->getAvailableBalance()<$moneyFlow->getValue()){
                     return \FOS\RestBundle\View\View::create(['message' => 'Insufficient money available'], Response::HTTP_UNAUTHORIZED);
                 }
