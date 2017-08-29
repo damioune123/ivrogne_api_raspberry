@@ -15,7 +15,6 @@ use AppBundle\Entity\UserAccount;
 use AppBundle\Entity\User;
 
 use AppBundle\Form\Type\OrderType;
-use AppBundle\Form\Type\OrderSelfType;
 use AppBundle\Form\Type\OrderLineTransactionType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
@@ -54,22 +53,40 @@ class OrderController extends Controller
         if($this->getUser()->getRole()=="ROLE_SUPER_ADMIN"){
             return \FOS\RestBundle\View\View::create(['message' => 'Super admin does\'t have user account'], Response::HTTP_NOT_FOUND);
         }
-        $userAccounts=$this->getUser()->getUserAccounts();
-        foreach ($userAccounts as $userAccount)
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('AppBundle:UserAccount');
+        if($this->getUser()->getRole()=="ROLE_BARMAN")
         {
-            if($userAccount->getType() == "somebody")
-                $userAccountId = $userAccount->getId();
-        }
 
-        $orders = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('AppBundle:Order')
-            ->findByCustomerUserAccount($userAccountId);
+            $userAccount = $repository>getRegisterAccount();
+        }
+        else{
+
+            /* @var $userAccount UserAccount */
+            $userAccount =$this->getUser()->getUserAccounts()[0];
+
+        }
         /* @var $orders Order[] */
         $page = intval($request->get('page'));
-        if($request->get('sort')=="desc"){
-            $orders = array_reverse($orders);
+
+        if ($request->get('sort') == "desc"){
+            $orders = $em ->getRepository('AppBundle:Order')
+                ->findBy(
+                    array('customerUserAccount'=>$userAccount),
+                    array('id' => "DESC"),
+                    $limit  = $page*10,
+                    $offset = ($page-1)*10);
+
         }
-        return  array_slice($orders,($page-1)*10, ($page)*10);
+        else{
+            $orders = $em->getRepository('AppBundle:Order')
+                ->findBy(
+                    array('customerUserAccount'=>$userAccount),
+                    array('id' => "ASC"),
+                    $limit  = $page*10,
+                    $offset = ($page-1)*10);
+        }
+        return $orders;
 
     }
     /**
@@ -90,7 +107,7 @@ class OrderController extends Controller
      *           "groups" ={"order"}}
      * )
      *
-     * TO DO : Pagers
+     *
      * @Rest\View(serializerGroups={"order"})
      * @Rest\Get("/orders/{order_id}")
      */
@@ -425,16 +442,29 @@ class OrderController extends Controller
      */
     public function getOrdersByadminAction(Request $request)
     {
-        $orders = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('AppBundle:Order')
-            ->findAll();
-        /* @var $orders Order[] */
 
+        $em= $this->getDoctrine()->getManager();
+        /* @var $orders Order[] */
         $page = intval($request->get('page'));
-        if($request->get('sort')=="desc"){
-            $users = array_reverse($orders);
+
+        if ($request->get('sort') == "desc"){
+            $orders = $em ->getRepository('AppBundle:Order')
+                ->findBy(
+                    array(),
+                    array('id' => "DESC"),
+                    $limit  = $page*10,
+                    $offset = ($page-1)*10);
+
         }
-        return  array_slice($orders,($page-1)*10, ($page)*10);
+        else{
+            $orders = $em->getRepository('AppBundle:Order')
+                ->findBy(
+                    array(),
+                    array('id' => "ASC"),
+                    $limit  = $page*10,
+                    $offset = ($page-1)*10);
+        }
+        return $orders;
     }
 
 

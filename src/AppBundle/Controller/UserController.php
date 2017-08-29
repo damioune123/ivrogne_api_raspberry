@@ -207,15 +207,27 @@ class UserController extends Controller
      */
     public function getUsersByAdminAction(Request $request)
     {
-        $users = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('AppBundle:User')
-            ->findAll();
-        /* @var $users User[] */
         $page = intval($request->get('page'));
-        if($request->get('sort')=="desc"){
-            $users = array_reverse($users);
+        if ($request->get('sort') == "desc"){
+            $users = $this->get('doctrine.orm.entity_manager')
+                ->getRepository('AppBundle:User')
+                ->findBy(
+                    array(),
+                    array('id' => "DESC"),
+                    $limit  = $page*10,
+                    $offset = ($page-1)*10);
+
         }
-        return  array_slice($users,($page-1)*10, ($page)*10);
+        else{
+            $users = $this->get('doctrine.orm.entity_manager')
+                ->getRepository('AppBundle:User')
+                ->findBy(
+                    array(),
+                    array('id' => "ASC"),
+                    $limit  = $page*10,
+                    $offset = ($page-1)*10);
+        }
+        return $users;
 
     }
 
@@ -244,15 +256,27 @@ class UserController extends Controller
      */
     public function getLimitedUsersAction(Request $request)
     {
-        $users = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('AppBundle:User')
-            ->findAll();
-        /* @var $users User[] */
         $page = intval($request->get('page'));
-        if($request->get('sort')=="desc"){
-            $users = array_reverse($users);
+        if ($request->get('sort') == "desc"){
+            $users = $this->get('doctrine.orm.entity_manager')
+                ->getRepository('AppBundle:User')
+                ->findBy(
+                    array(),
+                    array('id' => "DESC"),
+                    $limit  = $page*10,
+                    $offset = ($page-1)*10);
+
         }
-        return  array_slice($users,($page-1)*10, ($page)*10);
+        else{
+            $users = $this->get('doctrine.orm.entity_manager')
+                ->getRepository('AppBundle:User')
+                ->findBy(
+                    array(),
+                    array('id' => "ASC"),
+                    $limit  = $page*10,
+                    $offset = ($page-1)*10);
+        }
+        return $users;
         
     }
 

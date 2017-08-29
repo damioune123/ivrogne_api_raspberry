@@ -16,7 +16,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use Doctrine\Common\Collections\ArrayCollection;
-
+use Doctrine\Common\Collections\Criteria;
 
 
 class UserAccountController extends Controller
@@ -60,34 +60,39 @@ class UserAccountController extends Controller
         }
 
         $operation = $request->get('operations');
+
         if(!empty($operation)){
+            $sort = Criteria::create();
+            if($request->get('sort')=="desc"){
+                $sort->orderBy(Array(
+                    'id' => Criteria::DESC
+                ));
+            }
+            else{
+                $sort->orderBy(Array(
+                    'id' => Criteria::ASC
+                ));
+            }
             $page = intval($request->get('page'));
             switch($operation){
 
                 case "order":
-                    $operations = $userAccount->getOrders();
-                    break;
+                    $operations = $userAccount->getOrders()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    return $operations;
 
                 case "registerOrder":
-                    $operations = $userAccount->getRegisterOrders();
-                    break;
+                    $operations = $userAccount->getRegisterOrders()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    return $operations;
 
 
                 case "positive_money_flows":
-                    $operations = $userAccount->getPositiveMoneyFlows();
-                    break;
-
+                    $operations = $userAccount->getPositiveMoneyFlows()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    return $operations;
 
                 case "negative_money_flows":
-                    $operations = $userAccount->getNegativeMoneyFlows();
-                    break;
+                    $operations = $userAccount->getNegativeMoneyFlows()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    return $operations;
             }
-            $operations = $operations->toArray();
-            if($request->get('sort')=="desc"){
-                $operations = array_reverse($operations);
-            }
-            return  array_slice($operations,($page-1)*10, ($page)*10);
-
 
         }
 
@@ -113,6 +118,9 @@ class UserAccountController extends Controller
      *           "groups" ={"userAccount"}}
      *
      * )
+     * @QueryParam(name="page", requirements="\d+", default="1", description="Page of the overview. If operations selected", nullable=true)
+     * @RequestParam(name="operations", requirements="(order|registerOrder|positive_money_flows|negative_money_flows)",  description="Choose to display only a specific list of operations", nullable=true)
+     * @RequestParam(name="sort", requirements="(asc|desc)", default="desc", description="Sort direction", nullable=true)
      * @Rest\View(serializerGroups={"userAccount"})
      * @Rest\Get("/admin/user-accounts/{user_account_id}")
      */
@@ -125,6 +133,40 @@ class UserAccountController extends Controller
 
         if (empty($userAccount)) {
             return \FOS\RestBundle\View\View::create(['message' => 'User-account not found'], Response::HTTP_NOT_FOUND);
+        }
+        $operation = $request->get('operations');
+        if(!empty($operation)) {
+            $sort = Criteria::create();
+            if($request->get('sort')=="desc"){
+                $sort->orderBy(Array(
+                    'id' => Criteria::DESC
+                ));
+            }
+            else{
+                $sort->orderBy(Array(
+                    'id' => Criteria::ASC
+                ));
+            }
+            $page = intval($request->get('page'));
+            switch($operation){
+
+                case "order":
+                    $operations = $userAccount->getOrders()->matching($sort)->slice(($page-1)*10,$page*10 );
+                    return $operations;
+
+                case "registerOrder":
+                    $operations = $userAccount->getRegisterOrders()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    return $operations;
+
+
+                case "positive_money_flows":
+                    $operations = $userAccount->getPositiveMoneyFlows()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    return $operations;
+
+                case "negative_money_flows":
+                    $operations = $userAccount->getNegativeMoneyFlows()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    return $operations;
+            }
         }
         return $userAccount;
     }
