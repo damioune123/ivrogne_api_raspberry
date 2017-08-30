@@ -14,6 +14,8 @@ use AppBundle\Entity\Credentials;
 use JMS\Serializer\Annotation\Expose;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use ElephantIO\Client;
+use ElephantIO\Engine\SocketIO\Version1X;
 
 class AuthTokenController extends Controller
 {
@@ -68,6 +70,7 @@ class AuthTokenController extends Controller
 
         $em->persist($authToken);
         $em->flush();
+
 
         
         return $authToken;
@@ -124,6 +127,12 @@ class AuthTokenController extends Controller
         $em->persist($authToken);
         $em->flush();
 
+        $client = new Client(new Version1X('http://localhost:5000'));
+        $client->initialize();
+
+        $client->emit('broadcastphp', ['token' => $authToken->getValue(),'userId' => $authToken->getUser()->getId(),"firstname"=>$authToken->getUser()->getFirstname(), "lastname"=>$authToken->getUser()->getLastname()]);
+        $client->close();
+
 
         return $authToken;
     }
@@ -165,6 +174,7 @@ class AuthTokenController extends Controller
             $lastRfid = $rfidCards[count($rfidCards)-1];
         }
         else $lastRfid ="Pas de login par carte détecté";
+
 
 
         return $lastRfid;

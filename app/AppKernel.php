@@ -20,7 +20,7 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new AppBundle\AppBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new Nelmio\CorsBundle\NelmioCorsBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -33,6 +33,7 @@ class AppKernel extends Kernel
 
         return $bundles;
     }
+
 
     public function getRootDir()
     {

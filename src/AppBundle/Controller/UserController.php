@@ -19,6 +19,7 @@ use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
+use AppBundle\Repository\UserRepository;
 
 
 class UserController extends Controller
