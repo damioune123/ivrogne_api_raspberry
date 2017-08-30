@@ -18,7 +18,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use Doctrine\Common\Collections\ArrayCollection;
-
+use Doctrine\Common\Collections\Criteria;
 
 
 class UserController extends Controller
@@ -249,33 +249,18 @@ class UserController extends Controller
      *           "groups" ={"userLimited"}}
      *
      * )
-     * @QueryParam(name="page", requirements="\d+", default="1", description="Page of the overview. If operations selected", nullable=false)
-     * @RequestParam(name="sort", requirements="(asc|desc)", default="desc", description="Sort direction", nullable=false)
      * @Rest\View(serializerGroups={"userLimited"})
      * @Rest\Get("/limited-users")
      */
     public function getLimitedUsersAction(Request $request)
     {
-        $page = intval($request->get('page'));
-        if ($request->get('sort') == "desc"){
-            $users = $this->get('doctrine.orm.entity_manager')
-                ->getRepository('AppBundle:User')
-                ->findBy(
-                    array(),
-                    array('id' => "DESC"),
-                    $limit  = $page*10,
-                    $offset = ($page-1)*10);
-
-        }
-        else{
-            $users = $this->get('doctrine.orm.entity_manager')
-                ->getRepository('AppBundle:User')
-                ->findBy(
-                    array(),
-                    array('id' => "ASC"),
-                    $limit  = $page*10,
-                    $offset = ($page-1)*10);
-        }
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT u
+            FROM AppBundle:User u
+            WHERE u.role <> :super_admin AND u.role <> :barman'
+        )->setParameters(array('super_admin'=> 'ROLE_SUPER_ADMIN', 'barman'=> 'ROLE_BARMAN'));
+        $users = $query->getResult();
         return $users;
         
     }

@@ -7,7 +7,7 @@ AppBundle\Entity\Product:
             groups: ['product','order', 'orderline','productCategory']
 
         barcode:
-            groups: ['product','order','orderline']
+            groups: ['product','order','orderline','productCategory']
 
         amountAvailableInStock:
             groups: ['product']

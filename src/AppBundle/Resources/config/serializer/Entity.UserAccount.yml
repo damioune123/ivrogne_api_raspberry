@@ -2,7 +2,7 @@ AppBundle\Entity\UserAccount:
     exclusion_policy: NONE
     properties:
         id:
-            groups: ['user','moneyFlow','auth-token','userAccount', 'account','userLimited','order']
+            groups: ['user','moneyFlow','auth-token','userAccount', 'account','userLimited','order','userLimited']
 
         type:
             groups: ['userAccount', 'user', 'account']

@@ -298,6 +298,9 @@ class UserAccount
      */
     public function getAvailableBalance()
     {
+        if($this->type=="lost" or $this->type=="spending"){
+            return;
+        }
         if ($this->getUser()->getRole() == "ROLE_ADMIN" or $this->getUser()->getRole() == "ROLE_SUPER_ADMIN") {
             return $this->getMoneyBalance() + ($this->getCreditToAllowMax() - $this->getCreditAllowed());
         } else if ($this->getUser()->getRole() == "ROLE_BARMAN")

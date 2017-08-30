@@ -516,6 +516,53 @@ class OrderController extends Controller
         return $cancelMoneyFlow;
 
     }
+    /**
+     * This URL aims to get the admin and user price of a list of order lines
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="orders",
+     *  description="Get the prices of a list of orderlines ",
+     *
+     * )
+     * @Rest\View(statusCode=Response::HTTP_CREATED)
+     * @Rest\Post("/orders/check-prices")
+     */
+    public function getPricesAction(Request $request)
+    {
+        if($this->getUser()->getRole()=="ROLE_SUPER_ADMIN"){
+            return \FOS\RestBundle\View\View::create(['message' => 'Super admin does\'t have user account'], Response::HTTP_NOT_FOUND);
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $promotionAdmin = floatval($em->getRepository("AppBundle:Promotion")->getAdminPromotion()["user_promotion"]);
+        $promotionUser =floatval($em->getRepository("AppBundle:Promotion")->getUserPromotion()["user_promotion"]);
+        $totalAdmin=0.0;
+        $totalUser=0.0;
+        foreach ($request->request->get("orderlines") as $value) {
+            $orderLine = new OrderLine();
+            $form = $this->createForm(OrderLineTransactionType::class, $orderLine, ['validation_groups' => ['Default', 'New']]);
+            $form->submit($value);
+            if ($form->isValid()) {
+                $totalAdmin+=$orderLine->getOrderLinePriceAdmin();
+                $totalUser+=$orderLine->getOrderLinePriceUser();
+
+            } else
+                return $form;
+        }
+        $totalAdmin-=$totalAdmin*($promotionAdmin/100);
+        $totalUser-=$totalUser*($promotionUser/100);
+        return array("total_admin"=>$totalAdmin, "total_user"=>$totalUser);
+
+
+    }
 
 
 }

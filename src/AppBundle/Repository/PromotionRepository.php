@@ -10,4 +10,29 @@ namespace AppBundle\Repository;
  */
 class PromotionRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAdminPromotion()
+    {
+        $sql = " 
+        SELECT DISTINCT p.user_promotion
+        FROM promotions p
+        WHERE p.promotion_name = 'admin'
+      ";
+        $em = $this->getEntityManager();
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+    public function getUserPromotion()
+    {
+        $sql = " 
+        SELECT DISTINCT p.user_promotion
+        FROM promotions p
+        WHERE p.promotion_name = 'simple'
+      ";
+        $em = $this->getEntityManager();
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
 }
