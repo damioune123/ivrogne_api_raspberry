@@ -2,10 +2,10 @@ AppBundle\Entity\ProductCategory:
     exclusion_policy: NONE
     properties:
         id:
-            groups: ['product','productCategory']
+            groups: ['product','productCategory','order']
 
         categoryName:
-            groups: ['productCategory','product']
+            groups: ['productCategory','product','order']
 
         price:
             groups: ['productCategory','product']

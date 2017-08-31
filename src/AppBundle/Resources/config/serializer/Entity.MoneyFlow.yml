@@ -5,7 +5,7 @@ AppBundle\Entity\MoneyFlow:
             groups: ['moneyFlow','userAccount']
 
         value:
-            groups: ['moneyFlow']
+            groups: ['moneyFlow','userAccount']
 
         debitUserAccount:
             groups: ['moneyFlow']
@@ -17,9 +17,12 @@ AppBundle\Entity\MoneyFlow:
             groups: ['moneyFlow']
 
         createdAt:
-            groups: ['moneyFlow']
+            groups: ['moneyFlow','userAccount']
         isCancelled:
-            groups: ['userAccount']
+            groups: ['userAccount','moneyFlow']
+
+        adminAuthentifier:
+               groups: ['moneyFlow']
 
     virtual_properties:
         getDebitUserDetails:

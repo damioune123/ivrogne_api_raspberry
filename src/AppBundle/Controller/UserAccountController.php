@@ -40,7 +40,7 @@ class UserAccountController extends Controller
      *           "groups" ={"userAccount"}}
      *
      * )
-     * @QueryParam(name="page", requirements="\d+", default="1", description="Page of the overview. If operations selected", nullable=true)
+     * @RequestParam(name="page", requirements="\d+",  description="Page of the overview. If operations selected", nullable=true)
      * @RequestParam(name="operations", requirements="(order|registerOrder|positive_money_flows|negative_money_flows)",  description="Choose to display only a specific list of operations", nullable=true)
      * @RequestParam(name="sort", requirements="(asc|desc)", default="desc", description="Sort direction", nullable=true)
      * @Rest\View(serializerGroups={"userAccount"})
@@ -77,7 +77,14 @@ class UserAccountController extends Controller
             switch($operation){
 
                 case "order":
-                    $operations = $userAccount->getOrders()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    $operations = $userAccount->getOrders()->matching($sort)->slice(($page-1)*15,($page)*15);
+                    if($page>1){
+                        $result=array();
+                        foreach ($operations as $op){
+                            array_push($result,$op);
+                        }
+                        return $result;
+                    }
                     return $operations;
 
                 case "registerOrder":

@@ -128,6 +128,12 @@ class User implements UserInterface
      */
     private $isRemoved = false;
 
+    /**
+     * @var ArrayCollection|MoneyFlow[]
+     *
+     * @ORM\OneToMany(targetEntity="MoneyFlow", mappedBy="adminAuthentifier")
+     */
+    private $authenticatedMoneyFlows;
 
 
 
@@ -420,9 +426,21 @@ class User implements UserInterface
         $this->isRemoved = $isRemoved;
     }
 
+    /**
+     * @return MoneyFlow[]|ArrayCollection
+     */
+    public function getAuthenticatedMoneyFlows()
+    {
+        return $this->authenticatedMoneyFlows;
+    }
 
-
-
+    /**
+     * @param MoneyFlow[]|ArrayCollection $authenticatedMoneyFlows
+     */
+    public function setAuthenticatedMoneyFlows($authenticatedMoneyFlows)
+    {
+        $this->authenticatedMoneyFlows = $authenticatedMoneyFlows;
+    }
 
 }
 

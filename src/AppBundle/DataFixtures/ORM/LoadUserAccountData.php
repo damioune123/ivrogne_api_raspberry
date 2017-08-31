@@ -47,18 +47,26 @@ class LoadUserAccountData extends AbstractFixture implements OrderedFixtureInter
         $this->setReference('account-1', $userAccount);
 
         $userAccount=new UserAccount();
+        $userAccount->setUser($this->getReference('admin-2'));
+        $userAccount->setMoneyBalance(0.0);
+        $userAccount->setType("somebody");
+        $manager->persist($userAccount);
+        $this->setReference('account-2', $userAccount);
+
+
+        $userAccount=new UserAccount();
         $userAccount->setUser($this->getReference('user-1'));
         $userAccount->setMoneyBalance(0.0);
         $userAccount->setType("somebody");
         $manager->persist($userAccount);
-        $this->setReference('account-1', $userAccount);
+        $this->setReference('account-3', $userAccount);
 
         $userAccount=new UserAccount();
         $userAccount->setUser($this->getReference('user-2'));
         $userAccount->setMoneyBalance(0.0);
         $userAccount->setType("somebody");
         $manager->persist($userAccount);
-        $this->setReference('account-1', $userAccount);
+        $this->setReference('account-4', $userAccount);
 
 
 

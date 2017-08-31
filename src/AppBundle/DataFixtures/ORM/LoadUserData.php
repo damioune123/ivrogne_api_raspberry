@@ -16,7 +16,7 @@ class LoadUserDataextends extends AbstractFixture implements OrderedFixtureInter
         $userSuperAdmin = new User();
         $userSuperAdmin->setFirstname('super');
         $userSuperAdmin->setLastname('admin');
-        $userSuperAdmin->setRfidCard('000000');
+        $userSuperAdmin->setRfidCard('0');
         $userSuperAdmin->setUsername('admin');
         $userSuperAdmin->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
         $userSuperAdmin->setRole('ROLE_SUPER_ADMIN');
@@ -29,7 +29,7 @@ class LoadUserDataextends extends AbstractFixture implements OrderedFixtureInter
         $userBarman = new User();
         $userBarman->setFirstname('bar');
         $userBarman->setLastname('man');
-        $userBarman->setRfidCard('222222');
+        $userBarman->setRfidCard('1');
         $userBarman->setUsername('barman');
         $userBarman->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
         $userBarman->setRole('ROLE_BARMAN');
@@ -42,7 +42,7 @@ class LoadUserDataextends extends AbstractFixture implements OrderedFixtureInter
         $userAdmin = new User();
         $userAdmin->setFirstname('Damien');
         $userAdmin->setLastname('Meur');
-        $userAdmin->setRfidCard('111111');
+        $userAdmin->setRfidCard('2');
         $userAdmin->setUsername('dams');
         $userAdmin->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
         $userAdmin->setRole('ROLE_ADMIN');
@@ -52,10 +52,24 @@ class LoadUserDataextends extends AbstractFixture implements OrderedFixtureInter
         $manager->persist($userAdmin);
         $this->setReference('admin-1', $userAdmin);
 
+        $userAdmin = new User();
+        $userAdmin->setFirstname('Julien');
+        $userAdmin->setLastname('Daniello');
+        $userAdmin->setRfidCard('3');
+        $userAdmin->setUsername('dan');
+        $userAdmin->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
+        $userAdmin->setRole('ROLE_ADMIN');
+        $userAdmin->setPromotion($this->getReference('admin-promotion'));
+        $userAdmin->setEmail('juliendaniello@gmail.com');
+        $userAdmin->setGodfather(null);
+        $manager->persist($userAdmin);
+        $this->setReference('admin-2', $userAdmin);
+
+
         $user1 = new User();
         $user1->setFirstname('Nora');
         $user1->setLastname('Fallica');
-        $user1->setRfidCard('333333');
+        $user1->setRfidCard('4');
         $user1->setUsername('nono');
         $user1->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
         $user1->setRole('ROLE_USER');
@@ -68,7 +82,7 @@ class LoadUserDataextends extends AbstractFixture implements OrderedFixtureInter
         $user2 = new User();
         $user2->setFirstname('John');
         $user2->setLastname('Doe');
-        $user2->setRfidCard('444444');
+        $user2->setRfidCard('5');
         $user2->setUsername('john_doe');
         $user2->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
         $user2->setRole('ROLE_USER');

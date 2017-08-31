@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/vendor/evenement/evenement" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/gos/pnctl-event-loop-emitter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/gos/pubsub-router-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/gos/ratchet" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/gos/ratchet-stack" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/gos/web-socket-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/gos/websocket-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/guzzle/common" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/guzzle/http" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/guzzle/parser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/guzzle/stream" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/michelf/php-markdown" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nelmio/api-doc-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/react/event-loop" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/react/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/react/socket" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/react/stream" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/wisembly/elephant.io" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="PHARS">
+        <CLASSES>
+          <root url="phar://$MODULE_DIR$/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar/" />
+        </CLASSES>
+        <SOURCES>
+          <root url="phar://$MODULE_DIR$/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="PHP" type="php">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/evenement/evenement" />
+          <root url="file://$MODULE_DIR$/vendor/gos/pnctl-event-loop-emitter" />
+          <root url="file://$MODULE_DIR$/vendor/gos/pubsub-router-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/gos/ratchet" />
+          <root url="file://$MODULE_DIR$/vendor/gos/ratchet-stack" />
+          <root url="file://$MODULE_DIR$/vendor/gos/web-socket-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/gos/websocket-client" />
+          <root url="file://$MODULE_DIR$/vendor/guzzle/common" />
+          <root url="file://$MODULE_DIR$/vendor/guzzle/http" />
+          <root url="file://$MODULE_DIR$/vendor/guzzle/parser" />
+          <root url="file://$MODULE_DIR$/vendor/guzzle/stream" />
+          <root url="file://$MODULE_DIR$/vendor/michelf/php-markdown" />
+          <root url="file://$MODULE_DIR$/vendor/nelmio/api-doc-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/react/event-loop" />
+          <root url="file://$MODULE_DIR$/vendor/react/promise" />
+          <root url="file://$MODULE_DIR$/vendor/react/socket" />
+          <root url="file://$MODULE_DIR$/vendor/react/stream" />
+          <root url="file://$MODULE_DIR$/vendor/wisembly/elephant.io" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/evenement/evenement" />
+          <root url="file://$MODULE_DIR$/vendor/gos/pnctl-event-loop-emitter" />
+          <root url="file://$MODULE_DIR$/vendor/gos/pubsub-router-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/gos/ratchet" />
+          <root url="file://$MODULE_DIR$/vendor/gos/ratchet-stack" />
+          <root url="file://$MODULE_DIR$/vendor/gos/web-socket-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/gos/websocket-client" />
+          <root url="file://$MODULE_DIR$/vendor/guzzle/common" />
+          <root url="file://$MODULE_DIR$/vendor/guzzle/http" />
+          <root url="file://$MODULE_DIR$/vendor/guzzle/parser" />
+          <root url="file://$MODULE_DIR$/vendor/guzzle/stream" />
+          <root url="file://$MODULE_DIR$/vendor/michelf/php-markdown" />
+          <root url="file://$MODULE_DIR$/vendor/nelmio/api-doc-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/react/event-loop" />
+          <root url="file://$MODULE_DIR$/vendor/react/promise" />
+          <root url="file://$MODULE_DIR$/vendor/react/socket" />
+          <root url="file://$MODULE_DIR$/vendor/react/stream" />
+          <root url="file://$MODULE_DIR$/vendor/wisembly/elephant.io" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+</module>

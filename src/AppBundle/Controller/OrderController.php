@@ -487,7 +487,8 @@ class OrderController extends Controller
      *           "groups" ={"order"}}
      *
      * )
-     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"moneyFlow"})
+     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"order"})
+     * @RequestParam(name="adminAuthentifier", requirements="\d+", nullable=false)
      * @Rest\Delete("/admin/orders/{id}")
      */
     public function removeorderAction(Request $request)
@@ -501,6 +502,17 @@ class OrderController extends Controller
         }
         if($order->isIsCancelled())
             return \FOS\RestBundle\View\View::create(['message' => 'Cannot cancel 2 times the same order'], Response::HTTP_UNAUTHORIZED);
+        /* @var $admin User */
+        $admin= $em->getRepository('AppBundle:User')
+            ->find($request->get('adminAuthentifier'));
+        if (empty($admin))
+        {
+            return \FOS\RestBundle\View\View::create(['message' => 'Admin authentifier not found'], Response::HTTP_NOT_FOUND);
+        }
+        if($admin->getRole() != "ROLE_ADMIN"){
+            return \FOS\RestBundle\View\View::create(['message' => 'The card pass does not match with an admin'], Response::HTTP_UNAUTHORIZED);
+        }
+
         $order->setIsCancelled(true);
         $em->merge($order);
         $em->flush();
@@ -508,12 +520,15 @@ class OrderController extends Controller
         $cancelMoneyFlow->setCreditUserAccount($order->getRegisterAccount());
         $cancelMoneyFlow->setDebitUserAccount($order->getCustomerUserAccount());
         $cancelMoneyFlow->setValue($order->getOrderPrice());
+        $cancelMoneyFlow->setAdminAuthentifier($admin);
         $cancelMoneyFlow->setDescription("Annulation de la commande n°". $order->getId());
 
         $em->persist($cancelMoneyFlow);
         
         $em->flush();
-        return $cancelMoneyFlow;
+        $order= $em->getRepository('AppBundle:Order')
+            ->find($request->get('id'));
+        return $order;
 
     }
     /**

@@ -64,6 +64,13 @@ class MoneyFlow
      * @ORM\Column(name="isCancelled", type="boolean")
      */
     private $isCancelled;
+    /**
+     * @var User
+     *
+     * @ORM\JoinColumn(name="admin_authentifier", referencedColumnName="id",onDelete="SET NULL", nullable=true)
+     * @ORM\ManyToOne(targetEntity="User",inversedBy="authenticatedMoneyFlows",  cascade={"persist"})
+     */
+    private $adminAuthentifier;
 
     /**
      * MoneyFlow constructor.
@@ -237,6 +244,23 @@ class MoneyFlow
         $lastName = $this->creditUserAccount->getUser()->getLastname();
         return $firstName." ".$lastName;
     }
+
+    /**
+     * @return User
+     */
+    public function getAdminAuthentifier()
+    {
+        return $this->adminAuthentifier;
+    }
+
+    /**
+     * @param User $adminAuthentifier
+     */
+    public function setAdminAuthentifier($adminAuthentifier)
+    {
+        $this->adminAuthentifier = $adminAuthentifier;
+    }
+
 
 
 

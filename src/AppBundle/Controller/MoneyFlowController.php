@@ -13,7 +13,9 @@ use AppBundle\Entity\UserAccount;
 use AppBundle\Entity\MoneyFlow;
 use AppBundle\Form\Type\MoneyFlowType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Controller\Annotations\RequestParam;
 
 class MoneyFlowController extends Controller
 {
@@ -58,9 +60,9 @@ class MoneyFlowController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
+            $moneyFlow->debitAndCreditAccounts();
             $em->persist($moneyFlow);
             $em->flush();
-            $moneyFlow->debitAndCreditAccounts();
             return $moneyFlow;
         } else
             return $form;
@@ -88,7 +90,7 @@ class MoneyFlowController extends Controller
      * @Rest\View(serializerGroups={"moneyFlow"})
      * @Rest\Get("/admin/money-flows/{id}")
      */
-    public function getMoneyFlowAction(Request $request)
+    public function getMoneyFlowByAdminAction(Request $request)
     {
         $moneyFlow = $this->get('doctrine.orm.entity_manager')
             ->getRepository('AppBundle:MoneyFlow')
@@ -98,6 +100,50 @@ class MoneyFlowController extends Controller
             return \FOS\RestBundle\View\View::create(['message' => 'Money-flow not found'], Response::HTTP_NOT_FOUND);
         }
 
+        return $moneyFlow;
+    }
+    /**
+     * This URL aims to get a monew flow by id Get(transaction betweeen a debit and credit account) (only own information).
+     *
+     * @ApiDoc(
+     * headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  resource=true,
+     *  section="money-flows",
+     *  description="Get a money flow by id(only own information)",
+     *  output={"class"="AppBundle\Entity\MoneyFlow",
+     *           "groups" ={"moneyFlow"}}
+     *
+     * )
+     * @Rest\View(serializerGroups={"moneyFlow"})
+     * @RequestParam(name="type", requirements="(debit|credit)", description="Get money flow as debit or credit", nullable=false)
+     * @Rest\Get("/money-flows/{id}")
+     */
+    public function getMoneyFlowAction(Request $request)
+    {
+        /* @var $moneyFlow MoneyFlow */
+        $moneyFlow = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('AppBundle:MoneyFlow')
+            ->findOneById($request->get('id'));
+        if (empty($moneyFlow))
+        {
+            return \FOS\RestBundle\View\View::create(['message' => 'Money-flow not found'], Response::HTTP_NOT_FOUND);
+        }
+        if($request->get('type')=="debit"){
+            if($this->getUser()->getUserAccounts()[0]->getId() !=$moneyFlow->getDebitUserAccount()->getId()){
+                return \FOS\RestBundle\View\View::create(['message' => 'you are not the debit account of the money Flow'], Response::HTTP_UNAUTHORIZED);
+            }
+        }
+        else{
+            if($this->getUser()->getUserAccounts()[0]->getId() !=$moneyFlow->getCreditUserAccount()->getId() ){
+                return \FOS\RestBundle\View\View::create(['message' => 'you are not the credit account of the money Flow'], Response::HTTP_UNAUTHORIZED);
+            }
+        }
         return $moneyFlow;
     }
 
@@ -142,10 +188,13 @@ class MoneyFlowController extends Controller
         $cancelMoneyFlow->setDebitUserAccount($moneyFlow->getCreditUserAccount());
         $cancelMoneyFlow->setValue($moneyFlow->getValue());
         $cancelMoneyFlow->setDescription("Annulation du transfert d'argent n°". $moneyFlow->getId());
+
+        $cancelMoneyFlow->debitAndCreditAccounts();
         $em->persist($cancelMoneyFlow);
         $em->flush();
-        
-        return $cancelMoneyFlow;
+        $moneyFlow = $em->getRepository('AppBundle:MoneyFlow')
+            ->find($request->get('id'));
+        return $moneyFlow;
 
     }
 }

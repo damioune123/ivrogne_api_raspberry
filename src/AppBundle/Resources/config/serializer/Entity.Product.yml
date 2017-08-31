@@ -13,7 +13,7 @@ AppBundle\Entity\Product:
             groups: ['product']
 
         productCategory:
-            groups:  ['product']
+            groups:  ['product','order']
 
         productPromotionAdmin:
               groups:  ['product','productCategory','order','orderline']

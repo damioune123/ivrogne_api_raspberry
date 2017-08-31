@@ -127,7 +127,7 @@ class AuthTokenController extends Controller
         $em->persist($authToken);
         $em->flush();
 
-        $client = new Client(new Version1X('http://localhost:5000'));
+        $client = new Client(new Version1X('http://192.168.0.210:5000'));
         $client->initialize();
 
         $client->emit('broadcastphp', ['token' => $authToken->getValue(),'userId' => $authToken->getUser()->getId(),"firstname"=>$authToken->getUser()->getFirstname(), "lastname"=>$authToken->getUser()->getLastname()]);

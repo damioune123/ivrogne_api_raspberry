@@ -302,14 +302,14 @@ class UserAccount
             return;
         }
         if ($this->getUser()->getRole() == "ROLE_ADMIN" or $this->getUser()->getRole() == "ROLE_SUPER_ADMIN") {
-            return $this->getMoneyBalance() + ($this->getCreditToAllowMax() - $this->getCreditAllowed());
+            return round($this->getMoneyBalance() + ($this->getCreditToAllowMax() - $this->getCreditAllowed()),2);
         } else if ($this->getUser()->getRole() == "ROLE_BARMAN")
         {
             return 0.0;
         }
         else if($this->getUser()->getRole()=="ROLE_USER")
         {
-            return $this->getMoneyBalance()+$this->getMoneyLimit();
+            return round($this->getMoneyBalance()+$this->getMoneyLimit(),2);
         }
 
     }

@@ -13,6 +13,7 @@ class MoneyFlowType extends AbstractType
         $builder->add('creditUserAccount');
         $builder->add('debitUserAccount');
         $builder->add('value');
+        $builder->add('adminAuthentifier');
         $builder->add('description',TextType::class, array('required' => false));
     }
 
