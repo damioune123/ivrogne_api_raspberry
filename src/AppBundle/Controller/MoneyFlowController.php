@@ -41,28 +41,52 @@ class MoneyFlowController extends Controller
      *
      * )
      * @Rest\View(statusCode=Response::HTTP_CREATED,serializerGroups={"moneyFlow"})
+     * @RequestParam(name="adminAuthentifier", requirements="\d+", nullable=false)
+     * @RequestParam(name="accountId", requirements="\d+", nullable=false)
+     * @RequestParam(name="type", requirements="(debit|credit)", description="Get money flow as debit or credit", nullable=false)
      * @Rest\Post("/admin/money-flows")
      */
-    public function postMoneyFlowAction(Request $request)
+    public function createMoneyFlowAction(Request $request)
     {
-        /* @var $moneyFloz MoneyFlow */
+        /* @var $moneyFlow MoneyFlow */
         $moneyFlow = new MoneyFlow();
         $form = $this->createForm(MoneyFlowType::class, $moneyFlow);
         $form->submit($request->request->all());
+        $em = $this->getDoctrine()->getManager();
         if ($form->isValid()) {
-            if($moneyFlow->getCreditUserAccount()->getUser()->getRole() != "ROLE_BARMAN"){
-                if($this->getUser()->getRole()=="ROLE_USER" and $moneyFlow->getDebitUserAccount() == $this->getUser()->getUserAccounts()[0]){
-                    return \FOS\RestBundle\View\View::create(['message' => 'A user cannot refund his own account'], Response::HTTP_UNAUTHORIZED);
-                }
-                if($moneyFlow->getDebitUserAccount()->getAvailableBalance()<$moneyFlow->getValue()){
-                    return \FOS\RestBundle\View\View::create(['message' => 'Insufficient money available'], Response::HTTP_UNAUTHORIZED);
-                }
+            $userAccount =    $em->getRepository('AppBundle:UserAccount')
+                ->findOneById($request->get('accountId'));
+            $bankAccountId = $em->getRepository('AppBundle:UserAccount')
+                            ->getBankAccount();
+            $bankAccount =$em->getRepository('AppBundle:UserAccount')->find($bankAccountId);
+            if(empty($userAccount)){
+                return \FOS\RestBundle\View\View::create(['message' => 'user account not found '], Response::HTTP_UNAUTHORIZED);
+            }
+            $admin= $em->getRepository('AppBundle:User')
+                ->find($request->get('adminAuthentifier'));
+            if (empty($admin))
+            {
+                return \FOS\RestBundle\View\View::create(['message' => 'Admin authentifier not found'], Response::HTTP_NOT_FOUND);
+            }
+            if($admin->getRole() != "ROLE_ADMIN"){
+                return \FOS\RestBundle\View\View::create(['message' => 'The card pass does not match with an admin'], Response::HTTP_UNAUTHORIZED);
             }
 
-            $em = $this->getDoctrine()->getManager();
-            $moneyFlow->debitAndCreditAccounts();
+            $moneyFlow->setAdminAuthentifier($admin);
+
+            if($request->get('type')=="debit"){
+                $moneyFlow->setCreditUserAccount($bankAccount);
+                $moneyFlow->setDebitUserAccount($userAccount);
+            }
+            if($request->get('type')=="credit"){
+                $moneyFlow->setCreditUserAccount($userAccount);
+                $moneyFlow->setDebitUserAccount($bankAccount);
+            }
+
+
             $em->persist($moneyFlow);
             $em->flush();
+            $moneyFlow->debitAndCreditAccounts();
             return $moneyFlow;
         } else
             return $form;
@@ -167,6 +191,7 @@ class MoneyFlowController extends Controller
      *
      * )
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"moneyFlow"})
+     * @RequestParam(name="adminAuthentifier", requirements="\d+", nullable=false)
      * @Rest\Delete("/admin/money-flows/{id}")
      */
     public function removeMoneyFlowAction(Request $request)
@@ -181,19 +206,32 @@ class MoneyFlowController extends Controller
         if($moneyFlow->getIsCancelled())
             return \FOS\RestBundle\View\View::create(['message' => 'Cannot cancel 2 times the same money-flow'], Response::HTTP_UNAUTHORIZED);
         $moneyFlow->setIsCancelled(true);
-        $em->merge($moneyFlow);
-        $em->flush();
+
+
         $cancelMoneyFlow = new MoneyFlow();
         $cancelMoneyFlow->setCreditUserAccount($moneyFlow->getDebitUserAccount());
         $cancelMoneyFlow->setDebitUserAccount($moneyFlow->getCreditUserAccount());
         $cancelMoneyFlow->setValue($moneyFlow->getValue());
         $cancelMoneyFlow->setDescription("Annulation du transfert d'argent n°". $moneyFlow->getId());
 
-        $cancelMoneyFlow->debitAndCreditAccounts();
+        $admin= $em->getRepository('AppBundle:User')
+            ->find($request->get('adminAuthentifier'));
+        if (empty($admin))
+        {
+            return \FOS\RestBundle\View\View::create(['message' => 'Admin authentifier not found'], Response::HTTP_NOT_FOUND);
+        }
+        if($admin->getRole() != "ROLE_ADMIN"){
+            return \FOS\RestBundle\View\View::create(['message' => 'The card pass does not match with an admin'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $cancelMoneyFlow->setAdminAuthentifier($admin);
+
+
+
         $em->persist($cancelMoneyFlow);
+        $em->merge($moneyFlow);
         $em->flush();
-        $moneyFlow = $em->getRepository('AppBundle:MoneyFlow')
-            ->find($request->get('id'));
+        $cancelMoneyFlow->debitAndCreditAccounts();
         return $moneyFlow;
 
     }

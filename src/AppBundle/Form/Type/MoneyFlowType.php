@@ -10,10 +10,7 @@ class MoneyFlowType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('creditUserAccount');
-        $builder->add('debitUserAccount');
         $builder->add('value');
-        $builder->add('adminAuthentifier');
         $builder->add('description',TextType::class, array('required' => false));
     }
 

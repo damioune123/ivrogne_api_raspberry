@@ -574,16 +574,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 }
 
                 if (0 === strpos($pathinfo, '/api/admin/money-flows')) {
-                    // post_money_flow
+                    // create_money_flow
                     if ($pathinfo === '/api/admin/money-flows') {
                         if ($this->context->getMethod() != 'POST') {
                             $allow[] = 'POST';
-                            goto not_post_money_flow;
+                            goto not_create_money_flow;
                         }
 
-                        return array (  '_controller' => 'AppBundle\\Controller\\MoneyFlowController::postMoneyFlowAction',  '_format' => NULL,  '_route' => 'post_money_flow',);
+                        return array (  '_controller' => 'AppBundle\\Controller\\MoneyFlowController::createMoneyFlowAction',  '_format' => NULL,  '_route' => 'create_money_flow',);
                     }
-                    not_post_money_flow:
+                    not_create_money_flow:
 
                     // get_money_flow_by_admin
                     if (preg_match('#^/api/admin/money\\-flows/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {

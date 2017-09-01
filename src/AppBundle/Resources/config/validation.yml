@@ -54,11 +54,6 @@ AppBundle\Entity\MoneyFlow:
             - NotBlank : ~
             - Type: float
 
-        debitUserAccount:
-            - NotBlank : ~
-
-        creditUserAccount:
-            - NotBlank : ~
 
 
 
