@@ -71,9 +71,7 @@ class MoneyFlowController extends Controller
             if($admin->getRole() != "ROLE_ADMIN"){
                 return \FOS\RestBundle\View\View::create(['message' => 'The card pass does not match with an admin'], Response::HTTP_UNAUTHORIZED);
             }
-
             $moneyFlow->setAdminAuthentifier($admin);
-
             if($request->get('type')=="debit"){
                 $moneyFlow->setCreditUserAccount($bankAccount);
                 $moneyFlow->setDebitUserAccount($userAccount);
@@ -82,8 +80,6 @@ class MoneyFlowController extends Controller
                 $moneyFlow->setCreditUserAccount($userAccount);
                 $moneyFlow->setDebitUserAccount($bankAccount);
             }
-
-
             $em->persist($moneyFlow);
             $em->flush();
             $moneyFlow->debitAndCreditAccounts();

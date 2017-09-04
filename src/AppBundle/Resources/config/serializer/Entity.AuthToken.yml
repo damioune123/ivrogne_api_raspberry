@@ -11,5 +11,9 @@ AppBundle\Entity\AuthToken:
             groups: ['auth-token']
         isLogWithRfid:
             groups: ['auth-token']
+        exception:
+            groups: ['auth-token']
+        source":
+            groups: ['auth-token']
 
 

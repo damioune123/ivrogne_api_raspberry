@@ -3,6 +3,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\RfidToMatch;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,10 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ElephantIO\Client;
 use ElephantIO\Engine\SocketIO\Version1X;
+use ElephantIO\Exception\ServerConnectionFailureException;
+
+use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Controller\Annotations\RequestParam;
 
 class AuthTokenController extends Controller
 {
@@ -92,6 +97,7 @@ class AuthTokenController extends Controller
      *
      * )
      * @Rest\View(statusCode=Response::HTTP_CREATED ,serializerGroups={"auth-token"})
+     * @RequestParam(name="source", requirements="(tablette|commande)", nullable=false)
      * @Rest\Post("/rfid-auth-tokens")
      *
      */
@@ -127,14 +133,31 @@ class AuthTokenController extends Controller
         $em->persist($authToken);
         $em->flush();
 
-        $client = new Client(new Version1X('http://192.168.0.210:5000'));
-        $client->initialize();
+        $authToken->setException("OK");
+        try{
+            $connection = new Version1X('http://127.0.0.1:5000');
+            $client = new Client($connection);
+            $client->initialize();
+            if($request->request->get('source')=="tablette"){
+                $authToken->setSource("tablette");
+                $client->emit('broadcastphp', ['token' => $authToken->getValue(),'userId' => $authToken->getUser()->getId(),"firstname"=>$authToken->getUser()->getFirstname(), "lastname"=>$authToken->getUser()->getLastname()]);
 
-        $client->emit('broadcastphp', ['token' => $authToken->getValue(),'userId' => $authToken->getUser()->getId(),"firstname"=>$authToken->getUser()->getFirstname(), "lastname"=>$authToken->getUser()->getLastname()]);
-        $client->close();
+            }
+            else{
+                $authToken->setSource("commande");
+            }
+            $client->close();
+
+            return json_encode($client);
+        }catch (ServerConnectionFailureException $e){
+            $authToken->setException("node_server_down");
+
+        }
+        finally{
+            return $authToken;
+        }
 
 
-        return $authToken;
     }
     /**
      *

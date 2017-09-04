@@ -15,14 +15,14 @@ class __TwigTemplate_f71d5a825f48fa901b477c052744275b5e39bed3dc0a2d09ff57b938641
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_3d715a5457502340743978b3369515cf64d0ca47266e5c308660a7a0eeeb2cff = $this->env->getExtension("native_profiler");
-        $__internal_3d715a5457502340743978b3369515cf64d0ca47266e5c308660a7a0eeeb2cff->enter($__internal_3d715a5457502340743978b3369515cf64d0ca47266e5c308660a7a0eeeb2cff_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NelmioApiDocBundle::Components/motd.html.twig"));
+        $__internal_f645ae22eb5bf0b40b42a137b7b187ff21eb13a644d4ca72bce70810e7940db8 = $this->env->getExtension("native_profiler");
+        $__internal_f645ae22eb5bf0b40b42a137b7b187ff21eb13a644d4ca72bce70810e7940db8->enter($__internal_f645ae22eb5bf0b40b42a137b7b187ff21eb13a644d4ca72bce70810e7940db8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NelmioApiDocBundle::Components/motd.html.twig"));
 
         // line 1
         echo "<div class=\"motd\"></div>
 ";
         
-        $__internal_3d715a5457502340743978b3369515cf64d0ca47266e5c308660a7a0eeeb2cff->leave($__internal_3d715a5457502340743978b3369515cf64d0ca47266e5c308660a7a0eeeb2cff_prof);
+        $__internal_f645ae22eb5bf0b40b42a137b7b187ff21eb13a644d4ca72bce70810e7940db8->leave($__internal_f645ae22eb5bf0b40b42a137b7b187ff21eb13a644d4ca72bce70810e7940db8_prof);
 
     }
 

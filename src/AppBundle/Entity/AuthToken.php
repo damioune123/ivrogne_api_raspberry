@@ -54,6 +54,18 @@ class AuthToken
      * @ORM\Column(name="is_log_with_rfid", type="boolean")
      */
     private $isLogWithRfid;
+    /**
+     *
+     * @var string
+     *
+     */
+    private $exception;
+    /**
+     *
+     * @var source
+     *
+     */
+    private $source;
 
 
     /**
@@ -145,5 +157,38 @@ class AuthToken
     {
         $this->isLogWithRfid = $isLogWithRfid;
     }
-    
+    /**
+     * @return mixed
+     */
+    public function getException()
+    {
+        return $this->exception;
+    }
+
+    /**
+     * @param mixed $exception
+     */
+    public function setException($exception)
+    {
+        $this->exception = $exception;
+    }
+
+    /**
+     * @return source
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * @param source $source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+    }
+
+
+
 }

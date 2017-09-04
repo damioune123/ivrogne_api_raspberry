@@ -137,6 +137,8 @@ class User implements UserInterface
 
 
 
+
+
     /**
      * User constructor.
      *
@@ -441,6 +443,7 @@ class User implements UserInterface
     {
         $this->authenticatedMoneyFlows = $authenticatedMoneyFlows;
     }
+
 
 }
 

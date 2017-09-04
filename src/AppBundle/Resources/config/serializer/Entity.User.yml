@@ -6,10 +6,10 @@ AppBundle\Entity\User:
             groups: ['user', 'userAccount', 'order', 'auth-token','moneyFlow', 'userLimited']
 
         firstname:
-            groups: ['user',  'userLimited','order','moneyFlow']
+            groups: ['user',  'userLimited','order','moneyFlow','auth-token']
 
         lastname:
-            groups: ['user','userLimited','order','moneyFlow']
+            groups: ['user','userLimited','order','moneyFlow','auth-token']
 
         promotion:
             groups: ['user','userLimited','order']
@@ -37,6 +37,7 @@ AppBundle\Entity\User:
 
         isRemoved:
             groups: ['user','userLimited']
+
 
 
 

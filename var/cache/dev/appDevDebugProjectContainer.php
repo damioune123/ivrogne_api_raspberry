@@ -410,7 +410,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getCache_AppService()
     {
-        $this->services['cache.app'] = $instance = new \Symfony\Component\Cache\Adapter\FilesystemAdapter('UdJMenMmNs', 0, (__DIR__.'/pools'));
+        $this->services['cache.app'] = $instance = new \Symfony\Component\Cache\Adapter\FilesystemAdapter('hOXRFfA2by', 0, (__DIR__.'/pools'));
 
         if ($this->has('monolog.logger.cache')) {
             $instance->setLogger($this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE));
@@ -442,7 +442,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getCache_SystemService()
     {
-        return $this->services['cache.system'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('YbAZGC2S6f', 0, '3NcQ1j926zAr42aFw4nxDg', (__DIR__.'/pools'), $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+        return $this->services['cache.system'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('oUIw3YtEmL', 0, 'UMv2mhMajHBWmJxcImYTeQ', (__DIR__.'/pools'), $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE));
     }
 
     /**
@@ -460,8 +460,8 @@ class appDevDebugProjectContainer extends Container
         $b = new \Symfony\Component\HttpKernel\CacheClearer\Psr6CacheClearer();
         $b->addPool($this->get('cache.app'));
         $b->addPool($this->get('cache.system'));
-        $b->addPool(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('WSFKxm9E51', 0, '3NcQ1j926zAr42aFw4nxDg', (__DIR__.'/pools'), $a));
-        $b->addPool(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('9N8QJHh0Xa', 0, '3NcQ1j926zAr42aFw4nxDg', (__DIR__.'/pools'), $a));
+        $b->addPool(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('klBH1F11TO', 0, 'UMv2mhMajHBWmJxcImYTeQ', (__DIR__.'/pools'), $a));
+        $b->addPool(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('zkIqdX6wYx', 0, 'UMv2mhMajHBWmJxcImYTeQ', (__DIR__.'/pools'), $a));
 
         return $this->services['cache_clearer'] = new \Symfony\Component\HttpKernel\CacheClearer\ChainCacheClearer(array(0 => $b));
     }
@@ -1823,7 +1823,7 @@ class appDevDebugProjectContainer extends Container
     {
         if ($lazyLoad) {
 
-            return $this->services['fos_rest.serializer'] = FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358836a5bf5a8625d3c70e2f24c1bd9db8309::staticProxyConstructor(
+            return $this->services['fos_rest.serializer'] = FOSRestBundleSerializerJMSSerializerAdapter_0000000041fc4f68000000003727e792ddf1182c8fd96589db59e0fd0e84a660::staticProxyConstructor(
                 function (&$wrappedInstance, \ProxyManager\Proxy\LazyLoadingInterface $proxy) {
                     $wrappedInstance = $this->getFosRest_SerializerService(false);
 
@@ -3041,7 +3041,7 @@ class appDevDebugProjectContainer extends Container
         $f->add($d, array(0 => 'ROLE_ADMIN'), NULL);
         $f->add($e, array(0 => 'ROLE_SUPER_ADMIN'), NULL);
 
-        return $this->services['security.firewall.map.context.api'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($f, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\SimplePreAuthenticationListener($b, $c, 'api', $this->get('auth_token_authenticator'), $a, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE)), 2 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '59a8b1f3dae9c8.12878275', $a, $c), 3 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('debug.security.access.decision_manager'), $f, $c)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $this->get('security.http_utils'), 'api', NULL, NULL, NULL, $a, true));
+        return $this->services['security.firewall.map.context.api'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($f, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\SimplePreAuthenticationListener($b, $c, 'api', $this->get('auth_token_authenticator'), $a, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE)), 2 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '59acb7e2133b90.25212491', $a, $c), 3 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('debug.security.access.decision_manager'), $f, $c)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $this->get('security.http_utils'), 'api', NULL, NULL, NULL, $a, true));
     }
 
     /**
@@ -4501,7 +4501,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\SimpleAuthenticationProvider($this->get('auth_token_authenticator'), new \AppBundle\Security\AuthTokenUserProvider($this->get('auth_token_repository'), $this->get('user_repository')), 'api'), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('59a8b1f3dae9c8.12878275')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\SimpleAuthenticationProvider($this->get('auth_token_authenticator'), new \AppBundle\Security\AuthTokenUserProvider($this->get('auth_token_repository'), $this->get('user_repository')), 'api'), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('59acb7e2133b90.25212491')), true);
 
         $instance->setEventDispatcher($this->get('debug.event_dispatcher'));
 
@@ -5234,23 +5234,23 @@ class appDevDebugProjectContainer extends Container
     }
 }
 
-class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358836a5bf5a8625d3c70e2f24c1bd9db8309 extends \FOS\RestBundle\Serializer\JMSSerializerAdapter implements \ProxyManager\Proxy\VirtualProxyInterface
+class FOSRestBundleSerializerJMSSerializerAdapter_0000000041fc4f68000000003727e792ddf1182c8fd96589db59e0fd0e84a660 extends \FOS\RestBundle\Serializer\JMSSerializerAdapter implements \ProxyManager\Proxy\VirtualProxyInterface
 {
 
     /**
      * @var \Closure|null initializer responsible for generating the wrapped object
      */
-    private $valueHolder59a8b1f406361383297609 = null;
+    private $valueHolder59acb7e22fe80989201364 = null;
 
     /**
      * @var \Closure|null initializer responsible for generating the wrapped object
      */
-    private $initializer59a8b1f406368282757625 = null;
+    private $initializer59acb7e22fe87363320215 = null;
 
     /**
      * @var bool[] map of public properties of the parent class
      */
-    private static $publicProperties59a8b1f406343217924361 = array(
+    private static $publicProperties59acb7e22fe5f482492605 = array(
         
     );
 
@@ -5259,9 +5259,9 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
      */
     public function serialize($data, $format, \FOS\RestBundle\Context\Context $context)
     {
-        $this->initializer59a8b1f406368282757625 && $this->initializer59a8b1f406368282757625->__invoke($this->valueHolder59a8b1f406361383297609, $this, 'serialize', array('data' => $data, 'format' => $format, 'context' => $context), $this->initializer59a8b1f406368282757625);
+        $this->initializer59acb7e22fe87363320215 && $this->initializer59acb7e22fe87363320215->__invoke($this->valueHolder59acb7e22fe80989201364, $this, 'serialize', array('data' => $data, 'format' => $format, 'context' => $context), $this->initializer59acb7e22fe87363320215);
 
-        return $this->valueHolder59a8b1f406361383297609->serialize($data, $format, $context);
+        return $this->valueHolder59acb7e22fe80989201364->serialize($data, $format, $context);
     }
 
     /**
@@ -5269,9 +5269,9 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
      */
     public function deserialize($data, $type, $format, \FOS\RestBundle\Context\Context $context)
     {
-        $this->initializer59a8b1f406368282757625 && $this->initializer59a8b1f406368282757625->__invoke($this->valueHolder59a8b1f406361383297609, $this, 'deserialize', array('data' => $data, 'type' => $type, 'format' => $format, 'context' => $context), $this->initializer59a8b1f406368282757625);
+        $this->initializer59acb7e22fe87363320215 && $this->initializer59acb7e22fe87363320215->__invoke($this->valueHolder59acb7e22fe80989201364, $this, 'deserialize', array('data' => $data, 'type' => $type, 'format' => $format, 'context' => $context), $this->initializer59acb7e22fe87363320215);
 
-        return $this->valueHolder59a8b1f406361383297609->deserialize($data, $type, $format, $context);
+        return $this->valueHolder59acb7e22fe80989201364->deserialize($data, $type, $format, $context);
     }
 
     /**
@@ -5290,7 +5290,7 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
             unset($instance->serializer);
         }, $instance, 'FOS\\RestBundle\\Serializer\\JMSSerializerAdapter')->__invoke($instance);
 
-        $instance->initializer59a8b1f406368282757625 = $initializer;
+        $instance->initializer59acb7e22fe87363320215 = $initializer;
 
         return $instance;
     }
@@ -5302,16 +5302,16 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
     {
         static $reflection;
 
-        if (! $this->valueHolder59a8b1f406361383297609) {
+        if (! $this->valueHolder59acb7e22fe80989201364) {
             $reflection = $reflection ?: new \ReflectionClass('FOS\\RestBundle\\Serializer\\JMSSerializerAdapter');
-            $this->valueHolder59a8b1f406361383297609 = $reflection->newInstanceWithoutConstructor();
+            $this->valueHolder59acb7e22fe80989201364 = $reflection->newInstanceWithoutConstructor();
         \Closure::bind(function (\FOS\RestBundle\Serializer\JMSSerializerAdapter $instance) {
             unset($instance->serializer);
         }, $this, 'FOS\\RestBundle\\Serializer\\JMSSerializerAdapter')->__invoke($this);
 
         }
 
-        $this->valueHolder59a8b1f406361383297609->__construct($serializer);
+        $this->valueHolder59acb7e22fe80989201364->__construct($serializer);
     }
 
     /**
@@ -5319,16 +5319,16 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
      */
     public function & __get($name)
     {
-        $this->initializer59a8b1f406368282757625 && $this->initializer59a8b1f406368282757625->__invoke($this->valueHolder59a8b1f406361383297609, $this, '__get', ['name' => $name], $this->initializer59a8b1f406368282757625);
+        $this->initializer59acb7e22fe87363320215 && $this->initializer59acb7e22fe87363320215->__invoke($this->valueHolder59acb7e22fe80989201364, $this, '__get', ['name' => $name], $this->initializer59acb7e22fe87363320215);
 
-        if (isset(self::$publicProperties59a8b1f406343217924361[$name])) {
-            return $this->valueHolder59a8b1f406361383297609->$name;
+        if (isset(self::$publicProperties59acb7e22fe5f482492605[$name])) {
+            return $this->valueHolder59acb7e22fe80989201364->$name;
         }
 
         $realInstanceReflection = new \ReflectionClass(get_parent_class($this));
 
         if (! $realInstanceReflection->hasProperty($name)) {
-            $targetObject = $this->valueHolder59a8b1f406361383297609;
+            $targetObject = $this->valueHolder59acb7e22fe80989201364;
 
             $backtrace = debug_backtrace(false);
             trigger_error(
@@ -5345,7 +5345,7 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
             return;
         }
 
-        $targetObject = $this->valueHolder59a8b1f406361383297609;
+        $targetObject = $this->valueHolder59acb7e22fe80989201364;
         $accessor = function & () use ($targetObject, $name) {
             return $targetObject->$name;
         };
@@ -5363,18 +5363,18 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
      */
     public function __set($name, $value)
     {
-        $this->initializer59a8b1f406368282757625 && $this->initializer59a8b1f406368282757625->__invoke($this->valueHolder59a8b1f406361383297609, $this, '__set', array('name' => $name, 'value' => $value), $this->initializer59a8b1f406368282757625);
+        $this->initializer59acb7e22fe87363320215 && $this->initializer59acb7e22fe87363320215->__invoke($this->valueHolder59acb7e22fe80989201364, $this, '__set', array('name' => $name, 'value' => $value), $this->initializer59acb7e22fe87363320215);
 
         $realInstanceReflection = new \ReflectionClass(get_parent_class($this));
 
         if (! $realInstanceReflection->hasProperty($name)) {
-            $targetObject = $this->valueHolder59a8b1f406361383297609;
+            $targetObject = $this->valueHolder59acb7e22fe80989201364;
 
             return $targetObject->$name = $value;
             return;
         }
 
-        $targetObject = $this->valueHolder59a8b1f406361383297609;
+        $targetObject = $this->valueHolder59acb7e22fe80989201364;
         $accessor = function & () use ($targetObject, $name, $value) {
             return $targetObject->$name = $value;
         };
@@ -5391,18 +5391,18 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
      */
     public function __isset($name)
     {
-        $this->initializer59a8b1f406368282757625 && $this->initializer59a8b1f406368282757625->__invoke($this->valueHolder59a8b1f406361383297609, $this, '__isset', array('name' => $name), $this->initializer59a8b1f406368282757625);
+        $this->initializer59acb7e22fe87363320215 && $this->initializer59acb7e22fe87363320215->__invoke($this->valueHolder59acb7e22fe80989201364, $this, '__isset', array('name' => $name), $this->initializer59acb7e22fe87363320215);
 
         $realInstanceReflection = new \ReflectionClass(get_parent_class($this));
 
         if (! $realInstanceReflection->hasProperty($name)) {
-            $targetObject = $this->valueHolder59a8b1f406361383297609;
+            $targetObject = $this->valueHolder59acb7e22fe80989201364;
 
             return isset($targetObject->$name);
             return;
         }
 
-        $targetObject = $this->valueHolder59a8b1f406361383297609;
+        $targetObject = $this->valueHolder59acb7e22fe80989201364;
         $accessor = function () use ($targetObject, $name) {
             return isset($targetObject->$name);
         };
@@ -5419,18 +5419,18 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
      */
     public function __unset($name)
     {
-        $this->initializer59a8b1f406368282757625 && $this->initializer59a8b1f406368282757625->__invoke($this->valueHolder59a8b1f406361383297609, $this, '__unset', array('name' => $name), $this->initializer59a8b1f406368282757625);
+        $this->initializer59acb7e22fe87363320215 && $this->initializer59acb7e22fe87363320215->__invoke($this->valueHolder59acb7e22fe80989201364, $this, '__unset', array('name' => $name), $this->initializer59acb7e22fe87363320215);
 
         $realInstanceReflection = new \ReflectionClass(get_parent_class($this));
 
         if (! $realInstanceReflection->hasProperty($name)) {
-            $targetObject = $this->valueHolder59a8b1f406361383297609;
+            $targetObject = $this->valueHolder59acb7e22fe80989201364;
 
             unset($targetObject->$name);
             return;
         }
 
-        $targetObject = $this->valueHolder59a8b1f406361383297609;
+        $targetObject = $this->valueHolder59acb7e22fe80989201364;
         $accessor = function () use ($targetObject, $name) {
             unset($targetObject->$name);
         };
@@ -5444,16 +5444,16 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
 
     public function __clone()
     {
-        $this->initializer59a8b1f406368282757625 && $this->initializer59a8b1f406368282757625->__invoke($this->valueHolder59a8b1f406361383297609, $this, '__clone', array(), $this->initializer59a8b1f406368282757625);
+        $this->initializer59acb7e22fe87363320215 && $this->initializer59acb7e22fe87363320215->__invoke($this->valueHolder59acb7e22fe80989201364, $this, '__clone', array(), $this->initializer59acb7e22fe87363320215);
 
-        $this->valueHolder59a8b1f406361383297609 = clone $this->valueHolder59a8b1f406361383297609;
+        $this->valueHolder59acb7e22fe80989201364 = clone $this->valueHolder59acb7e22fe80989201364;
     }
 
     public function __sleep()
     {
-        $this->initializer59a8b1f406368282757625 && $this->initializer59a8b1f406368282757625->__invoke($this->valueHolder59a8b1f406361383297609, $this, '__sleep', array(), $this->initializer59a8b1f406368282757625);
+        $this->initializer59acb7e22fe87363320215 && $this->initializer59acb7e22fe87363320215->__invoke($this->valueHolder59acb7e22fe80989201364, $this, '__sleep', array(), $this->initializer59acb7e22fe87363320215);
 
-        return array('valueHolder59a8b1f406361383297609');
+        return array('valueHolder59acb7e22fe80989201364');
     }
 
     public function __wakeup()
@@ -5468,7 +5468,7 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
      */
     public function setProxyInitializer(\Closure $initializer = null)
     {
-        $this->initializer59a8b1f406368282757625 = $initializer;
+        $this->initializer59acb7e22fe87363320215 = $initializer;
     }
 
     /**
@@ -5476,7 +5476,7 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
      */
     public function getProxyInitializer()
     {
-        return $this->initializer59a8b1f406368282757625;
+        return $this->initializer59acb7e22fe87363320215;
     }
 
     /**
@@ -5484,7 +5484,7 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
      */
     public function initializeProxy() : bool
     {
-        return $this->initializer59a8b1f406368282757625 && $this->initializer59a8b1f406368282757625->__invoke($this->valueHolder59a8b1f406361383297609, $this, 'initializeProxy', array(), $this->initializer59a8b1f406368282757625);
+        return $this->initializer59acb7e22fe87363320215 && $this->initializer59acb7e22fe87363320215->__invoke($this->valueHolder59acb7e22fe80989201364, $this, 'initializeProxy', array(), $this->initializer59acb7e22fe87363320215);
     }
 
     /**
@@ -5492,7 +5492,7 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
      */
     public function isProxyInitialized() : bool
     {
-        return null !== $this->valueHolder59a8b1f406361383297609;
+        return null !== $this->valueHolder59acb7e22fe80989201364;
     }
 
     /**
@@ -5500,7 +5500,7 @@ class FOSRestBundleSerializerJMSSerializerAdapter_000000005d48934b000000001f2358
      */
     public function getWrappedValueHolderValue()
     {
-        return $this->valueHolder59a8b1f406361383297609;
+        return $this->valueHolder59acb7e22fe80989201364;
     }
 
 
