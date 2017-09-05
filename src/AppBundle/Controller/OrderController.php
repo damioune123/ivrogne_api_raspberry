@@ -393,7 +393,6 @@ class OrderController extends Controller
         $order->setRegisterAccount($registerAccount);
         $order->setCustomerUserAccount($bankAccount);
 
-
         foreach ($request->request->get("orderlines") as $value) {
             $orderLine = new OrderLine();
             $form = $this->createForm(OrderLineTransactionType::class, $orderLine, ['validation_groups' => ['Default', 'New']]);

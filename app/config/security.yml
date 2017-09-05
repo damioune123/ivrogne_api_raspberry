@@ -29,8 +29,9 @@ security:
     role_hierarchy:
         ROLE_USER:        ROLE_USER
         ROLE_ADMIN:       [ROLE_USER, ROLE_ADMIN]
+        ROLE_BARMAN:       [ROLE_USER, ROLE_BARMAN, ROLE_ADMIN]
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_SUPER_ADMIN]
 
     access_control:
-            - { path: ^/api/admin, roles: ROLE_ADMIN }
+            - { path: ^/api/admin, roles: ROLE_BARMAN }
             - { path: ^/api/super-admin, roles: ROLE_SUPER_ADMIN }
