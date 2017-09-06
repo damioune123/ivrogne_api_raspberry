@@ -112,7 +112,7 @@ class AuthTokenController extends Controller
         /* @var $user User */
         //if($user->getRfidCard() == null) $user =false;
 
-        if (!$user) { // L'utilisateur n'existe pas
+        if (empty($user)) { // L'utilisateur n'existe pas
             $rfidToMatch= new RfidToMatch();
             $rfidToMatch->setCreatedAt(new \DateTime('now'));
             $rfidToMatch->setValue($request->get('card_id'));
@@ -140,10 +140,10 @@ class AuthTokenController extends Controller
                 $authToken->setSource("tablette");
                 $client->emit('broadcastphp', ['token' => $authToken->getValue(),'role'=>$authToken->getUser()->getRole(), 'userId' => $authToken->getUser()->getId(),"firstname"=>$authToken->getUser()->getFirstname(), "lastname"=>$authToken->getUser()->getLastname()]);
 
+
             }
-            elseif ($request->request->get('source')=="tablette" and empty($user)){
+            else if ($request->request->get('source')=="tablette" and empty($user)){
                 $client->emit('broadcastphp', ['rfid_to_match' => true,'card_id'=>$request->get('card_id')]);
-                return $rfidToMatch;
 
             }
             else{
@@ -151,13 +151,16 @@ class AuthTokenController extends Controller
             }
             $client->close();
 
-            return json_encode($client);
         }catch (ServerConnectionFailureException $e){
             $authToken->setException("node_server_down");
 
         }
         finally{
-            return $authToken;
+            if (!empty($user)) {
+                return $authToken;
+            }else{
+                return $rfidToMatch;
+            }
         }
 
 
