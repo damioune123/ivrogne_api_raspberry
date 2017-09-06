@@ -37,6 +37,6 @@ AppBundle\Entity\UserAccount:
     virtual_properties:
 
         getAvailableBalance:
-            groups: ['user','account','userAccount']
+            groups: ['user','account','userAccount','userLimited']
 
 

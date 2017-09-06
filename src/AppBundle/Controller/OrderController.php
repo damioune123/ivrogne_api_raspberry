@@ -253,7 +253,7 @@ class OrderController extends Controller
             } else
                 return $form;
         }
-        $em->refresh($order);
+       // $em->refresh($order);
         $em->flush();
         $order->creditOrder();
         $em->persist($order);
@@ -345,7 +345,7 @@ class OrderController extends Controller
             } else
                 return $form;
         }
-        $em->refresh($order);
+       // $em->refresh($order);
         $em->flush();
         $order->creditOrder();
         $em->persist($order);
@@ -407,7 +407,7 @@ class OrderController extends Controller
                 return $form;
         }
 
-        $em->refresh($order);
+    //é    $em->refresh($order);
         $em->flush();
         $order->creditOrder();
         $em->persist($order);
