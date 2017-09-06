@@ -18,7 +18,7 @@ AppBundle\Entity\User:
             groups: ['user','userLimited']
 
         godfather:
-            groups: ['user']
+            groups: ['user','userLimited']
 
         nefews:
             groups: ['user']

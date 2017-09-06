@@ -113,34 +113,37 @@ class AuthTokenController extends Controller
         //if($user->getRfidCard() == null) $user =false;
 
         if (!$user) { // L'utilisateur n'existe pas
-            if(strlen($request->get('card_id'))<5)
-                return $this->invalidCredentials();
             $rfidToMatch= new RfidToMatch();
             $rfidToMatch->setCreatedAt(new \DateTime('now'));
             $rfidToMatch->setValue($request->get('card_id'));
 
             $em->persist($rfidToMatch);
             $em->flush();
-            return "New Card rfid to match stored !";
+        }
+        else{
+            $authToken = new AuthToken();
+            $authToken->setValue(base64_encode(random_bytes(50)));
+            $authToken->setCreatedAt(new \DateTime('now'));
+            $authToken->setIsLogWithRfid(true);
+            $authToken->setUser($user);
+
+            $em->persist($authToken);
+            $em->flush();
+            $authToken->setException("OK");
         }
 
-        $authToken = new AuthToken();
-        $authToken->setValue(base64_encode(random_bytes(50)));
-        $authToken->setCreatedAt(new \DateTime('now'));
-        $authToken->setIsLogWithRfid(true);
-        $authToken->setUser($user);
-
-        $em->persist($authToken);
-        $em->flush();
-
-        $authToken->setException("OK");
         try{
             $connection = new Version1X('http://127.0.0.1:5000');
             $client = new Client($connection);
             $client->initialize();
-            if($request->request->get('source')=="tablette"){
+            if($request->request->get('source')=="tablette" and !empty($user)){
                 $authToken->setSource("tablette");
-                $client->emit('broadcastphp', ['token' => $authToken->getValue(),'userId' => $authToken->getUser()->getId(),"firstname"=>$authToken->getUser()->getFirstname(), "lastname"=>$authToken->getUser()->getLastname()]);
+                $client->emit('broadcastphp', ['token' => $authToken->getValue(),'role'=>$authToken->getUser()->getRole(), 'userId' => $authToken->getUser()->getId(),"firstname"=>$authToken->getUser()->getFirstname(), "lastname"=>$authToken->getUser()->getLastname()]);
+
+            }
+            elseif ($request->request->get('source')=="tablette" and empty($user)){
+                $client->emit('broadcastphp', ['rfid_to_match' => true,'card_id'=>$request->get('card_id')]);
+                return $rfidToMatch;
 
             }
             else{

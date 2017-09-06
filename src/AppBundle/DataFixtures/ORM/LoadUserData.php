@@ -39,18 +39,18 @@ class LoadUserDataextends extends AbstractFixture implements OrderedFixtureInter
         $manager->persist( $userBarman);
         $this->setReference('barman-1',  $userBarman);
 
-        $userAdmin = new User();
-        $userAdmin->setFirstname('Damien');
-        $userAdmin->setLastname('Meur');
-        $userAdmin->setRfidCard('2');
-        $userAdmin->setUsername('dams');
-        $userAdmin->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
-        $userAdmin->setRole('ROLE_ADMIN');
-        $userAdmin->setPromotion($this->getReference('admin-promotion'));
-        $userAdmin->setEmail('damienmeur@gmail.com');
-        $userAdmin->setGodfather(null);
-        $manager->persist($userAdmin);
-        $this->setReference('admin-1', $userAdmin);
+        $userAdmin1 = new User();
+        $userAdmin1->setFirstname('Damien');
+        $userAdmin1->setLastname('Meur');
+        $userAdmin1->setRfidCard('2');
+        $userAdmin1->setUsername('dams');
+        $userAdmin1->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
+        $userAdmin1->setRole('ROLE_ADMIN');
+        $userAdmin1->setPromotion($this->getReference('admin-promotion'));
+        $userAdmin1->setEmail('damienmeur@gmail.com');
+        $userAdmin1->setGodfather(null);
+        $manager->persist($userAdmin1);
+        $this->setReference('admin-1', $userAdmin1);
 
         $userAdmin = new User();
         $userAdmin->setFirstname('Julien');
@@ -75,7 +75,7 @@ class LoadUserDataextends extends AbstractFixture implements OrderedFixtureInter
         $user1->setRole('ROLE_USER');
         $user1->setPromotion($this->getReference('simple-promotion'));
         $user1->setEmail('no.fallica@gmail.com');
-        $user1->setGodfather($userAdmin);
+        $user1->setGodfather($userAdmin1);
         $manager->persist($user1);
         $this->setReference('user-1', $user1);
 
