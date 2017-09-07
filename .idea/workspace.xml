@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="01b06956-e1ba-4f35-9708-1da235a1fa28" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/AuthTokenController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/AuthTokenController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/UserAccountController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/UserAccountController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Promotion.yml" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Promotion.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -105,8 +100,8 @@
       <file leaf-file-name="Entity.UserAccount.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+            <state relative-caret-position="465">
+              <caret line="31" column="54" lean-forward="false" selection-start-line="31" selection-start-column="54" selection-end-line="31" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -317,9 +312,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-2" />
-    <option name="y" value="30" />
+    <option name="y" value="-18" />
     <option name="width" value="1924" />
-    <option name="height" value="1052" />
+    <option name="height" value="1100" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -791,7 +786,7 @@
       <workItem from="1504541841685" duration="8989000" />
       <workItem from="1504640314997" duration="1509000" />
       <workItem from="1504648187679" duration="13651000" />
-      <workItem from="1504730896442" duration="33206000" />
+      <workItem from="1504730896442" duration="33322000" />
     </task>
     <task id="LOCAL-00001" summary="patch admin =&gt; USER">
       <created>1501626050145</created>
@@ -996,17 +991,23 @@
       <option name="project" value="LOCAL" />
       <updated>1504767006872</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="filleuls ok">
+      <created>1504776747259</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1504776747259</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="253582000" />
+    <option name="totallyTimeSpent" value="253698000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="30" width="1924" height="1052" extended-state="0" />
-    <editor active="true" />
+    <frame x="-2" y="-18" width="1924" height="1100" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25833333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25833333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1035,7 +1036,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="remove profuct fixtures" />
     <MESSAGE value="correction bug cancel order + cash order" />
     <MESSAGE value="test" />
     <MESSAGE value="doctrine migration" />
@@ -1060,7 +1060,8 @@
     <MESSAGE value="commande ok" />
     <MESSAGE value="transfert ok" />
     <MESSAGE value="affichage info list order amiloration performance + lisibilité" />
-    <option name="LAST_COMMIT_MESSAGE" value="affichage info list order amiloration performance + lisibilité" />
+    <MESSAGE value="filleuls ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="filleuls ok" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1497,8 +1498,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+        <state relative-caret-position="465">
+          <caret line="31" column="54" lean-forward="false" selection-start-line="31" selection-start-column="54" selection-end-line="31" selection-end-column="54" />
           <folding />
         </state>
       </provider>

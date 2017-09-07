@@ -31,7 +31,6 @@ AppBundle\Entity\UserAccount:
         creditAllowed:
               groups: ['user','account','userAccount']
 
-
     virtual_properties:
 
         getAvailableBalance:
