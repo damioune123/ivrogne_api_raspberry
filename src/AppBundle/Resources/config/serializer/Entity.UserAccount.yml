@@ -31,8 +31,6 @@ AppBundle\Entity\UserAccount:
         creditAllowed:
               groups: ['user','account','userAccount']
 
-        creditToAllowMax:
-              groups: ['user','account','userAccount']
 
     virtual_properties:
 

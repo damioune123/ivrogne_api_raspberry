@@ -45,13 +45,10 @@ class AuthTokenController extends Controller
 
     {
 
-
-
         $em=$this->getDoctrine()->getManager();
         $credentials = new Credentials();
 
         $form = $this->createForm(CredentialsType::class, $credentials);
-
 
         $form->submit($request->request->all());
 

@@ -343,27 +343,27 @@ class UserAccountController extends Controller
         $oldMoneyLimit = $userAccount->getMoneyLimit();
         if($this->getUser()->getRole()=="ROLE_BARMAN")
         {
-            return \FOS\RestBundle\View\View::create(['message' => 'Barman cannot be a godfather'], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'Barman cannot be a godfather'], Response::HTTP_BAD_REQUEST);
         }
         if(empty($userAccount)){
             return \FOS\RestBundle\View\View::create(['message' => 'nefew account not found'], Response::HTTP_NOT_FOUND);
         }
         if($this->getUser()!=$userAccount->getUser()->getGodfather()){
-            return \FOS\RestBundle\View\View::create(['message' => 'Not a nefew of current admin'], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'Not a nefew of current admin'], Response::HTTP_BAD_REQUEST);
         }
         $newMoneyLimit =intval($request->get('money_limit'));
         if($userAccount->getMoneyBalance()<0.0 and $newMoneyLimit< abs($userAccount->getMoneyBalance())){
-            return \FOS\RestBundle\View\View::create(['message' => 'The nefew has a money balance under the money limit'], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'The nefew has a money balance under the money limit'], Response::HTTP_BAD_REQUEST);
         }
         if($newMoneyLimit <0){
-            return \FOS\RestBundle\View\View::create(['message' => 'The money limit has to be a positive or nul integer'], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'The money limit has to be a positive or nul integer'], Response::HTTP_BAD_REQUEST);
 
         }
         /* @var $adminAccount UserAccount */
         $adminAccount =$this->getUser()->getUserAccounts()[0];
-        if($newMoneyLimit> $adminAccount->getCreditToAllowMax()-$adminAccount->getCreditAllowed())
+        if($newMoneyLimit> $adminAccount->getAvailableBalance()-$adminAccount->getCreditAllowed())
         {
-            return \FOS\RestBundle\View\View::create(['message' => 'The money limit is too high. Max allowed :'.$adminAccount->getCreditToAllowMax().' / already allowed : '.$adminAccount->getCreditAllowed()], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'The money limit is too high. Max allowed :'.$adminAccount->getAvailableBalance().' / already allowed : '.$adminAccount->getCreditAllowed()], Response::HTTP_BAD_REQUEST);
         }
         $adminAccount->setCreditAllowed($adminAccount->getCreditAllowed()+$newMoneyLimit-$oldMoneyLimit);
         $userAccount->setMoneyLimit($newMoneyLimit);

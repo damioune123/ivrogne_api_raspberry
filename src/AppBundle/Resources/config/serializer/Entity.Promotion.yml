@@ -4,7 +4,7 @@ AppBundle\Entity\Promotion:
         id:
             groups: ['user', 'userAccount', 'auth-token','moneyFlow','promotion', 'userLimited']
         userPromotion:
-            groups: ['promotion']
+            groups: ['promotion','user']
 
         promotionName:
             groups: ['promotion']

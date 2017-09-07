@@ -565,9 +565,13 @@ class UserController extends Controller
         if($user->getRole()=="ROLE_ADMIN" or $user->getRole()=="ROLE_BARMAN" or $user->getRole()=="ROLE_SUPER_ADMIN"){
             return \FOS\RestBundle\View\View::create(['message' => 'User already admin'], Response::HTTP_BAD_REQUEST);
         }
+        if($user->getGodfather()!=null){
+            if($user->getRole()=="ROLE_ADMIN" or $user->getRole()=="ROLE_BARMAN" or $user->getRole()=="ROLE_SUPER_ADMIN"){
+                return \FOS\RestBundle\View\View::create(['message' => 'L\'utilisateur est encore parrainé'], Response::HTTP_BAD_REQUEST);
+            }
+        }
         $promotion=$em->getRepository('AppBundle:Promotion')
             ->findByPromotionName("admin")[0];
-        $user->setGodfather(null);
         $user->setRole("ROLE_ADMIN");
         $user->setPromotion($promotion);
         /* @var $userAccount UserAccount */
