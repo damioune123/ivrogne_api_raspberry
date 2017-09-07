@@ -40,19 +40,13 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $this->setReference('autre-4',$product);
 
-        $product = new Product();
-        $product->setName('Autre');
-        $product->setBarcode('44444');
-        $product->setProductCategory($this->getReference('spe_33cl_plus'));
-        $manager->persist($product);
-        $this->setReference('autre-5',$product);
 
         $product = new Product();
         $product->setName('Autre');
         $product->setBarcode('55555');
         $product->setProductCategory($this->getReference('alcool_cl'));
         $manager->persist($product);
-        $this->setReference('autre-6',$product);
+        $this->setReference('autre-5',$product);
 
 
 

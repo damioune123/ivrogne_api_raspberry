@@ -42,16 +42,23 @@ class AuthTokenController extends Controller
      *
      */
     public function postAuthTokensAction(Request $request)
+
     {
+
+
+
         $em=$this->getDoctrine()->getManager();
         $credentials = new Credentials();
+
         $form = $this->createForm(CredentialsType::class, $credentials);
+
 
         $form->submit($request->request->all());
 
         if (!$form->isValid()) {
             return $form;
         }
+
 
         $user = $em->getRepository('AppBundle:User')
             ->findOneByUsername($credentials->getLogin());
@@ -76,8 +83,6 @@ class AuthTokenController extends Controller
         $em->persist($authToken);
         $em->flush();
 
-
-        
         return $authToken;
     }
 
@@ -133,34 +138,38 @@ class AuthTokenController extends Controller
         }
 
         try{
-            $connection = new Version1X('http://127.0.0.1:5000');
-            $client = new Client($connection);
-            $client->initialize();
+
             if($request->request->get('source')=="tablette" and !empty($user)){
+                $connection = new Version1X('http://127.0.0.1:5000');
+                $client = new Client($connection);
+                $client->initialize();
                 $authToken->setSource("tablette");
                 $client->emit('broadcastphp', ['token' => $authToken->getValue(),'role'=>$authToken->getUser()->getRole(), 'userId' => $authToken->getUser()->getId(),"firstname"=>$authToken->getUser()->getFirstname(), "lastname"=>$authToken->getUser()->getLastname()]);
+                $client->close();
 
 
             }
             else if ($request->request->get('source')=="tablette" and empty($user)){
+                $connection = new Version1X('http://127.0.0.1:5000');
+                $client = new Client($connection);
+                $client->initialize();
                 $client->emit('broadcastphp', ['rfid_to_match' => true,'card_id'=>$request->get('card_id')]);
+                $client->close();
 
             }
             else{
                 $authToken->setSource("commande");
             }
-            $client->close();
+
 
         }catch (ServerConnectionFailureException $e){
             $authToken->setException("node_server_down");
 
         }
-        finally{
-            if (!empty($user)) {
-                return $authToken;
-            }else{
-                return $rfidToMatch;
-            }
+        if (!empty($user)) {
+            return $authToken;
+        }else{
+            return $rfidToMatch;
         }
 
 
@@ -245,6 +254,6 @@ class AuthTokenController extends Controller
 
     private function invalidCredentials()
     {
-        return \FOS\RestBundle\View\View::create(['message' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED);
+        return \FOS\RestBundle\View\View::create(['message' => 'Invalid credentials'], Response::HTTP_BAD_REQUEST);
     }
 }

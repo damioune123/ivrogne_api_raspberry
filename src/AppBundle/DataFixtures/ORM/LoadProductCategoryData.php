@@ -37,12 +37,6 @@ class LoadProductCategoryData extends AbstractFixture implements OrderedFixtureI
         $this->setReference('spe_33cl', $productCategory);
 
         $productCategory = new ProductCategory();
-        $productCategory->setCategoryName('spe_33cl_plus');
-        $productCategory->setPrice(2.5);
-        $manager->persist($productCategory);
-        $this->setReference('spe_33cl_plus', $productCategory);
-
-        $productCategory = new ProductCategory();
         $productCategory->setCategoryName('alcool_cl');
         $productCategory->setPrice(0.5);
         $manager->persist($productCategory);

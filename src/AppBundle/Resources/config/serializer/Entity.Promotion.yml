@@ -2,9 +2,9 @@ AppBundle\Entity\Promotion:
     exclusion_policy: NONE
     properties:
         id:
-            groups: ['user', 'userAccount', 'order', 'auth-token','moneyFlow','promotion', 'userLimited']
+            groups: ['user', 'userAccount', 'auth-token','moneyFlow','promotion', 'userLimited']
         userPromotion:
-            groups: ['promotion','order']
+            groups: ['promotion']
 
         promotionName:
-            groups: ['promotion','order']
+            groups: ['promotion']

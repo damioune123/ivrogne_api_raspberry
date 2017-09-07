@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20170820013508 extends AbstractMigration
+class Version20170907062724 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -18,9 +18,7 @@ class Version20170820013508 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE products ADD promotion INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE products ADD CONSTRAINT FK_B3BA5A5AC11D7DD1 FOREIGN KEY (promotion) REFERENCES promotions (id) ON DELETE SET NULL');
-        $this->addSql('CREATE INDEX IDX_B3BA5A5AC11D7DD1 ON products (promotion)');
+        $this->addSql('ALTER TABLE orders ADD during_order_global_promotion DOUBLE PRECISION NOT NULL');
     }
 
     /**
@@ -31,8 +29,6 @@ class Version20170820013508 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE products DROP FOREIGN KEY FK_B3BA5A5AC11D7DD1');
-        $this->addSql('DROP INDEX IDX_B3BA5A5AC11D7DD1 ON products');
-        $this->addSql('ALTER TABLE products DROP promotion');
+        $this->addSql('ALTER TABLE orders DROP during_order_global_promotion');
     }
 }

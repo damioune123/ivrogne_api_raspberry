@@ -60,7 +60,7 @@ class MoneyFlowController extends Controller
                             ->getBankAccount();
             $bankAccount =$em->getRepository('AppBundle:UserAccount')->find($bankAccountId);
             if(empty($userAccount)){
-                return \FOS\RestBundle\View\View::create(['message' => 'user account not found '], Response::HTTP_UNAUTHORIZED);
+                return \FOS\RestBundle\View\View::create(['message' => 'user account not found '], Response::HTTP_NOT_FOUND);
             }
             $admin= $em->getRepository('AppBundle:User')
                 ->find($request->get('adminAuthentifier'));
@@ -69,7 +69,7 @@ class MoneyFlowController extends Controller
                 return \FOS\RestBundle\View\View::create(['message' => 'Admin authentifier not found'], Response::HTTP_NOT_FOUND);
             }
             if($admin->getRole() != "ROLE_ADMIN"){
-                return \FOS\RestBundle\View\View::create(['message' => 'The card pass does not match with an admin'], Response::HTTP_UNAUTHORIZED);
+                return \FOS\RestBundle\View\View::create(['message' => 'The card pass does not match with an admin'], Response::HTTP_BAD_REQUEST);
             }
             $moneyFlow->setAdminAuthentifier($admin);
             if($request->get('type')=="debit"){
@@ -156,12 +156,12 @@ class MoneyFlowController extends Controller
         }
         if($request->get('type')=="debit"){
             if($this->getUser()->getUserAccounts()[0]->getId() !=$moneyFlow->getDebitUserAccount()->getId()){
-                return \FOS\RestBundle\View\View::create(['message' => 'you are not the debit account of the money Flow'], Response::HTTP_UNAUTHORIZED);
+                return \FOS\RestBundle\View\View::create(['message' => 'you are not the debit account of the money Flow'], Response::HTTP_BAD_REQUEST);
             }
         }
         else{
             if($this->getUser()->getUserAccounts()[0]->getId() !=$moneyFlow->getCreditUserAccount()->getId() ){
-                return \FOS\RestBundle\View\View::create(['message' => 'you are not the credit account of the money Flow'], Response::HTTP_UNAUTHORIZED);
+                return \FOS\RestBundle\View\View::create(['message' => 'you are not the credit account of the money Flow'], Response::HTTP_BAD_REQUEST);
             }
         }
         return $moneyFlow;
@@ -200,7 +200,7 @@ class MoneyFlowController extends Controller
             return \FOS\RestBundle\View\View::create(['message' => 'Money-flow not found'], Response::HTTP_NOT_FOUND);
         }
         if($moneyFlow->getIsCancelled())
-            return \FOS\RestBundle\View\View::create(['message' => 'Cannot cancel 2 times the same money-flow'], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'Cannot cancel 2 times the same money-flow'], Response::HTTP_BAD_REQUEST);
         $moneyFlow->setIsCancelled(true);
 
 
@@ -217,7 +217,7 @@ class MoneyFlowController extends Controller
             return \FOS\RestBundle\View\View::create(['message' => 'Admin authentifier not found'], Response::HTTP_NOT_FOUND);
         }
         if($admin->getRole() != "ROLE_ADMIN"){
-            return \FOS\RestBundle\View\View::create(['message' => 'The card pass does not match with an admin'], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'The card pass does not match with an admin'], Response::HTTP_BAD_REQUEST);
         }
 
         $cancelMoneyFlow->setAdminAuthentifier($admin);

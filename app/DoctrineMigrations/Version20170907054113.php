@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20170820011923 extends AbstractMigration
+class Version20170907054113 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -16,7 +16,9 @@ class Version20170820011923 extends AbstractMigration
     public function up(Schema $schema)
     {
         // this up() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('ALTER TABLE orders ADD during_order_price DOUBLE PRECISION NOT NULL');
     }
 
     /**
@@ -25,6 +27,8 @@ class Version20170820011923 extends AbstractMigration
     public function down(Schema $schema)
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('ALTER TABLE orders DROP during_order_price');
     }
 }

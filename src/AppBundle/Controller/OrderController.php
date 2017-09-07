@@ -247,16 +247,25 @@ class OrderController extends Controller
             $form->submit($value);
             if ($form->isValid()) {
                 $orderLine->setOrder($order);
+                $orderLine->setDuringOrderPrices();
                 $em->persist($orderLine);
                 $em->flush();
 
             } else
                 return $form;
         }
+
        // $em->refresh($order);
         $em->flush();
         $order->creditOrder();
         $em->persist($order);
+        $em->flush();
+        $orderLines = $em
+            ->getRepository('AppBundle:OrderLine')
+            ->findByOrder($order->getId());
+        $order->setOrderLines($orderLines);
+        $order->setDuringOrderPrice();
+        $em->merge($order);
         $em->flush();
         return $order;
 
@@ -338,6 +347,7 @@ class OrderController extends Controller
             $form->submit($value);
             if ($form->isValid()) {
                 $orderLine->setOrder($order);
+                $orderLine->setDuringOrderPrices();
                 $em->persist($orderLine);
                 $em->flush();
 
@@ -346,9 +356,17 @@ class OrderController extends Controller
                 return $form;
         }
        // $em->refresh($order);
+        $order->setDuringOrderPrice();
         $em->flush();
         $order->creditOrder();
         $em->persist($order);
+        $em->flush();
+        $orderLines = $em
+            ->getRepository('AppBundle:OrderLine')
+            ->findByOrder($order->getId());
+        $order->setOrderLines($orderLines);
+        $order->setDuringOrderPrice();
+        $em->merge($order);
         $em->flush();
         return $order;
     }
@@ -399,6 +417,7 @@ class OrderController extends Controller
             $form->submit($value);
             if ($form->isValid()) {
                 $orderLine->setOrder($order);
+                $orderLine->setDuringOrderPrices();
                 $em->persist($orderLine);
                 $em->flush();
 
@@ -408,9 +427,17 @@ class OrderController extends Controller
         }
 
     //é    $em->refresh($order);
+        $order->setDuringOrderPrice();
         $em->flush();
         $order->creditOrder();
         $em->persist($order);
+        $em->flush();
+        $orderLines = $em
+            ->getRepository('AppBundle:OrderLine')
+            ->findByOrder($order->getId());
+        $order->setOrderLines($orderLines);
+        $order->setDuringOrderPrice();
+        $em->merge($order);
         $em->flush();
         return $order;
     }
@@ -500,7 +527,7 @@ class OrderController extends Controller
             return \FOS\RestBundle\View\View::create(['message' => 'Order not found'], Response::HTTP_NOT_FOUND);
         }
         if($order->isIsCancelled())
-            return \FOS\RestBundle\View\View::create(['message' => 'Cannot cancel 2 times the same order'], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'Cannot cancel 2 times the same order'], Response::HTTP_BAD_REQUEST);
         /* @var $admin User */
         $admin= $em->getRepository('AppBundle:User')
             ->find($request->get('adminAuthentifier'));
@@ -509,7 +536,7 @@ class OrderController extends Controller
             return \FOS\RestBundle\View\View::create(['message' => 'Admin authentifier not found'], Response::HTTP_NOT_FOUND);
         }
         if($admin->getRole() != "ROLE_ADMIN"){
-            return \FOS\RestBundle\View\View::create(['message' => 'The card pass does not match with an admin'], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'The card pass does not match with an admin'], Response::HTTP_BAD_REQUEST);
         }
 
         $order->setIsCancelled(true);

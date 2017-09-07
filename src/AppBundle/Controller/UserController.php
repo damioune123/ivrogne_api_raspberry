@@ -267,6 +267,80 @@ class UserController extends Controller
     }
 
     /**
+     * This URL aims to get all users that have ROLE_USER and haven't got any godfather. (LIGHT INFORMATION - ALL ACCESS). This is intendended to provide a safe resume of user's information that are available to everyone.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="users",
+     *  description="Get unsposred users info - Light information. ALL Access",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"userLimited"}}
+     *
+     * )
+     * @Rest\View(serializerGroups={"userLimited"})
+     * @Rest\Get("/admin/limited-unsponsored-users")
+     */
+    public function getLimitedUnsposredUsersAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT u
+            FROM AppBundle:User u
+            WHERE u.role = :role_user 
+            AND u.godfather IS NULL'
+        )->setParameters(array('role_user'=>"ROLE_USER"));
+        $users = $query->getResult();
+        return $users;
+
+    }
+
+
+    /**
+     * This URL aims to get nefews. (LIGHT INFORMATION - ALL ACCESS). This is intendended to provide a safe resume of user's information that are available to everyone.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="users",
+     *  description="Get nefews users info - Light information. ALL Access",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"userLimited"}}
+     *
+     * )
+     * @Rest\View(serializerGroups={"userLimited"})
+     * @Rest\Get("/admin/limited-nefews")
+     */
+    public function getNefewsAction(Request $request)
+    {
+        if($this->getUser()->getRole()!="ROLE_ADMIN"){
+            return \FOS\RestBundle\View\View::create(['message' => 'A barman does not have nefews'], Response::HTTP_BAD_REQUEST);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT u
+            FROM AppBundle:User u
+            WHERE u.role = :role_user 
+            AND u.godfather =:current_id'
+        )->setParameters(array('role_user'=>"ROLE_USER",'current_id'=>$this->getUser()->getId()));
+        $users = $query->getResult();
+        return $users;
+
+    }
+
+    /**
      *  This URL aims to allow an admin  to get info about any user.(ADMIN ONLY)
      *
      * @ApiDoc(
@@ -343,10 +417,10 @@ class UserController extends Controller
                 }
             }
             else if($user->getRole()=="ROLE_SUPER_ADMIN" ||$user->getRole()=="ROLE_BARMAN"){
-                return \FOS\RestBundle\View\View::create(['message' => 'SUPER ADMIN/ BARMAN cannot be deleted'], Response::HTTP_UNAUTHORIZED);
+                return \FOS\RestBundle\View\View::create(['message' => 'SUPER ADMIN/ BARMAN cannot be deleted'], Response::HTTP_BAD_REQUEST);
             }
             if($user->getIsRemoved()){
-                return \FOS\RestBundle\View\View::create(['message' => 'USER already deleted'], Response::HTTP_UNAUTHORIZED);
+                return \FOS\RestBundle\View\View::create(['message' => 'USER already deleted'], Response::HTTP_BAD_REQUEST);
 
             }
             $user->setIsRemoved(true);
@@ -489,7 +563,7 @@ class UserController extends Controller
             return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
         }
         if($user->getRole()=="ROLE_ADMIN" or $user->getRole()=="ROLE_BARMAN" or $user->getRole()=="ROLE_SUPER_ADMIN"){
-            return \FOS\RestBundle\View\View::create(['message' => 'User already admin'], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'User already admin'], Response::HTTP_BAD_REQUEST);
         }
         $promotion=$em->getRepository('AppBundle:Promotion')
             ->findByPromotionName("admin")[0];
@@ -524,7 +598,7 @@ class UserController extends Controller
      *  },
      *  section="users",
      *
-     *  description="Make a user as a nefew by id (only super-admin)",
+     *  description="Make a user as a nefew by id (only admin)",
      *  output={"class"="AppBundle\Entity\User",
      *           "groups" ={"user"}}
      *
@@ -545,12 +619,61 @@ class UserController extends Controller
 
 
         if($user->getRole()=="ROLE_ADMIN" or $user->getRole()=="ROLE_BARMAN" or $user->getRole()=="ROLE_SUPER_ADMIN"){
-            return \FOS\RestBundle\View\View::create(['message' => 'User is admin, cannot be a nefew'], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'User is admin, cannot be a nefew'], Response::HTTP_BAD_REQUEST);
         }
         if(!empty($user->getGodfather())){
-            return \FOS\RestBundle\View\View::create(['message' => 'User already has a godfather'], Response::HTTP_UNAUTHORIZED);
+            return \FOS\RestBundle\View\View::create(['message' => 'User already has a godfather'], Response::HTTP_BAD_REQUEST);
         }
         $user->setGodfather($this->getUser());
+        $em->merge($user);
+        $em->flush();
+        return $user;
+    }
+
+    /**
+     * This URL aims to allow an admin to unset a user as one of his nefew
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="users",
+     *
+     *  description="Unset a user as a nefew by id (only admin)",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
+     * @Rest\View(serializerGroups={"user"})
+     * @Rest\Patch("/admin/users/unset-nefew/{id}")
+     */
+    public function unSetNefewAction(Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $user = $em
+            ->getRepository('AppBundle:User')
+            ->find($request->get('id')); // L'identifiant en tant que paramètre n'est plus nécessaire
+        /* @var $user User */
+        if (empty($user)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+        }
+
+
+        if($user->getRole()=="ROLE_ADMIN" or $user->getRole()=="ROLE_BARMAN" or $user->getRole()=="ROLE_SUPER_ADMIN"){
+            return \FOS\RestBundle\View\View::create(['message' => 'User is admin, cannot be a nefew'], Response::HTTP_BAD_REQUEST);
+        }
+        if(empty($user->getGodfather())){
+            return \FOS\RestBundle\View\View::create(['message' => 'User does not have a god father'], Response::HTTP_BAD_REQUEST);
+        }
+        if($user->getUserAccounts()[0]->getMoneyLimit()>0){
+            return \FOS\RestBundle\View\View::create(['message' => 'User\'s money limit must be set to 0 to be unset'], Response::HTTP_BAD_REQUEST);
+        }
+        $user->setGodfather(null);
         $em->merge($user);
         $em->flush();
         return $user;

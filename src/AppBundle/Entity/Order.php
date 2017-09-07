@@ -71,7 +71,21 @@ class Order
      * @ORM\Column(name="isOrderedByCustomer", type="boolean")
      */
     private $isOrderedByCustomer;
-    
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="during_order_price", type="float")
+     */
+    private $duringOrderPrice;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="during_order_global_promotion", type="float")
+     */
+    private $duringOrderGlobalPromotion;
+
 
     /**
      * Order constructor.
@@ -82,7 +96,6 @@ class Order
         $this->createdAt = new \DateTime('now');
         $this->isCancelled = false;
         $this->isOrderedByCustomer = false;
-
     }
 
     /**
@@ -132,23 +145,10 @@ class Order
      */
     public function getOrderPrice()
     {
-        $price = 0.0;
-        foreach ($this->orderLines as $orderLine)
-        {
-            if($this->customerUserAccount->getUser()->getRole()=="ROLE_USER" ||$this->customerUserAccount->getUser()->getRole()=="ROLE_BARMAN"  ){
-                $price += $orderLine->getOrderLinePriceUser();
-            }
-            else{
-                $price += $orderLine->getOrderLinePriceAdmin();
-            }
-
+        if($this->getDuringOrderPrice()==0){
+            $this->setDuringOrderPrice();
         }
-        if(!$this->isPaidCash())
-            $promotionCoef= (100.0-$this->customerUserAccount->getUser()->getPromotion()->getUserPromotion())/100;
-        else $promotionCoef=1.0;
-        $price = $price * $promotionCoef;
-
-        return round($price, 2);
+       return $this->getDuringOrderPrice();
     }
 
     /**
@@ -230,6 +230,58 @@ class Order
     {
         $this->isOrderedByCustomer = $isOrderedByCustomer;
     }
+
+    /**
+     * @return float
+     */
+    public function getDuringOrderGlobalPromotion()
+    {
+        return $this->duringOrderGlobalPromotion;
+    }
+
+    /**
+     * @param float $duringOrderGlobalPromotion
+     */
+    public function setDuringOrderGlobalPromotion($duringOrderGlobalPromotion)
+    {
+        $this->duringOrderGlobalPromotion = $duringOrderGlobalPromotion;
+    }
+
+
+
+
+    /**
+     * @return float
+     */
+    public function getDuringOrderPrice()
+    {
+        return $this->duringOrderPrice;
+    }
+
+
+    public function setDuringOrderPrice()
+    {
+        $price = 0.0;
+        $this->setDuringOrderGlobalPromotion($this->customerUserAccount->getUser()->getPromotion()->getUserPromotion());
+        foreach ($this->orderLines as $orderLine)
+        {
+            if($this->customerUserAccount->getUser()->getRole()=="ROLE_USER" ||$this->customerUserAccount->getUser()->getRole()=="ROLE_BARMAN"  ){
+
+                $price += $orderLine->getOrderLinePriceUser();
+            }
+            else{
+                $price += $orderLine->getOrderLinePriceAdmin();
+            }
+
+        }
+        if(!$this->isPaidCash())
+            $promotionCoef= (100.0-$this->customerUserAccount->getUser()->getPromotion()->getUserPromotion())/100;
+        else $promotionCoef=1.0;
+            $price = $price * $promotionCoef;
+        $this->duringOrderPrice= $price;
+
+    }
+
     
 
 

@@ -220,7 +220,7 @@ class ProductCategoryController extends Controller
         /* @var $productCategory ProductCategory */
         if ($productCategory) {
             if($productCategory->isIsRemoved()){
-                return \FOS\RestBundle\View\View::create(['message' => 'Product Category already deleted'], Response::HTTP_UNAUTHORIZEDD);
+                return \FOS\RestBundle\View\View::create(['message' => 'Product Category already deleted'], Response::HTTP_BAD_REQUEST);
 
             }
             $productCategory->setIsRemoved(true);

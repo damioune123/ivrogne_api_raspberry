@@ -25,6 +25,10 @@ AppBundle\Entity\Order:
         isOrderedByCustomer:
             groups: ['order','userAccount']
 
+        duringOrderGlobalPromotion:
+             groups: ['order','userAccount']
+
+
     virtual_properties:
             getOrderPrice:
                 groups: ['order','userAccount']

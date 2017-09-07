@@ -45,6 +45,33 @@ class OrderLine
      */
     private $product;
 
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="orderline_during_order_price", type="float")
+     */
+    private $orderLineDuringOrderPrice=0.0;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="product_during_order_price_user", type="float")
+     */
+    private $productDuringOrderPriceUser=0.0;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="product_during_order_price_admin", type="float")
+     */
+    private $productDuringOrderPriceAdmin=0.0;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="product_during_order_real_price", type="float")
+     */
+    private $productDuringOrderRealPrice=0.0;
 
     
 
@@ -55,6 +82,7 @@ class OrderLine
     public function __construct()
     {
         $this->quantity = 1;
+
     }
 
 
@@ -124,6 +152,78 @@ class OrderLine
         $this->product = $product;
     }
 
+    /**
+     * @return float
+     */
+    public function getOrderLineDuringOrderPrice()
+    {
+        return $this->orderLineDuringOrderPrice;
+    }
+
+    /**
+     * @param float $orderLineDuringOrderPrice
+     */
+    public function setOrderLineDuringOrderPrice($orderLineDuringOrderPrice)
+    {
+        $this->orderLineDuringOrderPrice = $orderLineDuringOrderPrice;
+    }
+
+    /**
+     * @return float
+     */
+    public function getProductDuringOrderPriceUser()
+    {
+        return $this->productDuringOrderPriceUser;
+    }
+
+    /**
+     * @param float $productDuringOrderPriceUser
+     */
+    public function setProductDuringOrderPriceUser($productDuringOrderPriceUser)
+    {
+        $this->productDuringOrderPriceUser = $productDuringOrderPriceUser;
+    }
+
+    /**
+     * @return float
+     */
+    public function getProductDuringOrderPriceAdmin()
+    {
+        return $this->productDuringOrderPriceAdmin;
+    }
+
+    /**
+     * @param float $productDuringOrderPriceAdmin
+     */
+    public function setProductDuringOrderPriceAdmin($productDuringOrderPriceAdmin)
+    {
+        $this->productDuringOrderPriceAdmin = $productDuringOrderPriceAdmin;
+    }
+
+    /**
+     * @return float
+     */
+    public function getProductDuringOrderRealPrice()
+    {
+        return $this->productDuringOrderRealPrice;
+    }
+
+    /**
+     * @param float $productDuringOrderRealPrice
+     */
+    public function setProductDuringOrderRealPrice($productDuringOrderRealPrice)
+    {
+        $this->productDuringOrderRealPrice = $productDuringOrderRealPrice;
+    }
+
+
+    public function setDuringOrderPrices(){
+        $this->orderLineDuringOrderPrice=$this->getOrderLinePriceFinal();
+        $this->productDuringOrderPriceUser=$this->product->getPriceWithPromotionUser();
+        $this->productDuringOrderPriceAdmin=$this->product->getPriceWithPromotionAdmin();
+        $this->productDuringOrderRealPrice=$this->product->getProductRealPrice();
+    }
+
 
     /**
      * @return float
@@ -159,6 +259,7 @@ class OrderLine
         else
             return floatval($this->quantity * $this->product->getPriceWithPromotionAdmin());
     }
+
 
 
 

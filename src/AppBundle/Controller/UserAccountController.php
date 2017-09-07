@@ -41,8 +41,7 @@ class UserAccountController extends Controller
      *
      * )
      * @RequestParam(name="page", requirements="\d+",  description="Page of the overview. If operations selected", nullable=true)
-     * @RequestParam(name="operations", requirements="(order|registerOrder|positive_money_flows|negative_money_flows)",  description="Choose to display only a specific list of operations", nullable=true)
-     * @RequestParam(name="sort", requirements="(asc|desc)", default="desc", description="Sort direction", nullable=true)
+     * @RequestParam(name="operations", requirements="(order|positive_money_flows|negative_money_flows)",  description="Choose to display only a specific list of operations", nullable=true)
      * @Rest\View(serializerGroups={"userAccount"})
      * @Rest\Get("/user-accounts/{user_account_id}")
      */
@@ -62,47 +61,33 @@ class UserAccountController extends Controller
         $operation = $request->get('operations');
 
         if(!empty($operation)){
-            $sort = Criteria::create();
-            if($request->get('sort')=="desc"){
-                $sort->orderBy(Array(
-                    'id' => Criteria::DESC
-                ));
-            }
-            else{
-                $sort->orderBy(Array(
-                    'id' => Criteria::ASC
-                ));
-            }
             $page = intval($request->get('page'));
             switch($operation){
 
                 case "order":
-                    $operations = $userAccount->getOrders()->matching($sort)->slice(($page-1)*15,($page)*15);
-                    if($page>1){
-                        $result=array();
-                        foreach ($operations as $op){
-                            array_push($result,$op);
-                        }
-                        return $result;
-                    }
-                    return $operations;
-
-                case "registerOrder":
-                    $operations = $userAccount->getRegisterOrders()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    $em = $this->getDoctrine()->getManager();
+                    $query = $em->createQuery(
+                        'SELECT o
+                        FROM AppBundle:Order o
+                        WHERE o.customerUserAccount = :user_account_id
+                        ORDER BY o.id DESC'
+                    )->setMaxResults(10)-> setFirstResult(($page-1)*10)->setParameters(array('user_account_id'=>$userAccount->getId()));
+                    $operations= $query->getResult();
                     return $operations;
 
 
                 case "positive_money_flows":
-                    $operations = $userAccount->getPositiveMoneyFlows()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    $em = $this->getDoctrine()->getManager();
+                    $operations= $em->getRepository("AppBundle:UserAccount")->getUserDebit($userAccount->getId(), ($page-1)*10);
                     return $operations;
 
                 case "negative_money_flows":
-                    $operations = $userAccount->getNegativeMoneyFlows()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    $em = $this->getDoctrine()->getManager();
+                    $operations= $em->getRepository("AppBundle:UserAccount")->getUserCredit($userAccount->getId(), ($page-1)*10);
                     return $operations;
             }
 
         }
-
         return $userAccount;
     }
 
@@ -142,40 +127,80 @@ class UserAccountController extends Controller
             return \FOS\RestBundle\View\View::create(['message' => 'User-account not found'], Response::HTTP_NOT_FOUND);
         }
         $operation = $request->get('operations');
-        if(!empty($operation)) {
-            $sort = Criteria::create();
-            if($request->get('sort')=="desc"){
-                $sort->orderBy(Array(
-                    'id' => Criteria::DESC
-                ));
-            }
-            else{
-                $sort->orderBy(Array(
-                    'id' => Criteria::ASC
-                ));
-            }
+        if(!empty($operation)){
             $page = intval($request->get('page'));
             switch($operation){
 
                 case "order":
-                    $operations = $userAccount->getOrders()->matching($sort)->slice(($page-1)*10,$page*10 );
-                    return $operations;
-
-                case "registerOrder":
-                    $operations = $userAccount->getRegisterOrders()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    $em = $this->getDoctrine()->getManager();
+                    $operations= $em->getRepository("AppBundle:UserAccount")->getUserOrders($userAccount->getId(), ($page-1)*10);
                     return $operations;
 
 
                 case "positive_money_flows":
-                    $operations = $userAccount->getPositiveMoneyFlows()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    $em = $this->getDoctrine()->getManager();
+                    $operations= $em->getRepository("AppBundle:UserAccount")->getUserDebit($userAccount->getId(), ($page-1)*10);
                     return $operations;
 
                 case "negative_money_flows":
-                    $operations = $userAccount->getNegativeMoneyFlows()->matching($sort)->slice(($page-1)*10,($page)*10 );
+                    $em = $this->getDoctrine()->getManager();
+                    $operations= $em->getRepository("AppBundle:UserAccount")->getUserCredit($userAccount->getId(), ($page-1)*10);
                     return $operations;
             }
         }
         return $userAccount;
+    }
+    /**
+     *
+     * This URL aims to get a barman account by id.(Only admin)
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="user-accounts",
+     *  description="Get barman account info by id.(Only admin)",
+     *  output={"class"="AppBundle\Entity\UserAccount",
+     *           "groups" ={"userAccount"}}
+     *
+     * )
+     * @RequestParam(name="page", requirements="\d+",  description="Page of the overview. If operations selected", nullable=true)
+     * @RequestParam(name="operations", requirements="(order|registerOrder|positive_money_flows|negative_money_flows)",  description="Choose to display only a specific list of operations", nullable=true)
+     * @Rest\View(serializerGroups={"userAccount"})
+     * @Rest\Get("/admin//barman/user-accounts")
+     */
+    public function getBArmanAccountAction(Request $request, ParamFetcher $paramFetcher)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+
+
+        $operation = $request->get('operations');
+
+        if(!empty($operation)){
+            $page = intval($request->get('page'));
+            switch($operation){
+                case "order":
+                    $operations= $em->getRepository("AppBundle:UserAccount")->getBarmanOrders(($page-1)*10);
+                    return $operations;
+                case "registerOrder":
+                    $operations= $em->getRepository("AppBundle:UserAccount")->getBarmanRegisterOrders(($page-1)*10);
+                    return $operations;
+
+                case "positive_money_flows":
+                    $operations= $em->getRepository("AppBundle:UserAccount")->getBankDebit(($page-1)*10);
+                    return $operations;
+
+                case "negative_money_flows":
+                    $operations= $em->getRepository("AppBundle:UserAccount")->getBankCredit(($page-1)*10);
+                    return $operations;
+            }
+
+        }
     }
 
     /**
@@ -330,8 +355,8 @@ class UserAccountController extends Controller
         if($userAccount->getMoneyBalance()<0.0 and $newMoneyLimit< abs($userAccount->getMoneyBalance())){
             return \FOS\RestBundle\View\View::create(['message' => 'The nefew has a money balance under the money limit'], Response::HTTP_UNAUTHORIZED);
         }
-        if($newMoneyLimit <=0){
-            return \FOS\RestBundle\View\View::create(['message' => 'The money limit has to be a positive integer'], Response::HTTP_UNAUTHORIZED);
+        if($newMoneyLimit <0){
+            return \FOS\RestBundle\View\View::create(['message' => 'The money limit has to be a positive or nul integer'], Response::HTTP_UNAUTHORIZED);
 
         }
         /* @var $adminAccount UserAccount */

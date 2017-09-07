@@ -213,7 +213,7 @@ class ProductController extends Controller
         /* @var $product Product */
         if ($product) {
             if($product->isIsRemoved()){
-                return \FOS\RestBundle\View\View::create(['message' => 'Product already deleted'], Response::HTTP_UNAUTHORIZEDD);
+                return \FOS\RestBundle\View\View::create(['message' => 'Product already deleted'], Response::HTTP_BAD_REQUEST);
 
             }
             $product->setIsRemoved(true);

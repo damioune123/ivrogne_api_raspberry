@@ -56,6 +56,12 @@ class Product
      * @ORM\Column(name="product_promotion_user", type="float")
      */
     private $productPromotionUser=0.0;
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="product_real_price", type="float")
+     */
+    private $productRealPrice=0.0;
 
     /**
      * @var boolean
@@ -196,6 +202,21 @@ class Product
         $this->productPromotionUser = $productPromotionUser;
     }
 
+    /**
+     * @return float
+     */
+    public function getProductRealPrice()
+    {
+        return $this->productRealPrice;
+    }
+
+    /**
+     * @param float $productRealPrice
+     */
+    public function setProductRealPrice($productRealPrice)
+    {
+        $this->productRealPrice = $productRealPrice;
+    }
 
 
     /**
