@@ -62,7 +62,7 @@ class UserAccountRepository extends \Doctrine\ORM\EntityRepository
     }
 
     public function getUserOrders($userAccount, $debut){
-        $em = $this->getDoctrine()->getManager();
+        $em =  $this->getEntityManager();
 
         $query = $em->createQuery(
             'SELECT o
@@ -103,32 +103,28 @@ class UserAccountRepository extends \Doctrine\ORM\EntityRepository
         return $stmt->fetchAll();
     }
     public function getBarmanOrders( $debut){
-        $sql = " 
-        SELECT o.*
-        FROM  orders o, user_accounts ua
-        WHERE ua.type = 'register'
-        AND  o.customer_user_account= ua.id  
-        ORDER BY o.id DESC
-        LIMIT 10 OFFSET ".$debut;
 
-        $em = $this->getEntityManager();
-        $stmt = $em->getConnection()->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $em =  $this->getEntityManager();
+        $query = $em->createQuery(
+            "SELECT o
+            FROM AppBundle:Order o, AppBundle:UserAccount ua
+            WHERE o.customer_user_account = ua.id
+            AND ua.type='bank'
+            ORDER BY o.id DESC"
+        )>setMaxResults(10)-> setFirstResult($debut);
+        return  $query->getResult();
     }
     public function getBarmanRegisterOrders( $debut){
-        $sql = " 
-        SELECT o.*
-        FROM  orders o, user_accounts ua
-        WHERE o.register_user_account= ua.id
-        AND ua.type = 'register'
-        ORDER BY o.id DESC
-        LIMIT 10 OFFSET ".$debut;
-
-        $em = $this->getEntityManager();
-        $stmt = $em->getConnection()->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $em =  $this->getEntityManager();
+        $query = $em->createQuery(
+            "SELECT o
+            FROM AppBundle:Order o, AppBundle:UserAccount ua
+            WHERE o.cash_register_account = ua.id
+            AND ua.type='register'
+            ORDER BY o.id DESC
+            LIMIT 1O OFFSET :debut"
+        )->setParameters(array('debut'=> $debut));
+        return  $query->getResult();
     }
 
     public function getBankDebit( $debut){

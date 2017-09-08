@@ -75,16 +75,23 @@ class UserAccountController extends Controller
                     $operations= $query->getResult();
                     return $operations;
 
-
                 case "positive_money_flows":
-                    $em = $this->getDoctrine()->getManager();
-                    $operations= $em->getRepository("AppBundle:UserAccount")->getUserDebit($userAccount->getId(), ($page-1)*10);
-                    return $operations;
+                    $query = $em->createQuery(
+                        "SELECT mf
+                                FROM AppBundle:MoneyFlow mf
+                                WHERE mf.debitUserAccount = :user_account_id
+                                ORDER BY mf.id DESC"
+                    )->setMaxResults(10)-> setFirstResult(($page-1)*10)->setParameters(array('user_account_id'=>$userAccount->getId()));
+                    return  $query->getResult();
 
                 case "negative_money_flows":
-                    $em = $this->getDoctrine()->getManager();
-                    $operations= $em->getRepository("AppBundle:UserAccount")->getUserCredit($userAccount->getId(), ($page-1)*10);
-                    return $operations;
+                    $query = $em->createQuery(
+                        "SELECT mf
+                                FROM AppBundle:MoneyFlow mf
+                                WHERE mf.creditUserAccount = :user_account_id
+                                ORDER BY mf.id DESC"
+                    )->setMaxResults(10)-> setFirstResult(($page-1)*10)->setParameters(array('user_account_id'=>$userAccount->getId()));
+                    return  $query->getResult();
             }
 
         }
@@ -118,6 +125,7 @@ class UserAccountController extends Controller
      */
     public function getUserAccountByAdminAction(Request $request)
     {
+        $em = $this->get('doctrine.orm.entity_manager');
         $userAccount = $this->get('doctrine.orm.entity_manager')
             ->getRepository('AppBundle:UserAccount')
             ->find($request->get('user_account_id'));
@@ -133,19 +141,32 @@ class UserAccountController extends Controller
 
                 case "order":
                     $em = $this->getDoctrine()->getManager();
-                    $operations= $em->getRepository("AppBundle:UserAccount")->getUserOrders($userAccount->getId(), ($page-1)*10);
+                    $query = $em->createQuery(
+                        'SELECT o
+                        FROM AppBundle:Order o
+                        WHERE o.customerUserAccount = :user_account_id
+                        ORDER BY o.id DESC'
+                    )->setMaxResults(10)-> setFirstResult(($page-1)*10)->setParameters(array('user_account_id'=>$userAccount->getId()));
+                    $operations= $query->getResult();
                     return $operations;
-
 
                 case "positive_money_flows":
-                    $em = $this->getDoctrine()->getManager();
-                    $operations= $em->getRepository("AppBundle:UserAccount")->getUserDebit($userAccount->getId(), ($page-1)*10);
-                    return $operations;
+                    $query = $em->createQuery(
+                        "SELECT mf
+                                FROM AppBundle:MoneyFlow mf
+                                WHERE mf.debitUserAccount = :user_account_id
+                                ORDER BY mf.id DESC"
+                    )->setMaxResults(10)-> setFirstResult(($page-1)*10)->setParameters(array('user_account_id'=>$userAccount->getId()));
+                    return  $query->getResult();
 
                 case "negative_money_flows":
-                    $em = $this->getDoctrine()->getManager();
-                    $operations= $em->getRepository("AppBundle:UserAccount")->getUserCredit($userAccount->getId(), ($page-1)*10);
-                    return $operations;
+                    $query = $em->createQuery(
+                        "SELECT mf
+                                FROM AppBundle:MoneyFlow mf
+                                WHERE mf.creditUserAccount = :user_account_id
+                                ORDER BY mf.id DESC"
+                    )->setMaxResults(10)-> setFirstResult(($page-1)*10)->setParameters(array('user_account_id'=>$userAccount->getId()));
+                    return  $query->getResult();
             }
         }
         return $userAccount;
@@ -169,10 +190,11 @@ class UserAccountController extends Controller
      *           "groups" ={"userAccount"}}
      *
      * )
+     * @RequestParam(name="search",  description="Page of the overview. If operations selected", nullable=true)
      * @RequestParam(name="page", requirements="\d+",  description="Page of the overview. If operations selected", nullable=true)
      * @RequestParam(name="operations", requirements="(order|registerOrder|positive_money_flows|negative_money_flows)",  description="Choose to display only a specific list of operations", nullable=true)
      * @Rest\View(serializerGroups={"userAccount"})
-     * @Rest\Get("/admin//barman/user-accounts")
+     * @Rest\Get("/admin/barman/user-accounts")
      */
     public function getBArmanAccountAction(Request $request, ParamFetcher $paramFetcher)
     {
@@ -185,19 +207,42 @@ class UserAccountController extends Controller
             $page = intval($request->get('page'));
             switch($operation){
                 case "order":
-                    $operations= $em->getRepository("AppBundle:UserAccount")->getBarmanOrders(($page-1)*10);
-                    return $operations;
+                    $query = $em->createQuery(
+                            "SELECT o
+                                FROM AppBundle:Order o, AppBundle:UserAccount ua
+                                WHERE o.customerUserAccount = ua.id
+                                AND ua.type='bank'
+                                ORDER BY o.id DESC"
+                        )->setMaxResults(10)-> setFirstResult(($page-1)*10);
+                    return  $query->getResult();
                 case "registerOrder":
-                    $operations= $em->getRepository("AppBundle:UserAccount")->getBarmanRegisterOrders(($page-1)*10);
-                    return $operations;
-
+                    $query = $em->createQuery(
+                        "SELECT o
+                                FROM AppBundle:Order o, AppBundle:UserAccount ua
+                                WHERE o.registerAccount = ua.id
+                                AND ua.type='register'
+                                ORDER BY o.id DESC"
+                    )->setMaxResults(10)-> setFirstResult(($page-1)*10);
+                    return  $query->getResult();
                 case "positive_money_flows":
-                    $operations= $em->getRepository("AppBundle:UserAccount")->getBankDebit(($page-1)*10);
-                    return $operations;
+                    $query = $em->createQuery(
+                        "SELECT mf
+                                FROM AppBundle:MoneyFlow mf, AppBundle:UserAccount ua
+                                WHERE mf.debitUserAccount = ua.id
+                                AND ua.type='bank'
+                                ORDER BY mf.id DESC"
+                    )->setMaxResults(10)-> setFirstResult(($page-1)*10);
+                    return  $query->getResult();
 
                 case "negative_money_flows":
-                    $operations= $em->getRepository("AppBundle:UserAccount")->getBankCredit(($page-1)*10);
-                    return $operations;
+                    $query = $em->createQuery(
+                        "SELECT mf
+                                FROM AppBundle:MoneyFlow mf, AppBundle:UserAccount ua
+                                WHERE mf.creditUserAccount = ua.id
+                                AND ua.type='bank'
+                                ORDER BY mf.id DESC"
+                    )->setMaxResults(10)-> setFirstResult(($page-1)*10);
+                    return  $query->getResult();
             }
 
         }
@@ -361,10 +406,13 @@ class UserAccountController extends Controller
         }
         /* @var $adminAccount UserAccount */
         $adminAccount =$this->getUser()->getUserAccounts()[0];
-        if($newMoneyLimit> $adminAccount->getAvailableBalance()-$adminAccount->getCreditAllowed())
-        {
-            return \FOS\RestBundle\View\View::create(['message' => 'The money limit is too high. Max allowed :'.$adminAccount->getAvailableBalance().' / already allowed : '.$adminAccount->getCreditAllowed()], Response::HTTP_BAD_REQUEST);
+        if($newMoneyLimit>$userAccount->getMoneyLimit()){
+            if($newMoneyLimit> $adminAccount->getAvailableBalance()-$adminAccount->getCreditAllowed())
+            {
+                return \FOS\RestBundle\View\View::create(['message' => 'The money limit is too high. Max allowed :'.$adminAccount->getAvailableBalance().' / already allowed : '.$adminAccount->getCreditAllowed()], Response::HTTP_BAD_REQUEST);
+            }
         }
+
         $adminAccount->setCreditAllowed($adminAccount->getCreditAllowed()+$newMoneyLimit-$oldMoneyLimit);
         $userAccount->setMoneyLimit($newMoneyLimit);
         $em->merge($userAccount);
