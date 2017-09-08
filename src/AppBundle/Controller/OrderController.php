@@ -544,6 +544,7 @@ class OrderController extends Controller
         $cancelMoneyFlow->setValue($order->getOrderPrice());
         $cancelMoneyFlow->setAdminAuthentifier($admin);
         $cancelMoneyFlow->setDescription("Annulation de la commande n°". $order->getId());
+        $cancelMoneyFlow->setIsCancelled(true);
 
         $em->persist($cancelMoneyFlow);
         

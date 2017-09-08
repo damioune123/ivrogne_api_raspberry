@@ -154,16 +154,19 @@ class MoneyFlowController extends Controller
         {
             return \FOS\RestBundle\View\View::create(['message' => 'Money-flow not found'], Response::HTTP_NOT_FOUND);
         }
-        if($request->get('type')=="debit"){
-            if($this->getUser()->getUserAccounts()[0]->getId() !=$moneyFlow->getDebitUserAccount()->getId()){
-                return \FOS\RestBundle\View\View::create(['message' => 'you are not the debit account of the money Flow'], Response::HTTP_BAD_REQUEST);
+        if($this->getUser()->getRole()=="ROLE_USER"){
+            if($request->get('type')=="debit"){
+                if($this->getUser()->getUserAccounts()[0]->getId() !=$moneyFlow->getDebitUserAccount()->getId()){
+                    return \FOS\RestBundle\View\View::create(['message' => 'you are not the debit account of the money Flow'], Response::HTTP_BAD_REQUEST);
+                }
+            }
+            else{
+                if($this->getUser()->getUserAccounts()[0]->getId() !=$moneyFlow->getCreditUserAccount()->getId() ){
+                    return \FOS\RestBundle\View\View::create(['message' => 'you are not the credit account of the money Flow'], Response::HTTP_BAD_REQUEST);
+                }
             }
         }
-        else{
-            if($this->getUser()->getUserAccounts()[0]->getId() !=$moneyFlow->getCreditUserAccount()->getId() ){
-                return \FOS\RestBundle\View\View::create(['message' => 'you are not the credit account of the money Flow'], Response::HTTP_BAD_REQUEST);
-            }
-        }
+
         return $moneyFlow;
     }
 

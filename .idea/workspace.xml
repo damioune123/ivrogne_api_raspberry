@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="01b06956-e1ba-4f35-9708-1da235a1fa28" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/UserAccountController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/UserAccountController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Repository/UserAccountRepository.php" afterPath="$PROJECT_DIR$/src/AppBundle/Repository/UserAccountRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,21 +20,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="validation.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/validation.yml">
+      <file leaf-file-name="OrderController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-102">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="455">
+              <caret line="546" column="47" lean-forward="false" selection-start-line="546" selection-start-column="47" selection-end-line="546" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OrderController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php">
+      <file leaf-file-name="MoneyFlowController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="403" column="26" lean-forward="false" selection-start-line="403" selection-start-column="26" selection-end-line="403" selection-end-column="26" />
+            <state relative-caret-position="795">
+              <caret line="166" column="13" lean-forward="false" selection-start-line="166" selection-start-column="13" selection-end-line="166" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -60,24 +60,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserAccountController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserAccountController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UserAccountController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="192" column="35" lean-forward="false" selection-start-line="192" selection-start-column="35" selection-end-line="192" selection-end-column="35" />
+            <state relative-caret-position="185">
+              <caret line="194" column="116" lean-forward="false" selection-start-line="194" selection-start-column="116" selection-end-line="194" selection-end-column="116" />
               <folding>
                 <element signature="e#39#71#0#PHP" expanded="true" />
-                <marker date="1504856490608" expanded="true" signature="2890:3059" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504856490608" expanded="true" signature="3410:3608" ph="SELECT mf FR... AppBundle" />
-                <marker date="1504856490608" expanded="true" signature="3914:3983" ph="SELECT mf FR... AppBundle" />
-                <marker date="1504856490608" expanded="true" signature="3914:4113" ph="SELECT mf FR... AppBundle" />
-                <marker date="1504856490608" expanded="true" signature="6329:6498" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504856490608" expanded="true" signature="6849:7047" ph="SELECT mf FR... AppBundle" />
-                <marker date="1504856490608" expanded="true" signature="7353:7552" ph="SELECT mf FR... AppBundle" />
-                <marker date="1504856490608" expanded="true" signature="9313:9572" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504856490608" expanded="true" signature="9810:10069" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504856490608" expanded="true" signature="10310:10574" ph="SELECT mf FR... AppBundle" />
-                <marker date="1504856490608" expanded="true" signature="10816:11081" ph="SELECT mf FR... AppBundle" />
+                <marker date="1504866464391" expanded="true" signature="2890:3059" ph="SELECT o FRO... AppBundle" />
+                <marker date="1504866464391" expanded="true" signature="3410:3608" ph="SELECT mf FR... AppBundle" />
+                <marker date="1504866464391" expanded="true" signature="3914:3983" ph="SELECT mf FR... AppBundle" />
+                <marker date="1504866464391" expanded="true" signature="3914:4113" ph="SELECT mf FR... AppBundle" />
+                <marker date="1504866464391" expanded="true" signature="6329:6498" ph="SELECT o FRO... AppBundle" />
+                <marker date="1504866464391" expanded="true" signature="6849:7047" ph="SELECT mf FR... AppBundle" />
+                <marker date="1504866464391" expanded="true" signature="7353:7552" ph="SELECT mf FR... AppBundle" />
+                <marker date="1504866464391" expanded="true" signature="9313:9572" ph="SELECT o FRO... AppBundle" />
+                <marker date="1504866464391" expanded="true" signature="9810:10069" ph="SELECT o FRO... AppBundle" />
+                <marker date="1504866464391" expanded="true" signature="10310:10574" ph="SELECT mf FR... AppBundle" />
+                <marker date="1504866464391" expanded="true" signature="10816:11081" ph="SELECT mf FR... AppBundle" />
               </folding>
             </state>
           </provider>
@@ -151,8 +151,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>pre</find>
-      <find>price</find>
       <find>$promoti</find>
       <find>promotion</find>
       <find>money</find>
@@ -166,7 +164,6 @@
       <find>d+</find>
       <find>isRemo</find>
       <find>round</find>
-      <find>bank</find>
       <find>admin</find>
       <find>toMAtc</find>
       <find>inv</find>
@@ -180,6 +177,9 @@
       <find>merge</find>
       <find>promote</find>
       <find>allo</find>
+      <find>bank</find>
+      <find>cancel</find>
+      <find>isCancel</find>
       <find>barman</find>
     </findStrings>
   </component>
@@ -227,7 +227,6 @@
         <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadUserData.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/ProductCategoryController.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Product.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/OrderLine.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Order.php" />
@@ -237,12 +236,13 @@
         <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadProductCategoryData.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadProductData.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/AuthTokenController.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Promotion.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Repository/UserAccountRepository.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/UserAccountController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php" />
       </list>
     </option>
   </component>
@@ -805,7 +805,7 @@
       <workItem from="1504648187679" duration="13651000" />
       <workItem from="1504730896442" duration="33837000" />
       <workItem from="1504833354271" duration="2203000" />
-      <workItem from="1504848367637" duration="5447000" />
+      <workItem from="1504848367637" duration="7690000" />
     </task>
     <task id="LOCAL-00001" summary="patch admin =&gt; USER">
       <created>1501626050145</created>
@@ -1024,11 +1024,18 @@
       <option name="project" value="LOCAL" />
       <updated>1504776858944</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="commande barman ok">
+      <created>1504856499868</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1504856499868</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="261863000" />
+    <option name="totallyTimeSpent" value="264106000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="30" width="1924" height="1052" extended-state="0" />
@@ -1063,7 +1070,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="correction bug cancel order + cash order" />
     <MESSAGE value="test" />
     <MESSAGE value="doctrine migration" />
     <MESSAGE value="api nelmio doc : users" />
@@ -1088,7 +1094,8 @@
     <MESSAGE value="transfert ok" />
     <MESSAGE value="affichage info list order amiloration performance + lisibilité" />
     <MESSAGE value="filleuls ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="filleuls ok" />
+    <MESSAGE value="commande barman ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="commande barman ok" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1097,14 +1104,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadProductCategoryData.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="36" column="58" lean-forward="false" selection-start-line="36" selection-start-column="58" selection-end-line="36" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadProductData.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
@@ -1480,14 +1479,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="403" column="26" lean-forward="false" selection-start-line="403" selection-start-column="26" selection-end-line="403" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Repository/UserAccountRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="423">
@@ -1518,24 +1509,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="546" column="47" lean-forward="false" selection-start-line="546" selection-start-column="47" selection-end-line="546" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UserAccountController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="192" column="35" lean-forward="false" selection-start-line="192" selection-start-column="35" selection-end-line="192" selection-end-column="35" />
+        <state relative-caret-position="185">
+          <caret line="194" column="116" lean-forward="false" selection-start-line="194" selection-start-column="116" selection-end-line="194" selection-end-column="116" />
           <folding>
             <element signature="e#39#71#0#PHP" expanded="true" />
-            <marker date="1504856490608" expanded="true" signature="2890:3059" ph="SELECT o FRO... AppBundle" />
-            <marker date="1504856490608" expanded="true" signature="3410:3608" ph="SELECT mf FR... AppBundle" />
-            <marker date="1504856490608" expanded="true" signature="3914:3983" ph="SELECT mf FR... AppBundle" />
-            <marker date="1504856490608" expanded="true" signature="3914:4113" ph="SELECT mf FR... AppBundle" />
-            <marker date="1504856490608" expanded="true" signature="6329:6498" ph="SELECT o FRO... AppBundle" />
-            <marker date="1504856490608" expanded="true" signature="6849:7047" ph="SELECT mf FR... AppBundle" />
-            <marker date="1504856490608" expanded="true" signature="7353:7552" ph="SELECT mf FR... AppBundle" />
-            <marker date="1504856490608" expanded="true" signature="9313:9572" ph="SELECT o FRO... AppBundle" />
-            <marker date="1504856490608" expanded="true" signature="9810:10069" ph="SELECT o FRO... AppBundle" />
-            <marker date="1504856490608" expanded="true" signature="10310:10574" ph="SELECT mf FR... AppBundle" />
-            <marker date="1504856490608" expanded="true" signature="10816:11081" ph="SELECT mf FR... AppBundle" />
+            <marker date="1504866464391" expanded="true" signature="2890:3059" ph="SELECT o FRO... AppBundle" />
+            <marker date="1504866464391" expanded="true" signature="3410:3608" ph="SELECT mf FR... AppBundle" />
+            <marker date="1504866464391" expanded="true" signature="3914:3983" ph="SELECT mf FR... AppBundle" />
+            <marker date="1504866464391" expanded="true" signature="3914:4113" ph="SELECT mf FR... AppBundle" />
+            <marker date="1504866464391" expanded="true" signature="6329:6498" ph="SELECT o FRO... AppBundle" />
+            <marker date="1504866464391" expanded="true" signature="6849:7047" ph="SELECT mf FR... AppBundle" />
+            <marker date="1504866464391" expanded="true" signature="7353:7552" ph="SELECT mf FR... AppBundle" />
+            <marker date="1504866464391" expanded="true" signature="9313:9572" ph="SELECT o FRO... AppBundle" />
+            <marker date="1504866464391" expanded="true" signature="9810:10069" ph="SELECT o FRO... AppBundle" />
+            <marker date="1504866464391" expanded="true" signature="10310:10574" ph="SELECT mf FR... AppBundle" />
+            <marker date="1504866464391" expanded="true" signature="10816:11081" ph="SELECT mf FR... AppBundle" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="795">
+          <caret line="166" column="13" lean-forward="false" selection-start-line="166" selection-start-column="13" selection-end-line="166" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
