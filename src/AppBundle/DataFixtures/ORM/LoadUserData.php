@@ -17,7 +17,7 @@ class LoadUserDataextends extends AbstractFixture implements OrderedFixtureInter
         $userSuperAdmin->setFirstname('super');
         $userSuperAdmin->setLastname('admin');
         $userSuperAdmin->setRfidCard('0');
-        $userSuperAdmin->setUsername('admin');
+        $userSuperAdmin->setUsername('superadmin');
         $userSuperAdmin->setPassword('$2a$04$OPbUZDtSA8u5jvNrohpw5ei0CGnkiNcymg/azEgwh1.0X0dh58l8G');//azerty en bcrypt
         $userSuperAdmin->setRole('ROLE_SUPER_ADMIN');
         $userSuperAdmin->setPromotion($this->getReference('admin-promotion'));

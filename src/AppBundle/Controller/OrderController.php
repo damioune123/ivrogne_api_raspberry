@@ -148,16 +148,19 @@ class OrderController extends Controller
             return \FOS\RestBundle\View\View::create(['message' => 'Order not found'], Response::HTTP_NOT_FOUND);
         }
 
-        if ($restrictedAccess){
-            if(!$order->isPaidCash())
-            {
-                $user=$order->getCustomerUserAccount()->getUser();
-                if($this->getUser()!= $user){
-                    return \FOS\RestBundle\View\View::create(['message' => 'Unauthorized to get someone else info'], Response::HTTP_UNAUTHORIZED);
+        if($this->getUser()->getRole()=="ROLE_USER"){
+            if ($restrictedAccess){
+                if(!$order->isPaidCash())
+                {
+                    $user=$order->getCustomerUserAccount()->getUser();
+                    if($this->getUser()!= $user){
+                        return \FOS\RestBundle\View\View::create(['message' => 'Unauthorized to get someone else info'], Response::HTTP_UNAUTHORIZED);
+                    }
                 }
-            }
 
+            }
         }
+
         return $order;
     }
 

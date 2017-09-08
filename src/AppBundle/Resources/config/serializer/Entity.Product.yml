@@ -21,6 +21,9 @@ AppBundle\Entity\Product:
         productPromotionUser:
               groups:  ['product','productCategory','order','orderline']
 
+        productRealPrice:
+         groups:  ['product']
+
     virtual_properties:
         getPriceWithPromotionAdmin:
              groups:  ['product','productCategory','order','orderline']

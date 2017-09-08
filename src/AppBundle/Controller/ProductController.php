@@ -98,13 +98,13 @@ class ProductController extends Controller
      *
      * )
      * @Rest\View(serializerGroups={"product"})
-     * @Rest\Get("/products/{id}")
+     * @Rest\Get("/products/{barcode}")
      */
     public function getProductAction(Request $request)
     {
         $product = $this->get('doctrine.orm.entity_manager')
             ->getRepository('AppBundle:Product')
-            ->findOneByBarcode($request->get('id'));
+            ->findOneByBarcode($request->get('barcode'));
         if (empty($product))
         {
             return \FOS\RestBundle\View\View::create(['message' => 'Product not found'], Response::HTTP_NOT_FOUND);
@@ -133,14 +133,14 @@ class ProductController extends Controller
      *
      * )
      * @Rest\View(serializerGroups={"product"})
-     * @Rest\Put("/admin/products/{id}")
+     * @Rest\Put("/products/{barcode}")
      */
     public function updateProductAction(Request $request, $clearMissing = true)
     {
         $em=$this->getDoctrine()->getManager();
         $product = $em
             ->getRepository('AppBundle:Product')
-            ->find($request->get('id'));
+            ->findOneByBarcode($request->get('barcode'));
 
         if (empty($product)) {
             return \FOS\RestBundle\View\View::create(['message' => 'Product not found'], Response::HTTP_NOT_FOUND);
@@ -176,7 +176,7 @@ class ProductController extends Controller
      *
      * )
      * @Rest\View(serializerGroups={"product"})
-     * @Rest\Patch("/admin/products/{id}")
+     * @Rest\Patch("/admin/products/{barcode}")
      */
     public function patchProductAction(Request $request)
     {

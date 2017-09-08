@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="01b06956-e1ba-4f35-9708-1da235a1fa28" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadUserData.php" afterPath="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadUserData.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/Type/ProductPatchType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/Type/ProductPatchType.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Product.yml" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Product.yml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,14 +26,64 @@
       <file leaf-file-name="OrderController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="546" column="47" lean-forward="false" selection-start-line="546" selection-start-column="47" selection-end-line="546" selection-end-column="47" />
+            <state relative-caret-position="291">
+              <caret line="156" column="140" lean-forward="false" selection-start-line="156" selection-start-column="136" selection-end-line="156" selection-end-column="140" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MoneyFlowController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Entity.Product.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Product.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="24" column="29" lean-forward="false" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="705">
+              <caret line="178" column="44" lean-forward="false" selection-start-line="178" selection-start-column="44" selection-end-line="178" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductType.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/Type/ProductType.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductPatchType.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/Type/ProductPatchType.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="17" column="39" lean-forward="false" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Product.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Product.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="630">
+              <caret line="63" column="29" lean-forward="false" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MoneyFlowController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="795">
@@ -40,21 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AuthTokenAuthenticator.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Security/AuthTokenAuthenticator.php">
+      <file leaf-file-name="LoadUserData.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadUserData.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-702">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuthTokenUserProvider.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Security/AuthTokenUserProvider.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="225">
+              <caret line="19" column="43" lean-forward="false" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -93,65 +136,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserAccount.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/UserAccount.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4080">
-              <caret line="304" column="113" lean-forward="false" selection-start-line="304" selection-start-column="113" selection-end-line="304" selection-end-column="113" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Order.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Order.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="645">
-              <caret line="44" column="50" lean-forward="false" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserAccountRepository.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Repository/UserAccountRepository.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="115" column="5" lean-forward="false" selection-start-line="106" selection-start-column="8" selection-end-line="115" selection-end-column="5" />
-              <folding>
-                <marker date="1504853636420" expanded="true" signature="344:494" ph="SELECT UA.id... user_accounts" />
-                <marker date="1504853636420" expanded="true" signature="724:870" ph="SELECT UA.id... user_accounts" />
-                <marker date="1504853636420" expanded="true" signature="1100:1173" ph="SELECT UA.id... user_accounts" />
-                <marker date="1504853636420" expanded="true" signature="1406:1483" ph="SELECT UA.id... user_accounts" />
-                <marker date="1504853636420" expanded="true" signature="1797:1967" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504853636420" expanded="true" signature="2178:2323" ph="SELECT mf.* money_flow" />
-                <marker date="1504853636420" expanded="true" signature="2619:2765" ph="SELECT mf.* money_flow" />
-                <marker date="1504853636420" expanded="true" signature="3073:3217" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504853636420" expanded="true" signature="3073:3254" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504853636420" expanded="true" signature="3073:3308" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504853636420" expanded="true" signature="3497:3717" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504853636420" expanded="true" signature="3883:4065" ph="SELECT mf.* money_flow" />
-                <marker date="1504853636420" expanded="true" signature="4306:4489" ph="SELECT mf.* money_flow" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/config.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>$promoti</find>
       <find>promotion</find>
       <find>money</find>
       <find>getOrder</find>
@@ -179,8 +167,9 @@
       <find>allo</find>
       <find>bank</find>
       <find>cancel</find>
-      <find>isCancel</find>
       <find>barman</find>
+      <find>isCancel</find>
+      <find>UNAU</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -204,7 +193,6 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/ProductCategory.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/Type/ProductType.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/Type/OrderCashType.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Form/Type/ProductPatchType.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/Type/UserPatchType.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/Type/OrderSelfType.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Repository/PromotionRepository.php" />
@@ -213,7 +201,6 @@
         <option value="$PROJECT_DIR$/app/AppKernel.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Repository/UserRepository.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.ProductCategory.yml" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Product.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.MoneyFlow.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/MoneyFlow.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadUserAccountData.php" />
@@ -224,8 +211,6 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/AuthToken.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.AuthToken.yml" />
         <option value="$PROJECT_DIR$/app/config/security.yml" />
-        <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadUserData.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/ProductCategoryController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Product.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/OrderLine.php" />
@@ -240,9 +225,13 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Promotion.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Repository/UserAccountRepository.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/UserAccountController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadUserData.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Product.yml" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Form/Type/ProductPatchType.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php" />
       </list>
     </option>
   </component>
@@ -805,7 +794,7 @@
       <workItem from="1504648187679" duration="13651000" />
       <workItem from="1504730896442" duration="33837000" />
       <workItem from="1504833354271" duration="2203000" />
-      <workItem from="1504848367637" duration="7690000" />
+      <workItem from="1504848367637" duration="14207000" />
     </task>
     <task id="LOCAL-00001" summary="patch admin =&gt; USER">
       <created>1501626050145</created>
@@ -1031,11 +1020,18 @@
       <option name="project" value="LOCAL" />
       <updated>1504856499868</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="barman ok">
+      <created>1504866738997</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1504866738997</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="264106000" />
+    <option name="totallyTimeSpent" value="270623000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="30" width="1924" height="1052" extended-state="0" />
@@ -1070,7 +1066,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="test" />
     <MESSAGE value="doctrine migration" />
     <MESSAGE value="api nelmio doc : users" />
     <MESSAGE value="api nelmio doc : user_accouts, promotions, auth_tokens, scriptn rfidtomatch" />
@@ -1095,7 +1090,8 @@
     <MESSAGE value="affichage info list order amiloration performance + lisibilité" />
     <MESSAGE value="filleuls ok" />
     <MESSAGE value="commande barman ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="commande barman ok" />
+    <MESSAGE value="barman ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="barman ok" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1104,22 +1100,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadProductData.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="48" column="36" lean-forward="false" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadPromotionData.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/AuthToken.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="768">
@@ -1140,14 +1120,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2112">
           <caret line="73" column="40" lean-forward="false" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Product.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1932">
-          <caret line="58" column="3" lean-forward="false" selection-start-line="58" selection-start-column="3" selection-end-line="63" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -1225,22 +1197,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/Type/ProductCategoryType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/Type/ProductPatchType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/Type/ProductType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1375,14 +1331,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Product.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.ProductCategory.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1509,14 +1457,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="546" column="47" lean-forward="false" selection-start-line="546" selection-start-column="47" selection-end-line="546" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UserAccountController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
@@ -1542,6 +1482,62 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="795">
           <caret line="166" column="13" lean-forward="false" selection-start-line="166" selection-start-column="13" selection-end-line="166" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadUserData.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="19" column="43" lean-forward="false" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="156" column="140" lean-forward="false" selection-start-line="156" selection-start-column="136" selection-end-line="156" selection-end-column="140" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Product.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="29" lean-forward="false" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/Type/ProductType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Product.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="63" column="29" lean-forward="false" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/Type/ProductPatchType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="17" column="39" lean-forward="false" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="705">
+          <caret line="178" column="44" lean-forward="false" selection-start-line="178" selection-start-column="44" selection-end-line="178" selection-end-column="44" />
           <folding />
         </state>
       </provider>

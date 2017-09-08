@@ -15,6 +15,7 @@ class ProductPatchType extends AbstractType
         $builder->add('productPromotionAdmin');
         $builder->add('productPromotionUser');
         $builder->add('amountAvailableInStock');
+        $builder->add('productRealPrice');
     }
 
     public function configureOptions(OptionsResolver $resolver)
