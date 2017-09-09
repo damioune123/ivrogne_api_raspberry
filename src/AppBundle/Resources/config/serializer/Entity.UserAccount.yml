@@ -8,7 +8,7 @@ AppBundle\Entity\UserAccount:
             groups: ['userAccount', 'user', 'account']
 
         moneyBalance:
-            groups: ['userAccount','user', 'account','userLimited']
+            groups: ['userAccount','user', 'account','userLimited','auth-token']
 
         user:
             groups: ['userAccount','order','moneyFlow']
@@ -34,6 +34,6 @@ AppBundle\Entity\UserAccount:
     virtual_properties:
 
         getAvailableBalance:
-            groups: ['user','account','userAccount','userLimited']
+            groups: ['user','account','userAccount','userLimited','auth-token']
 
 

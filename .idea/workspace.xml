@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="01b06956-e1ba-4f35-9708-1da235a1fa28" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadUserData.php" afterPath="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadUserData.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/Type/ProductPatchType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/Type/ProductPatchType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Product.yml" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Product.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.User.yml" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.User.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,7 +23,7 @@
       <file leaf-file-name="OrderController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
+            <state relative-caret-position="2040">
               <caret line="156" column="140" lean-forward="false" selection-start-line="156" selection-start-column="136" selection-end-line="156" selection-end-column="140" />
               <folding />
             </state>
@@ -43,11 +40,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ProductController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="705">
               <caret line="178" column="44" lean-forward="false" selection-start-line="178" selection-start-column="44" selection-end-line="178" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Entity.AuthToken.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.AuthToken.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Entity.User.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.User.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="32" column="54" lean-forward="false" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Entity.UserAccount.yml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="79" lean-forward="false" selection-start-line="10" selection-start-column="79" selection-end-line="10" selection-end-column="79" />
               <folding />
             </state>
           </provider>
@@ -76,18 +103,8 @@
       <file leaf-file-name="Product.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Product.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
+            <state relative-caret-position="945">
               <caret line="63" column="29" lean-forward="false" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MoneyFlowController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="166" column="13" lean-forward="false" selection-start-line="166" selection-start-column="13" selection-end-line="166" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -98,39 +115,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
               <caret line="19" column="43" lean-forward="false" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserAccountController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UserAccountController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="194" column="116" lean-forward="false" selection-start-line="194" selection-start-column="116" selection-end-line="194" selection-end-column="116" />
-              <folding>
-                <element signature="e#39#71#0#PHP" expanded="true" />
-                <marker date="1504866464391" expanded="true" signature="2890:3059" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504866464391" expanded="true" signature="3410:3608" ph="SELECT mf FR... AppBundle" />
-                <marker date="1504866464391" expanded="true" signature="3914:3983" ph="SELECT mf FR... AppBundle" />
-                <marker date="1504866464391" expanded="true" signature="3914:4113" ph="SELECT mf FR... AppBundle" />
-                <marker date="1504866464391" expanded="true" signature="6329:6498" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504866464391" expanded="true" signature="6849:7047" ph="SELECT mf FR... AppBundle" />
-                <marker date="1504866464391" expanded="true" signature="7353:7552" ph="SELECT mf FR... AppBundle" />
-                <marker date="1504866464391" expanded="true" signature="9313:9572" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504866464391" expanded="true" signature="9810:10069" ph="SELECT o FRO... AppBundle" />
-                <marker date="1504866464391" expanded="true" signature="10310:10574" ph="SELECT mf FR... AppBundle" />
-                <marker date="1504866464391" expanded="true" signature="10816:11081" ph="SELECT mf FR... AppBundle" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MoneyFlow.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/MoneyFlow.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="48" column="47" lean-forward="false" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -215,7 +199,6 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Product.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/OrderLine.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Order.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.User.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Order.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.OrderLine.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/LoadProductCategoryData.php" />
@@ -223,7 +206,6 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/AuthTokenController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Promotion.yml" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Repository/UserAccountRepository.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/UserAccountController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php" />
@@ -232,6 +214,8 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.Product.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/Type/ProductPatchType.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.User.yml" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml" />
       </list>
     </option>
   </component>
@@ -337,6 +321,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -630,7 +615,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -794,7 +778,8 @@
       <workItem from="1504648187679" duration="13651000" />
       <workItem from="1504730896442" duration="33837000" />
       <workItem from="1504833354271" duration="2203000" />
-      <workItem from="1504848367637" duration="14207000" />
+      <workItem from="1504848367637" duration="14831000" />
+      <workItem from="1504955309826" duration="104000" />
     </task>
     <task id="LOCAL-00001" summary="patch admin =&gt; USER">
       <created>1501626050145</created>
@@ -1027,11 +1012,18 @@
       <option name="project" value="LOCAL" />
       <updated>1504866738997</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="produit ok">
+      <created>1504876580611</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1504876580611</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="270623000" />
+    <option name="totallyTimeSpent" value="271351000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="30" width="1924" height="1052" extended-state="0" />
@@ -1041,12 +1033,12 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33019853" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33019853" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39916405" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1066,7 +1058,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="doctrine migration" />
     <MESSAGE value="api nelmio doc : users" />
     <MESSAGE value="api nelmio doc : user_accouts, promotions, auth_tokens, scriptn rfidtomatch" />
     <MESSAGE value="user barman + register/bank no more register on a real user account v1" />
@@ -1091,7 +1082,8 @@
     <MESSAGE value="filleuls ok" />
     <MESSAGE value="commande barman ok" />
     <MESSAGE value="barman ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="barman ok" />
+    <MESSAGE value="produit ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="produit ok" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1299,19 +1291,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.AuthToken.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.MoneyFlow.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1319,7 +1302,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1327,7 +1309,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1335,7 +1316,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1343,7 +1323,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1351,23 +1330,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.User.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1375,7 +1337,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1383,7 +1344,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-102">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1407,7 +1367,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1451,7 +1410,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/MoneyFlow.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
+        <state relative-caret-position="720">
           <caret line="48" column="47" lean-forward="false" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="47" />
           <folding />
         </state>
@@ -1459,7 +1418,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UserAccountController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
+        <state relative-caret-position="2685">
           <caret line="194" column="116" lean-forward="false" selection-start-line="194" selection-start-column="116" selection-end-line="194" selection-end-column="116" />
           <folding>
             <element signature="e#39#71#0#PHP" expanded="true" />
@@ -1480,7 +1439,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MoneyFlowController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
+        <state relative-caret-position="2280">
           <caret line="166" column="13" lean-forward="false" selection-start-line="166" selection-start-column="13" selection-end-line="166" selection-end-column="13" />
           <folding />
         </state>
@@ -1496,7 +1455,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/OrderController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
+        <state relative-caret-position="2040">
           <caret line="156" column="140" lean-forward="false" selection-start-line="156" selection-start-column="136" selection-end-line="156" selection-end-column="140" />
           <folding />
         </state>
@@ -1520,7 +1479,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Product.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
+        <state relative-caret-position="945">
           <caret line="63" column="29" lean-forward="false" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="29" />
           <folding />
         </state>
@@ -1538,6 +1497,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
           <caret line="178" column="44" lean-forward="false" selection-start-line="178" selection-start-column="44" selection-end-line="178" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.AuthToken.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.User.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="54" lean-forward="false" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.UserAccount.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="79" lean-forward="false" selection-start-line="10" selection-start-column="79" selection-end-line="10" selection-end-column="79" />
           <folding />
         </state>
       </provider>

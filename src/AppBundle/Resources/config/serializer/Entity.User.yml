@@ -30,7 +30,7 @@ AppBundle\Entity\User:
             groups: ['user','userLimited','auth-token']
 
         userAccounts:
-            groups: ['user','userLimited']
+            groups: ['user','userLimited','auth-token']
 
         plainPassword:
             exclude: true
