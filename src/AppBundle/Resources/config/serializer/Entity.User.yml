@@ -27,7 +27,7 @@ AppBundle\Entity\User:
             groups: ['user']
 
         role:
-            groups: ['user','userLimited','auth-token']
+            groups: ['user','userLimited','auth-token','order',]
 
         userAccounts:
             groups: ['user','userLimited','auth-token']
