@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="01b06956-e1ba-4f35-9708-1da235a1fa28" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.User.yml" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/config/serializer/Entity.User.yml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -779,7 +778,7 @@
       <workItem from="1504833354271" duration="2203000" />
       <workItem from="1504848367637" duration="14831000" />
       <workItem from="1504955309826" duration="4241000" />
-      <workItem from="1504993426013" duration="601000" />
+      <workItem from="1504993426013" duration="682000" />
     </task>
     <task id="LOCAL-00001" summary="patch admin =&gt; USER">
       <created>1501626050145</created>
@@ -1026,11 +1025,18 @@
       <option name="project" value="LOCAL" />
       <updated>1504955423207</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="maj tablette">
+      <created>1504996222714</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1504996222714</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="276089000" />
+    <option name="totallyTimeSpent" value="276170000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="48" width="1924" height="1034" extended-state="0" />
@@ -1065,7 +1071,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="api nelmio doc : user_accouts, promotions, auth_tokens, scriptn rfidtomatch" />
     <MESSAGE value="user barman + register/bank no more register on a real user account v1" />
     <MESSAGE value="chabgement groupe serialisation, economie de transfert de donnees" />
     <MESSAGE value="nelmio doc completed + changement formlaire users sécurité" />
@@ -1090,7 +1095,8 @@
     <MESSAGE value="barman ok" />
     <MESSAGE value="produit ok" />
     <MESSAGE value="auth token solde" />
-    <option name="LAST_COMMIT_MESSAGE" value="auth token solde" />
+    <MESSAGE value="maj tablette" />
+    <option name="LAST_COMMIT_MESSAGE" value="maj tablette" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
