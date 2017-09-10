@@ -154,7 +154,7 @@ class OrderController extends Controller
                 {
                     $user=$order->getCustomerUserAccount()->getUser();
                     if($this->getUser()!= $user){
-                        return \FOS\RestBundle\View\View::create(['message' => 'Unauthorized to get someone else info'], Response::HTTP_UNAUTHORIZED);
+                        return \FOS\RestBundle\View\View::create(['message' => 'Unauthorized to get someone else info'], Response::HTTP_<THORIZED);
                     }
                 }
 

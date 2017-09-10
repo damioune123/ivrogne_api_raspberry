@@ -76,7 +76,7 @@ class PromotionController extends Controller
         $em=$this->getDoctrine()->getManager();
         $promotion = $em
             ->getRepository('AppBundle:Promotion')
-            ->findByPromotionName($request->get('name'))[0];
+            ->findOneByPromotionName($request->get('name'));
 
         if (empty($promotion)) {
             return \FOS\RestBundle\View\View::create(['message' => 'Promotion not found'], Response::HTTP_NOT_FOUND);

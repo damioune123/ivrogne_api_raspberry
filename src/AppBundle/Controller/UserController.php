@@ -53,7 +53,28 @@ class UserController extends Controller
                     ->findByPromotionName("simple")[0];
 
         $form->submit($request->request->all()); // Validation des données
+        if(!empty($user->getEmail())){
+            $userDummy2 =$em->getRepository('AppBundle:User')
+                ->findByEmail($user->getEmail());
+            if(!empty($userDummy2)){
+                return \FOS\RestBundle\View\View::create(['message' => 'Email already picked'], Response::HTTP_BAD_REQUEST);
+            }
+        }
         if ($form->isValid()) {
+            $userDummy =$em->getRepository('AppBundle:User')
+                ->findByUsername($user->getUsername());
+            if(!empty($userDummy)){
+                return \FOS\RestBundle\View\View::create(['message' => 'Username already picked'], Response::HTTP_BAD_REQUEST);
+            }
+            $userDummies =$em->getRepository('AppBundle:User')
+                ->findByFirstname($user->getFirstname());
+            if(!empty($userDummies)){
+                foreach ($userDummies as $userDummy){
+                    if($userDummy->getLastname() == $user->getLastname())
+                        return \FOS\RestBundle\View\View::create(['message' => 'Firstname and lastname already in data base'], Response::HTTP_BAD_REQUEST);
+                }
+            }
+
             $encoder = $this->get('security.password_encoder');
             // le mot de passe en claire est encodé avant la sauvegarde
             $encoded = $encoder->encodePassword($user, $user->getPlainPassword());
@@ -303,6 +324,42 @@ class UserController extends Controller
 
 
     /**
+     * This URL aims to get all users that have ROLE_ADMIN . (LIGHT INFORMATION - ALL ACCESS).
+     * This is intendended to provide a safe resume of user's information that are available to everyone.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="users",
+     *  description="Get admin users info - Light information. ALL Access",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
+     * @Rest\View(serializerGroups={"user"})
+     * @Rest\Get("/admin/admin-users")
+     */
+    public function getAdminUsersAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT u
+            FROM AppBundle:User u
+            WHERE u.role = :role_user 
+            AND u.godfather IS NULL'
+        )->setParameters(array('role_user'=>"ROLE_ADMIN"));
+        $users = $query->getResult();
+        return $users;
+
+    }
+
+    /**
      * This URL aims to get nefews. (LIGHT INFORMATION - ALL ACCESS). This is intendended to provide a safe resume of user's information that are available to everyone.
      *
      * @ApiDoc(
@@ -544,7 +601,7 @@ class UserController extends Controller
      *         }
      *  },
      *  section="users",
-     *  description="Replace another user's information (only super-admin)",
+     *  description="Promote a user to admin (only super-admin)",
      *  output={"class"="AppBundle\Entity\User",
      *           "groups" ={"user"}}
      *
@@ -580,6 +637,68 @@ class UserController extends Controller
             ->findOneByUser($user->getId()); // L'identifiant en tant que paramètre n'est plus nécessaire
         $userAccount->setMoneyLimit(0.0);
         $userAccount->setCreditToAllowMax(200.0);
+        $userAccount->setCreditAllowed(0.0);
+        $em->merge($userAccount);
+        $em->merge($user);
+        $em->flush();
+        return $user;
+    }
+
+    /**
+     * This URL aims to allow a super admin to unpromote a user to user.(only super-admin). This changes his role, his prmotion and set his godfather to null.w&é
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  section="users",
+     *  description="Unpromote admin (only super-admin)",
+     *  output={"class"="AppBundle\Entity\User",
+     *           "groups" ={"user"}}
+     *
+     * )
+     * @Rest\View(serializerGroups={"user"})
+     * @Rest\Patch("/super-admin/users/unpromote-admin/{id}")
+     */
+    public function unpromoteUserBySuperAdminAction(Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $user = $em
+            ->getRepository('AppBundle:User')
+            ->find($request->get('id')); // L'identifiant en tant que paramètre n'est plus nécessaire
+        /* @var $user User */
+        if (empty($user)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+        }
+        if($user->getRole()=="ROLE_SUPER_ADMIN" or $user->getRole()=="ROLE_BARMAN"){
+            return \FOS\RestBundle\View\View::create(['message' => 'Cannot unpromote barman or super admin'], Response::HTTP_BAD_REQUEST);
+        }
+        if($user->getRole()=="ROLE_USER" ){
+            return \FOS\RestBundle\View\View::create(['message' => 'User already user'], Response::HTTP_BAD_REQUEST);
+        }
+        if(count($user->getNefews())!=0){
+            return \FOS\RestBundle\View\View::create(['message' => 'L\'utilisateur a encore des neveux'], Response::HTTP_BAD_REQUEST);
+
+        }
+        if($user->getUserAccounts()[0]->getMoneyBalance()<0){
+            return \FOS\RestBundle\View\View::create(['message' => 'L\'utilisateur a encore un solde négatif'], Response::HTTP_BAD_REQUEST);
+
+        }
+        $promotion=$em->getRepository('AppBundle:Promotion')
+            ->findByPromotionName("simple")[0];
+        $user->setRole("ROLE_USER");
+        $user->setPromotion($promotion);
+        /* @var $userAccount UserAccount */
+        $userAccount = $em
+            ->getRepository('AppBundle:UserAccount')
+            ->findOneByUser($user->getId()); // L'identifiant en tant que paramètre n'est plus nécessaire
+        $userAccount->setMoneyLimit(0.0);
+        $userAccount->setCreditToAllowMax(0.0);
         $userAccount->setCreditAllowed(0.0);
         $em->merge($userAccount);
         $em->merge($user);
