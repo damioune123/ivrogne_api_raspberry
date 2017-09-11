@@ -81,9 +81,13 @@ class PromotionController extends Controller
         if (empty($promotion)) {
             return \FOS\RestBundle\View\View::create(['message' => 'Promotion not found'], Response::HTTP_NOT_FOUND);
         }
+
         $form = $this->createForm(PromotionType::class, $promotion);
         $form->submit($request->request->all(), $clearMissing);
         if ($form->isValid()) {
+            if($promotion->getUserPromotion() < 0.0){
+                return \FOS\RestBundle\View\View::create(['message' => 'Promotion must be > 0'], Response::HTTP_NOT_FOUND);
+            }
             $em->merge($promotion);
             $em->flush();
             return $promotion;

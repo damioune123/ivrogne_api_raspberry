@@ -64,11 +64,42 @@ class Product
     private $productRealPrice=0.0;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="product_alcool_percentage", type="float")
+     */
+    private $productAlcoolPercentage=0.0;
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="product_quantity_cl", type="float")
+     */
+    private $productQuantityCl=0.0;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="is_removed", type="boolean")
      */
     private $isRemoved = false;
+
+
+    /**
+     * @var boolean
+     *
+     *
+     */
+    private $isComplete = true;
+
+    /**
+     * @var string
+     *
+     *
+     */
+    private $missingInfo="";
+
+
+
 
 
 
@@ -235,6 +266,72 @@ class Product
         $raw_price= $this->getProductCategory()->getPrice();
         return ($raw_price/100)*((100-$this->productPromotionUser)*100)/100;
     }
+
+    /**
+     * @return float
+     */
+    public function getProductAlcoolPercentage()
+    {
+        return $this->productAlcoolPercentage;
+    }
+
+    /**
+     * @param float $productAlcoolPercentage
+     */
+    public function setProductAlcoolPercentage($productAlcoolPercentage)
+    {
+        $this->productAlcoolPercentage = $productAlcoolPercentage;
+    }
+
+    /**
+     * @return float
+     */
+    public function getProductQuantityCl()
+    {
+        return $this->productQuantityCl;
+    }
+
+    /**
+     * @param float $productQuantityCl
+     */
+    public function setProductQuantityCl($productQuantityCl)
+    {
+        $this->productQuantityCl = $productQuantityCl;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIsComplete()
+    {
+        return $this->isComplete;
+    }
+
+    /**
+     * @param bool $isComplete
+     */
+    public function setIsComplete($isComplete)
+    {
+        $this->isComplete = $isComplete;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMissingInfo()
+    {
+        return $this->missingInfo;
+    }
+
+    /**
+     * @param string $missingInfo
+     */
+    public function setMissingInfo($missingInfo)
+    {
+        $this->missingInfo = $missingInfo;
+    }
+
+
     
     
 }

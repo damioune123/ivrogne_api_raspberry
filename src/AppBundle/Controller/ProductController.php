@@ -83,6 +83,36 @@ class ProductController extends Controller
             ->findAll();
         /* @var $products Product[] */
 
+        foreach ($products as $product){
+            $infoManquante="Incomplet :\n";
+            if($product->getProductRealPrice() == 0.0){
+                $product->setIsComplete(false);
+                $infoManquante=$infoManquante."Prix magasin manquant\n";
+            }
+            if($product->getProductPromotionAdmin()==0.0){
+                $product->setIsComplete(false);
+                $infoManquante=$infoManquante."Le prix administrateur correspond au prix utilisateur\n";
+            }
+           if($product->getAmountAvailableInStock()<0){
+               $product->setIsComplete(false);
+               $infoManquante=$infoManquante."Le stock est négatif\n";
+           }
+            if($product->getProductAlcoolPercentage()==0 and $product->getProductCategory()->getId()>=4){
+                $product->setIsComplete(false);
+                $infoManquante=$infoManquante."Le pourcentage d'alcool de cette catégorie ne peut pas valoir 0\n";
+            }
+            if($product->getProductQuantityCl()==0.0){
+                $product->setIsComplete(false);
+                $infoManquante=$infoManquante."La quantité du produit (en cl) ne peut pas valoir  0\n";
+            }
+            if($product->isIsComplete()){
+                $product->setMissingInfo("Informations complètes");
+            }
+            else{
+                $product->setMissingInfo($infoManquante);
+            }
+        }
+
         return $products;
     }
 
@@ -109,6 +139,35 @@ class ProductController extends Controller
         {
             return \FOS\RestBundle\View\View::create(['message' => 'Product not found'], Response::HTTP_NOT_FOUND);
         }
+
+        $infoManquante="" ;
+        if($product->getProductRealPrice() == 0.0){
+            $product->setIsComplete(false);
+            $infoManquante=$infoManquante."Prix magasin manquant -";
+        }
+        if($product->getProductPromotionAdmin()==0.0){
+            $product->setIsComplete(false);
+            $infoManquante=$infoManquante."Le prix administrateur correspond au prix utilisateur -";
+        }
+        if($product->getAmountAvailableInStock()<0){
+            $product->setIsComplete(false);
+            $infoManquante=$infoManquante."Le stock est négatif -";
+        }
+        if($product->getProductAlcoolPercentage()==0 and $product->getProductCategory()->getId()>=4){
+            $product->setIsComplete(false);
+            $infoManquante=$infoManquante."Le pourcentage d'alcool de cette catégorie ne peut pas valoir 0 -";
+        }
+        if($product->getProductQuantityCl()==0.0){
+            $product->setIsComplete(false);
+            $infoManquante=$infoManquante."La quantité du produit (en cl) ne peut pas valoir  0 -";
+        }
+        if($product->isIsComplete()){
+            $product->setMissingInfo("");
+        }
+        else{
+            $product->setMissingInfo(substr($infoManquante, 0, -1));
+        }
+
 
         return $product;
     }

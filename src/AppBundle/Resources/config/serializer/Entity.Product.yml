@@ -22,8 +22,19 @@ AppBundle\Entity\Product:
               groups:  ['product','productCategory','order','orderline']
 
         productRealPrice:
-         groups:  ['product']
+              groups:  ['product']
 
+        productAlcoolPercentage:
+              groups:  ['product']
+
+        productQuantityCl:
+              groups:  ['product']
+
+        isComplete:
+              groups:  ['product']
+
+        missingInfo:
+              groups:  ['product']
     virtual_properties:
         getPriceWithPromotionAdmin:
              groups:  ['product','productCategory','order','orderline']
