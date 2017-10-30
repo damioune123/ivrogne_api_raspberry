@@ -90,6 +90,67 @@ class MoneyFlowController extends Controller
 
 
     /**
+     * This URL aims to create a new monew flow (transaction betweeen a debit and credit account) (coin acceptor only).
+     *
+     * @ApiDoc(
+     * headers={
+     *         {
+     *             "name"="X-Auth-Token",
+     *             "description"="Authorization key",
+     *             "required"=true
+     *         }
+     *  },
+     *  resource=true,
+     *  section="money-flows",
+     *  description="Create a money flow (coin acceptor only)",
+     *  input={"class"=MoneyFlowType::class, "name"=""},
+     *  output={"class"="AppBundle\Entity\MoneyFlow",
+     *           "groups" ={"moneyFlow"}}
+     *
+     * )
+     * @Rest\View(statusCode=Response::HTTP_CREATED,serializerGroups={"moneyFlow"})
+     * @RequestParam(name="coinAuthentifier", requirements="\d+", nullable=false)
+     * @RequestParam(name="accountId", requirements="\d+", nullable=false)
+     * @Rest\Post("/money-flows/coinAcceptor")
+     */
+    public function createMoneyFlowCoinAcceptorAction(Request $request)
+    {
+        /* @var $moneyFlow MoneyFlow */
+        $moneyFlow = new MoneyFlow();
+        $form = $this->createForm(MoneyFlowType::class, $moneyFlow);
+        $form->submit($request->request->all());
+        $em = $this->getDoctrine()->getManager();
+        if($request->get('coinAuthentifier') != 987){
+            return \FOS\RestBundle\View\View::create(['message' => 'Bad coin authentifier'], Response::HTTP_BAD_REQUEST);
+
+        }
+        if ($form->isValid()) {
+            $userAccount =    $em->getRepository('AppBundle:UserAccount')
+                ->findOneById($request->get('accountId'));
+            $bankAccountId = $em->getRepository('AppBundle:UserAccount')
+                ->getBankAccount();
+            $bankAccount =$em->getRepository('AppBundle:UserAccount')->find($bankAccountId);
+            if(empty($userAccount)){
+                return \FOS\RestBundle\View\View::create(['message' => 'user account not found '], Response::HTTP_NOT_FOUND);
+            }
+            $barman= $em->getRepository('AppBundle:User')->getBarman();
+            if (empty($barman))
+            {
+                return \FOS\RestBundle\View\View::create(['message' => 'barlan authentifier not found'], Response::HTTP_NOT_FOUND);
+            }
+
+            $moneyFlow->setAdminAuthentifier($barman);
+            $moneyFlow->setCreditUserAccount($bankAccount);
+            $moneyFlow->setDebitUserAccount($userAccount);
+
+            $em->persist($moneyFlow);
+            $em->flush();
+            $moneyFlow->debitAndCreditAccounts();
+            return $moneyFlow;
+        } else
+            return $form;
+    }
+    /**
      * This URL aims to get a monew flow by id Get(transaction betweeen a debit and credit account) (admin only).
      *
      * @ApiDoc(

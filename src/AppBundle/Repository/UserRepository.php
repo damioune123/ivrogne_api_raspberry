@@ -10,5 +10,14 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getBarman( ){
+
+        $em =  $this->getEntityManager();
+        $query = $em->createQuery(
+                "SELECT u
+            FROM AppBundle:User u
+            WHERE u.role='ROLE_SUPER_ADMIN'");
+        return  $query->getSingleResult();
+    }
 
 }
